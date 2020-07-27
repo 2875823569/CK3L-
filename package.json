@@ -1,0 +1,25 @@
+{
+  "name": "ck3l",
+  "version": "1.0.0",
+  "description": "\"小说网模块\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2875823569/CK3L-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2875823569/CK3L-/issues"
+  },
+  "homepage": "https://github.com/2875823569/CK3L-#readme",
+  "dependencies": {
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.25",
+    "mongose": "0.0.2-security",
+    "nodemon": "^2.0.4"
+  }
+}
