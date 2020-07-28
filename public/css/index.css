@@ -19,18 +19,18 @@ ul{
 
 .top{
     width: 100%;
-    height: 370px;
+    height: 400px;
     /* outline: 1px solid; */
 }
 .mohu{
     width: 100%;
     /* height: 320px; */
-    filter: blur(13px);
+    filter: blur(5px);
     position: absolute;
     z-index: -1;
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 380px;
+    height: 429px;
 }
 
 .nav{
@@ -73,7 +73,7 @@ ul{
     cursor:pointer;
 }
 .recommend{
-    width: 80%;
+    width: 60%;
     margin: auto;
     /* padding-top: 70px; */
 
@@ -175,10 +175,13 @@ ul{
     font-size: 12px;
     width: 150px;
     margin: auto;
-    height: 50px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
+    height: 52px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+     -webkit-line-clamp: 3;            /*设置p元素最大4行，父元素需填写宽度才明显*/
+     text-overflow: ellipsis;
+     overflow: hidden;
+    -webkit-box-orient: vertical;
     text-indent: 2em;
 }
 .book_list li h3{
@@ -313,6 +316,7 @@ ul{
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
     border-radius: 10px;
     margin: 5px 12px 0 0;
+    cursor: pointer;
 }
 .login_box_bottom ul{
     display: flex;
@@ -329,9 +333,65 @@ ul{
     grid-template: repeat(2,1fr)/repeat(4,1fr);
 }
 .activetis img{
-    width: 195px;
+    width: 238px;
     height: 83px;
     padding: 10px;
+}
+h2{
+    font-size: 20px;
+    color: #22538A;
+}
+.remommend2_top{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+.icon-gengxin.icon-gengxin.icon-gengxin{
+    font-size: 26px;
+}
+.recommend2_container{
+    width: 100%;
+    height: 326px;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    /* outline: 1px solid; */
+}
+.recommend2_container ul{
+    display: grid;
+    grid-gap: 1px;
+    grid-template: repeat(2,1fr)/repeat(4,1fr);
+    width: 100%;
+    height: 100%;
+    background: gray;
+}
+.recommend2_container ul li{
+    width: 100%;
+    height: 100%;
+    background-color: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px #b1b1b1 solid;
+    border-bottom: 1px #b1b1b1 solid;
+}
+.book_name{
+    font-size: 18px;
+    padding: 10px 0;
+    font-weight: 600;
+}
+.book_container{
+    color: #757575;
+    font-size: 15px;
+    text-indent: 2em;
+    padding: 5px;
+    height: 78px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+     -webkit-line-clamp: 4;            /*设置p元素最大4行，父元素需填写宽度才明显*/
+     text-overflow: ellipsis;
+     overflow: hidden;
+    -webkit-box-orient: vertical;
 }
 
 
@@ -339,8 +399,8 @@ ul{
   *{padding: 0; margin: 0}
   .slider {
     position: relative;
-    height: 300px;
-    min-width: 1004px;
+    height: 360px;
+    /* min-width: 1004px; */
     width: 100%;
     overflow: hidden;
   }

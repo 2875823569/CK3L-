@@ -1,4 +1,4 @@
-const novelDate = require("./models/db");
+const novelDate = require("./models/novelDate");
 
 const novel_zj = require("./models/db_zj");//俊林写的
 
@@ -32,9 +32,6 @@ app.post("/api/signIn", function (req, res) {
   })
 })
 app.use(express.static(path.join(__dirname, 'public')))
-app.listen(8080, function () {
-  console.log("connected!")
-})
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
 

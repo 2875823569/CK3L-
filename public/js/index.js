@@ -28,7 +28,7 @@ var book_img = [];
 var writer = [];
 var book_name = [];
 var introduce = [];
-
+document.body.style.width = `${document.body.clientWidth}px`
 //编写十本推荐小说的类
 class Book {
   constructor(img, name, introduce, num,num_img) {
@@ -95,7 +95,7 @@ var getInfromation = function () {
               isAuto: true,
               transTime: 4000,
               animateSpeed: 1000,
-              sliderMode: "slide", //'slide | fade',
+              sliderMode: "fade", //'slide | fade',
               pointerControl: true,
               pointerEvent: "click", //'hover' | 'click',
               arrowControl: true,
@@ -292,6 +292,11 @@ var getInfromation = function () {
   });
 };
 
+//添加八本小说到底部推荐区
+for(let i = 0;i < 8;i++){
+  $(".activetis").append($(`<img src=${arr_img[i]} alt="">`))
+}
+
 getInfromation().then(() => {
   console.log("数据加载完成");
   let num = 1; //排名
@@ -302,12 +307,23 @@ getInfromation().then(() => {
     new Book(book_img[i],book_name[i],introduce[i])
     num++;
   }
-  for(let i = 0; i < book_img.length; i++) {
-    $("")
+  for(let i = 0; i < 8; i++) {
+    let li = $(` <li>
+    <p class="book_name">${book_name[i]}</p>
+    <p class="book_container">
+      ${introduce[i]}
+    </p>
+  </li>`)
+  // console.log($(".recommend2_container ul")[0]);
+    $(".recommend2_container ul").append(li)
   }
 });
 
 //小说分类
+function click_book_type(){
+    localStorage["book_type"] = this.type;
+    location.href = "../html/classf.html"
+}
 $.post("/api/booktype", {}, (res) => {
   let color = [
     "#CBDEFF",
@@ -328,8 +344,10 @@ $.post("/api/booktype", {}, (res) => {
       `<li type=${res.booktype[i]} style=background:${color[i]}>${res.booktype[i]}</li>`
     );
     $(".classification_hidden").append(li);
+    li.on("click",click_book_type)
   }
 });
+$(".titles li").on("click",click_book_type)
 //鼠标移到分类显示分类
 $(".fenlei").on("mouseenter", () => {
   
@@ -354,3 +372,18 @@ $(".go_left").on("click",function(){
   if(transform_x < 0) transform_x = 0;
     $(".book_list").css({"transform":`translateX(${-transform_x}px)`})
 })
+
+
+//登陆按钮点击事件
+$(".login_btn").on("click",function(){
+  location.href = "../login.html"
+})
+
+$(".user_login_box span:nth-of-type(1)").on("click",function(){
+  location.href = "../login.html"
+})
+$(".user_login_box span:nth-of-type(2)").on("click",function(){
+  location.href = "../login.html"
+})
+
+

@@ -85,7 +85,8 @@ input{
     border: none;
     text-indent: 2em;
     border-radius: 14px;
-    float: left;
+	float: left;
+	padding:0
 }
 
 .bottom{
