@@ -302,6 +302,9 @@ getInfromation().then(() => {
     new Book(book_img[i],book_name[i],introduce[i])
     num++;
   }
+  for(let i = 0; i < book_img.length; i++) {
+    $("")
+  }
 });
 
 //小说分类
@@ -329,6 +332,7 @@ $.post("/api/booktype", {}, (res) => {
 });
 //鼠标移到分类显示分类
 $(".fenlei").on("mouseenter", () => {
+  
   $(".classification_hidden").addClass("classification_display");
   // $(".classification_hidden").slideDown("slow")
 });
@@ -337,3 +341,16 @@ $(".fenlei").on("mouseleave", () => {
   $(".classification_hidden").removeClass("classification_display");
   // $(".classification_hidden").slideUp("slow")
 });
+
+//给周榜左右按钮添加点击事件
+var transform_x = 0
+$(".go_right").on("click",function(){
+  transform_x += 220
+  if(transform_x > 660) transform_x = 660;
+  $(".book_list").css({"transform":`translateX(${-transform_x}px)`})
+})
+$(".go_left").on("click",function(){
+  transform_x -= 220
+  if(transform_x < 0) transform_x = 0;
+    $(".book_list").css({"transform":`translateX(${-transform_x}px)`})
+})
