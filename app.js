@@ -37,6 +37,7 @@ app.listen(8080, function () {
 })
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
+
 //获取小说信息
 
 app.post("/api/getimg", (req, res) => {
