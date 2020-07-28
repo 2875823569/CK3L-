@@ -1,0 +1,405 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width:100%;
+    height:1500px;
+    background-color: #F1F1F1;
+}
+li{
+    list-style: none;
+}
+#box{
+    width: 100%;
+    height:100%;
+    /* background-color: blueviolet; */
+    position: relative;
+}
+#header{
+    width:100%;
+    height:7%;
+    background-color:white;
+    box-shadow:0 9px 30px -6px rgba(0,0,0,.2),
+               0 18px 20px -10px rgba(0,0,0,.04),
+               0 18px 20px -10px rgba(0,0,0,.04),
+               0 10px 20px -10px rgba(0,0,0,.04);
+    position: absolute;
+    top:0;
+}
+#header #Logo{
+    width: 15%;
+    height:80%;
+}
+#header #navbarUl{
+    width: 40%;
+    height: 100%;
+    /* background-color: violet; */
+    line-height: 100%;
+    position: absolute;
+    top:0;
+    right: 25%;
+    display: flex;
+    align-items: center;
+}
+#header #navbarUl li{
+    width:25%;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none;
+    float: left;
+}
+#header #loginBox{
+    width:10%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color: tomato; */
+    position: absolute;
+    top:0;
+    right:0;
+    display: flex;
+    align-items: center;
+}
+#header #loginBox span{
+    margin-left: 20px;
+}
+#header #card{
+    width:25%;
+    height:700px;
+    background-color: #F6F6F6; 
+    border-radius: 30px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+                0 18px 20px -10px rgba(0,0,0,.04);
+    position: absolute;
+    margin-top:7%;
+    margin-left: 5%;
+}
+#header #card #cardTop{
+    width: 100%;
+    height: 350px;
+    border-bottom: 2px solid #0c0b0b1e;
+    position: absolute;
+}
+#header #card #cardTop #headPortrait{
+    width: 150px;
+    height:150px;
+    background-color: tomato;
+    border-radius: 50%;
+    position: absolute;
+    top:20px;
+    left:50%;
+    transform: translateX(-50%);
+}
+#header #card #cardTop #headPortrait .icon-gai{
+    font-size: 40px;
+    color:#757575;
+    display: inline-block;
+    position:absolute;
+    right: -50%;
+}
+#header #card #accountInformation{
+    width: 100%;
+    height: 30px;
+    /* background-color: rebeccapurple; */
+    list-style: none;
+    position: absolute;
+    bottom: 15%;
+    left:50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#header #card #accountInformationOne{
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color:seagreen; */
+    list-style: none;
+    position: absolute;
+    bottom: 5%;
+    left:50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#header #card #nickname{
+    width: 100%;
+    height: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    bottom:40%;
+}
+
+#header #card #cardBottom{
+    width: 100%;
+    height: 350px;
+    /* background-color: seagreen; */
+    position: absolute;
+    bottom: 0;
+   text-align: center;
+}
+#header #card #cardBottom #information{
+    width: 100%;
+    height: 300px;
+    font-size: 20px;
+    margin-top: 10%;
+    display: flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+#header #bookshelf{
+    width:60%;
+    height:800px;
+    border-radius: 30px;
+    background-color: #F6F6F6; 
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+                0 18px 20px -10px rgba(0,0,0,.04);
+    position: absolute;
+    right: 5%;
+    margin-top: 7%;
+    margin-left: 3%;
+}
+#header #bookshelf #myBookshelf{
+    color: #757575;
+    font-size: 30px;
+    margin-left:5%;
+    margin-top: 20px;
+    float: left;
+}
+#header #bookshelf .floor{
+    width:100%;
+    height:250px;
+    /* background-color: seagreen; */
+    position:absolute;
+    top:100px;
+    display: flex;
+    justify-content:space-around;
+}
+#header #bookshelf .secondFloor{
+    background-color: sienna;
+    top:450px;
+}
+#header #bookshelf .firstFloor .book{
+    width:20%;
+    height:100%;
+    /* background-color: slateblue; */
+    /* position: absolute; */
+}
+#header #bookshelf .firstFloor .book .bookContent{
+    width: 100%;
+    height: 80%;
+    border-radius: 30px;
+    background-color: black;
+}
+#header #bookshelf .firstFloor .book p{
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+#header #bookshelf #more{
+    color: #757575;
+    font-size: 20px;
+    display:inline-block;
+    position: absolute;
+    bottom: 5%;
+    left:50%;
+    transform: translateX(-50%);
+}
+#box #history{
+    width: 60%;
+    height: 300px;
+    /* background-color: blueviolet; */
+    background-color: #F6F6F6; 
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+                0 18px 20px -10px rgba(0,0,0,.04);
+    border-radius: 30px;
+    position: absolute;
+    top:68%;
+    right: 5%;
+}
+#box #history #historySpan{
+    color: #757575;
+    font-size: 30px;
+    margin-left:5%;
+    margin-top: 20px;
+    float: left;
+}
+#box #history .icon-danseshixintubiao-{
+    font-size: 30px;
+    color: #22538A;
+    display: inline-block;
+    position: absolute;
+    top:50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+#box #history #historyFloor{
+    width: 90%;
+    height: 60%;
+    background-color: #22538A;
+    position: absolute;
+    top:25%;
+    left:5%;
+    display: flex;
+    justify-content: space-between;
+}
+#box #history #historyFloor .historyBook{
+    width:17%;
+    height:100%;
+    background-color: aqua;
+    border-radius: 20px;
+}
+#modifyPage{
+    width:90%;
+    height:600px;
+    background-color: #F1F1F1;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+    0 18px 20px -10px rgba(0,0,0,.04),
+    0 18px 20px -10px rgba(0,0,0,.04),
+    0 10px 20px -10px rgba(0,0,0,.04);
+    border-radius: 30px;
+    position: absolute;
+    left:50%;
+    top:20%;
+    transform: translateX(-50%);
+    display: none;
+}
+#modifyPage #leftTop{
+    width:20%;
+    height:10%;
+    position: absolute;
+    top:5%;
+    left:5%;
+}
+#modifyPage #leftTop .icon-gai{
+    font-size: 30px;
+    color: #757575;
+}
+#modifyPage #leftTop p{
+    font-size: 25px;
+    /* font-weight:bold; */
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left:20%;
+}
+#modifyPage #modifyCard{
+    width:50%;
+    height:90%;
+    /* background-color: aqua; */
+    position: absolute;
+    left:50%;
+    top:5%;
+    transform: translateX(-50%);
+}
+#modifyPage #modifyCard #modifyHeadportrait{
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    left:50%;
+    top:5%;
+    transform: translateX(-50%);
+}
+#modifyPage #modifyCard #modifyHeadportrait i{
+    font-size: 30px;
+    color: #757575;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+#modifyPage #modifyCard #modifyNickname{
+    width:60%;
+    height: 50px;
+    line-height: 50px;
+    /* background-color: steelblue; */
+    position: absolute;
+    left:50%;
+    top:40%;
+    transform: translateX(-50%);
+}
+#modifyPage #modifyCard #modifyNickname span{
+    font-size: 20px;
+}
+#modifyPage #modifyCard #modifyNickname #nicknameIpt{
+    width:60%;
+    height:90%;
+    outline:none;
+    border:none;
+    border-radius: 30px;
+    position: absolute;
+    right: 0;
+}
+#modifyPage #modifyCard .modifyPassword{
+    width:60%;
+    height: 50px;
+    line-height: 50px;
+    /* background-color: steelblue; */
+    position: absolute;
+    left:50%;
+    top:55%;
+    transform: translateX(-50%);
+}
+#modifyPage #modifyCard .modifyPassword span{
+    font-size: 20px;
+}
+#modifyPage #modifyCard .modifyPassword #fisrstPsdInp{
+    width:60%;
+    height:90%;
+    outline:none;
+    border:none;
+    border-radius: 30px;
+    position: absolute;
+    right: 0;
+}
+#modifyPage #modifyCard .secondPassword{
+    top:70%;
+}
+#modifyPage #modifyCard .secondPassword span{
+    font-size: 20px;
+}
+#modifyPage #modifyCard .secondPassword #secondPsdInp{
+    width:60%;
+    height:90%;
+    outline:none;
+    border:none;
+    border-radius: 30px;
+    position: absolute;
+    right: 0;
+}
+#modifyPage #modifyCard #btnCombination{
+    width:50%;
+    height: 50px;
+    /* background-color: steelblue; */
+    position: absolute;
+    bottom: 5%;
+    left:50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+}
+#modifyPage #modifyCard #btnCombination .btn{
+    width:40%;
+    height:100%;
+    text-align: center;
+    font-size: 30px;
+    background-color: #F6F6F6;
+    border-radius: 20px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+    0 18px 20px -10px rgba(0,0,0,.04);
+}
+#modifyPage #modifyCard #btnCombination .save{
+    color: white;
+    background-color: #22538A;
+}
