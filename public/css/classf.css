@@ -120,12 +120,31 @@ body{
 .allbook>li{
     width: 160px;
     height: 200px;
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     margin: 20px;
     border-radius: 15px;
+    /* display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; */
+}
+.bookboxs>img{
+    width: 130px;
+    /* position: absolute; */
+    border-radius: 15px;
+
 }
 .rightbookbox{
     height: 1000px;
+}
+.bookboxs{
+    width: 130px;
+    height: 170px;
+    border-radius: 15px;
+    margin: 10px auto;
+}
+.bookboxs>p{
+    text-align: center;
 }
 .pagination{
     position: absolute;

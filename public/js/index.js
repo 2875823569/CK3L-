@@ -49,12 +49,12 @@ class Book {
     <img class="book_img" src="${this.img}" alt="">
     <h3>${this.name}</h3>
     <p>${this.introduce}</p>
-</li>`);
-    let li2 = $(`<li>
-<img class="book_img" src="${this.img}" alt="">
-<h3>${this.name}</h3>
-<p>${this.introduce}</p>
-</li>`);
+    </li>`);
+      let li2 = $(`<li>
+    <img class="book_img" src="${this.img}" alt="">
+    <h3>${this.name}</h3>
+    <p>${this.introduce}</p>
+    </li>`);
     this.li = this.num <= 3 ? li1 : li2;
     this.li.on("click", this.click.bind(this));
     $(".book_list").append(this.li);
