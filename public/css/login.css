@@ -1,0 +1,163 @@
+body{
+	background-image: url(../assets/images/bg.jpg);
+	background-repeat: repeat;
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.front{
+	border-radius: 35px;
+	width: 370px;
+	height: 381px;
+	background-color: white;
+	left: 0; 
+    right: 0; 
+	margin-left: auto; 
+	margin-right: auto;
+	margin-top: 11%;
+	position: absolute;
+	backface-visibility: hidden;
+	transition: 2s;
+}
+.inputIcon{
+	float: left;
+	width: 52px;
+	color: #7f7f7f;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-right: 1px #bababa solid;
+    box-shadow: black;
+    box-shadow: 1px 0 3px -1px rgba(0,0,0,.1);
+}
+.back{
+	border-radius: 35px;
+	width: 370px;
+	height: 381px;
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto;
+	background-color: white;
+	margin-top: 13%;
+	position: absolute;
+	backface-visibility: hidden;
+	transform: rotateY(-180deg);
+	transition: 2s;
+}
+.login{
+	padding: center;
+	text-align: center;
+	position: relative;
+	perspective: 800px;
+	z-index: 999;
+}
+.LOGO{
+	height: 100px;
+}
+.LOGO img{
+	height: 140%;
+}
+.title{
+	font-weight: 540;
+    font-size: 18px;
+    color: #3B3B3B;
+    padding-top: 15px;
+}
+.square{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 12px;
+	width: 234px;
+	height: 50px;
+	border: #CCCCCC 1px solid;
+	border-radius: 14px;
+    box-shadow: gainsboro 0px 0px 5px;
+}
+input{
+    outline: none;
+}
+.square input{
+    width: 177px;
+    height: 47px;
+    border: none;
+    text-indent: 2em;
+    border-radius: 14px;
+    float: left;
+}
+
+.bottom{
+	height: 60px;
+	width: 234px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 10px;
+	line-height: 60px;
+}
+#btmBtn{
+    transition: all 2s;
+}
+.left{
+	float: left;
+}
+.right{
+	cursor: pointer;
+	float: right;
+	color: #22538A;
+}
+.close{
+	position: absolute;
+    right: 24px;
+    top: 23px;
+    /* font-size: 29px; */
+	color: #848484;
+	cursor: pointer;
+}
+.iconfont{
+	font-size: 20px;
+}
+.note{
+	color: #949494;
+	display: block;
+	text-align: center;
+	margin-top: 6px;
+	font-size: 13px;
+}
+.button{
+	height: 55px;
+	margin-top: 50px;
+	text-align: center;
+}
+.loginbutton{
+	outline: none;
+	background: linear-gradient(to top right,#357ac9,#22538A);
+	height: 45px;
+	width: 135px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 12px;
+	line-height: 45px;
+	color: white;
+    font-size: 23px;
+	border: none;
+	cursor: pointer;
+}
+.down{
+	position: relative;
+	top: 588px;
+}
+.back p{
+	font-weight: 500;
+    font-size: 18px;
+    color: #3B3B3B;
+    padding-top: 20px;
+    margin-bottom: 10px;
+}
+/* .login:hover .front{
+	transform: rotateY(180deg);
+}
+.login:hover .back{
+	transform: rotateY(0deg);
+} */
