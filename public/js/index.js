@@ -30,263 +30,310 @@ var book_name = [];
 var introduce = [];
 
 //编写十本推荐小说的类
-class Book{
-    constructor(img,name,introduce){
-        this.img = img;
-        this.name = name;
-        this.introduce = introduce;
-        this.init()
-    }
-    init(){
-        this.render()
-    }
-    //创建dom节点
-    render(){
-        this.li = $(`<li>
-        <img class="rank" src="${this.img}" alt="排名">
-        <img class="book_img" src="${this.img}" alt="">
-        <h3>${this.name}</h3>
-        <p>${this.introduce}</p>
-    </li>`)
-        $(".book_list").append(li)
-    }
+class Book {
+  constructor(img, name, introduce, num,num_img) {
+    this.img = img;
+    this.name = name;
+    this.introduce = introduce;
+    this.num = num;
+    this.num_img = num_img;
+    this.init();
+  }
+  init() {
+    this.render();
+  }
+  //创建dom节点
+  render() {
+    let li1 = $(`<li>
+    <img class="rank" src="${this.num_img}" alt="排名">
+    <img class="book_img" src="${this.img}" alt="">
+    <h3>${this.name}</h3>
+    <p>${this.introduce}</p>
+</li>`);
+    let li2 = $(`<li>
+<img class="book_img" src="${this.img}" alt="">
+<h3>${this.name}</h3>
+<p>${this.introduce}</p>
+</li>`);
+    this.li = this.num <= 3 ? li1 : li2;
+    this.li.on("click", this.click.bind(this));
+    $(".book_list").append(this.li);
+  }
 
-    //节点的点击事件
-    click(){
-        
-    }
+  //节点的点击事件
+  click() {
+    console.log(this.name);
+    localStorage["book_name"] = this.name;
+    // location.href = "../html/novelMainPage.html";
+  }
 }
 
 //找出十本小说作为推荐
-$.post("/api/getimg", {}, (res) => {
-  
-  for (let i = 0; i < res.arr_name.length; i++) {
-    // 将十本小说的信息保存下来备用
-    book_img.push(res.arr_img[i])
-    writer.push(res.writer[i])
-    book_name.push(res.arr_name[i]);
-    introduce.push(res.introduce[i]);
+var getInfromation = function () {
+  return new Promise(function (resolve, reject) {
+    $.post("/api/getimg", {}, (res) => {
+      for (let i = 0; i < res.arr_name.length; i++) {
+        // 将十本小说的信息保存下来备用
+        book_img.push(res.arr_img[i]);
+        writer.push(res.writer[i]);
+        book_name.push(res.arr_name[i]);
+        introduce.push(res.introduce[i]);
 
-    let img = $(`<div class="item">
-        <img class="img" book_name = ${res.arr_name[i]} style="background-image: url('${arr_img[i]}');">
-      </div>`);
-    $(".slider-inner").append(img);
-  }
-  
-  $(".mohu").css({ "background-image": `url(${arr_img[0]})` });
-  (function ($) {
-    $.fn.Slider = function (options) {
-      "use strict";
+        let img = $(`<div class="item">
+            <img class="img" book_name = ${res.arr_name[i]} style="background-image: url('${arr_img[i]}');">
+          </div>`);
+        $(".slider-inner").append(img);
+      }
 
-      var settings = $.extend(
-        {
-          isAuto: true,
-          transTime: 4000,
-          animateSpeed: 1000,
-          sliderMode: "slide", //'slide | fade',
-          pointerControl: true,
-          pointerEvent: "click", //'hover' | 'click',
-          arrowControl: true,
-        },
-        options
-      );
-      var interval;
-      var isAnimating = false;
-      var $slider = $(this);
-      var $sliderWrap = $slider.find(".slider-inner");
-      var sliderCount = $sliderWrap.find("> .item").length;
-      var sliderWidth = $slider.width();
-      
-      var currentIndex = 0;
+      $(".mohu").css({ "background-image": `url(${arr_img[0]})` });
+      (function ($) {
+        $.fn.Slider = function (options) {
+          "use strict";
 
-      var sliderFun = {
-        controlInit: function () {
-          // pointerControl
-          if (settings.pointerControl) {
-            var html = "";
-            html += '<ol class="slider-pointer">';
-            for (var i = 0; i < sliderCount; i++) {
-              if (i == 0) {
-                html += '<li class="active"></li>';
+          var settings = $.extend(
+            {
+              isAuto: true,
+              transTime: 4000,
+              animateSpeed: 1000,
+              sliderMode: "slide", //'slide | fade',
+              pointerControl: true,
+              pointerEvent: "click", //'hover' | 'click',
+              arrowControl: true,
+            },
+            options
+          );
+          var interval;
+          var isAnimating = false;
+          var $slider = $(this);
+          var $sliderWrap = $slider.find(".slider-inner");
+          var sliderCount = $sliderWrap.find("> .item").length;
+          var sliderWidth = $slider.width();
+
+          var currentIndex = 0;
+
+          var sliderFun = {
+            controlInit: function () {
+              // pointerControl
+              if (settings.pointerControl) {
+                var html = "";
+                html += '<ol class="slider-pointer">';
+                for (var i = 0; i < sliderCount; i++) {
+                  if (i == 0) {
+                    html += '<li class="active"></li>';
+                  } else {
+                    html += "<li></li>";
+                  }
+                }
+                html += "</ol>";
+                $slider.append(html);
+                // 指示器居中
+                var $pointer = $slider.find(".slider-pointer");
+                $pointer.css({
+                  left: "50%",
+                  marginLeft: -$pointer.width() / 2,
+                });
+              }
+              // pointerControl
+              if (settings.arrowControl) {
+                var html = "";
+                html += '<span class="slider-control prev">&lt;</span>';
+                html += '<span class="slider-control next">&gt;</span>';
+                $slider.append(html);
+              }
+              $slider.on("click", ".slider-control.prev", function (event) {
+                sliderFun.toggleSlide("prev");
+              });
+              $slider.on("click", ".slider-control.next", function (event) {
+                sliderFun.toggleSlide("next");
+              });
+            },
+            // slider
+            sliderInit: function () {
+              sliderFun.controlInit();
+              // 模式选择
+              if (settings.sliderMode == "slide") {
+                // slide 模式
+                $sliderWrap.width(sliderWidth * sliderCount);
+                $sliderWrap.children().width(sliderWidth);
               } else {
-                html += "<li></li>";
+                // mode 模式
+                $sliderWrap.children().css({
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                });
+                $sliderWrap.children().first().siblings().hide();
               }
-            }
-            html += "</ol>";
-            $slider.append(html);
-            // 指示器居中
-            var $pointer = $slider.find(".slider-pointer");
-            $pointer.css({
-              left: "50%",
-              marginLeft: -$pointer.width() / 2,
-            });
-          }
-          // pointerControl
-          if (settings.arrowControl) {
-            var html = "";
-            html += '<span class="slider-control prev">&lt;</span>';
-            html += '<span class="slider-control next">&gt;</span>';
-            $slider.append(html);
-          }
-          $slider.on("click", ".slider-control.prev", function (event) {
-            sliderFun.toggleSlide("prev");
-          });
-          $slider.on("click", ".slider-control.next", function (event) {
-            sliderFun.toggleSlide("next");
-          });
-        },
-        // slider
-        sliderInit: function () {
-          sliderFun.controlInit();
-          // 模式选择
-          if (settings.sliderMode == "slide") {
-            // slide 模式
-            $sliderWrap.width(sliderWidth * sliderCount);
-            $sliderWrap.children().width(sliderWidth);
-          } else {
-            // mode 模式
-            $sliderWrap.children().css({
-              position: "absolute",
-              left: 0,
-              top: 0,
-            });
-            $sliderWrap.children().first().siblings().hide();
-          }
-          // 控制事件
-          if (settings.pointerEvent == "hover") {
-            $slider.find(".slider-pointer > li").mouseenter(function (event) {
-              sliderFun.sliderPlay($(this).index());
-            });
-          } else {
-            $slider.find(".slider-pointer > li").click(function (event) {
-              if (currentIndex != $(this).index()) {
-                sliderFun.sliderPlay($(this).index());
+              // 控制事件
+              if (settings.pointerEvent == "hover") {
+                $slider
+                  .find(".slider-pointer > li")
+                  .mouseenter(function (event) {
+                    sliderFun.sliderPlay($(this).index());
+                  });
+              } else {
+                $slider.find(".slider-pointer > li").click(function (event) {
+                  if (currentIndex != $(this).index()) {
+                    sliderFun.sliderPlay($(this).index());
+                  }
+                });
               }
-            });
-          }
-          // 自动播放
-          sliderFun.autoPlay();
-        },
-        // slidePlay
-        sliderPlay: function (index) {
-          sliderFun.stop();
-          isAnimating = true;
-          $sliderWrap.children().first().stop(true, true);
-          $sliderWrap.children().stop(true, true);
-          $slider
-            .find(".slider-pointer")
-            .children()
-            .eq(index)
-            .addClass("active")
-            .siblings()
-            .removeClass("active");
-            $(".mohu").css({
+              // 自动播放
+              sliderFun.autoPlay();
+            },
+            // slidePlay
+            sliderPlay: function (index) {
+              sliderFun.stop();
+              isAnimating = true;
+              $sliderWrap.children().first().stop(true, true);
+              $sliderWrap.children().stop(true, true);
+              $slider
+                .find(".slider-pointer")
+                .children()
+                .eq(index)
+                .addClass("active")
+                .siblings()
+                .removeClass("active");
+              $(".mohu").css({
                 "background-image": `url(${arr_img[index]})`,
               });
-          if (settings.sliderMode == "slide") {
-            // slide
-            if (index > currentIndex) {
-              $sliderWrap.animate(
-                {
-                  left:
-                    "-=" + Math.abs(index - currentIndex) * sliderWidth + "px",
-                },
-                settings.animateSpeed,
-                function () {
-                  sliderFun.stop();
-                  isAnimating = false;
-                  sliderFun.autoPlay();
+              if (settings.sliderMode == "slide") {
+                // slide
+                if (index > currentIndex) {
+                  $sliderWrap.animate(
+                    {
+                      left:
+                        "-=" +
+                        Math.abs(index - currentIndex) * sliderWidth +
+                        "px",
+                    },
+                    settings.animateSpeed,
+                    function () {
+                      sliderFun.stop();
+                      isAnimating = false;
+                      sliderFun.autoPlay();
+                    }
+                  );
+                } else if (index < currentIndex) {
+                  $sliderWrap.animate(
+                    {
+                      left:
+                        "+=" +
+                        Math.abs(index - currentIndex) * sliderWidth +
+                        "px",
+                    },
+                    settings.animateSpeed,
+                    function () {
+                      isAnimating = false;
+                      sliderFun.autoPlay();
+                    }
+                  );
+                } else {
+                  return;
                 }
-              );
-            } else if (index < currentIndex) {
-              $sliderWrap.animate(
-                {
-                  left:
-                    "+=" + Math.abs(index - currentIndex) * sliderWidth + "px",
-                },
-                settings.animateSpeed,
-                function () {
-                  isAnimating = false;
-                  sliderFun.autoPlay();
-                }
-              );
-            } else {
-              return;
-            }
-          } else {
-            // fade
-            if ($sliderWrap.children(":visible").index() == index) return;
-            $sliderWrap
-              .children()
-              .fadeOut(settings.animateSpeed)
-              .eq(index)
-              .fadeIn(settings.animateSpeed, function () {
-                isAnimating = false;
-                sliderFun.autoPlay();
-              });
-          }
-          currentIndex = index;
-        },
-        // toggleSlide
-        toggleSlide: function (arrow) {
-          if (isAnimating) {
-            return;
-          }
-          var index;
-          if (arrow == "prev") {
-            index = currentIndex == 0 ? sliderCount - 1 : currentIndex - 1;
-            sliderFun.sliderPlay(index);
-          } else if (arrow == "next") {
-            index = currentIndex == sliderCount - 1 ? 0 : currentIndex + 1;
-            sliderFun.sliderPlay(index);
-          }
-        },
-        // autoPlay
-        autoPlay: function () {
-          if (settings.isAuto) {
-            interval = setInterval(function () {
-              var index = currentIndex;
-              
-              currentIndex == sliderCount - 1
-                ? (index = 0)
-                : (index = currentIndex + 1);
-              sliderFun.sliderPlay(index);
-              
-            //   
-            }, settings.transTime);
-          } else {
-            return;
-          }
-        },
-        //stop
-        stop: function () {
-          clearInterval(interval);
-        },
-      };
-      sliderFun.sliderInit();
-    };
-  })(jQuery);
-  jQuery(document).ready(function ($) {
-    $("#slider").Slider();
+              } else {
+                // fade
+                if ($sliderWrap.children(":visible").index() == index) return;
+                $sliderWrap
+                  .children()
+                  .fadeOut(settings.animateSpeed)
+                  .eq(index)
+                  .fadeIn(settings.animateSpeed, function () {
+                    isAnimating = false;
+                    sliderFun.autoPlay();
+                  });
+              }
+              currentIndex = index;
+            },
+            // toggleSlide
+            toggleSlide: function (arrow) {
+              if (isAnimating) {
+                return;
+              }
+              var index;
+              if (arrow == "prev") {
+                index = currentIndex == 0 ? sliderCount - 1 : currentIndex - 1;
+                sliderFun.sliderPlay(index);
+              } else if (arrow == "next") {
+                index = currentIndex == sliderCount - 1 ? 0 : currentIndex + 1;
+                sliderFun.sliderPlay(index);
+              }
+            },
+            // autoPlay
+            autoPlay: function () {
+              if (settings.isAuto) {
+                interval = setInterval(function () {
+                  var index = currentIndex;
+
+                  currentIndex == sliderCount - 1
+                    ? (index = 0)
+                    : (index = currentIndex + 1);
+                  sliderFun.sliderPlay(index);
+
+                  //
+                }, settings.transTime);
+              } else {
+                return;
+              }
+            },
+            //stop
+            stop: function () {
+              clearInterval(interval);
+            },
+          };
+          sliderFun.sliderInit();
+        };
+      })(jQuery);
+      jQuery(document).ready(function ($) {
+        $("#slider").Slider();
+      });
+      resolve();
+    });
   });
+};
+
+getInfromation().then(() => {
+  console.log("数据加载完成");
+  let num = 1; //排名
+  for (let i = 0; i < book_name.length; i++) {
+    num <= 3 ?
+    new Book(book_img[i],book_name[i],introduce[i],num,`../assets/images/第${num}.png`)
+    :
+    new Book(book_img[i],book_name[i],introduce[i])
+    num++;
+  }
 });
 
 //小说分类
-$.post("/api/booktype",{},(res)=>{
-    let color = ["#CBDEFF","#BFB6FF","#D7B6FF","#0F67FF","#FFCFC1","#FFE8C5","#4D4D4D","#E2EFC3","#DBDBDB","#67E2FF","#69A1FF","#FF835F"]
-    for(let i =0;i<res.booktype.length;i++){
-        let li = $(`<li type=${res.booktype[i]} style=background:${color[i]}>${res.booktype[i]}</li>`)
-        $(".classification_hidden").append(li)
-    }
-    
-})
+$.post("/api/booktype", {}, (res) => {
+  let color = [
+    "#CBDEFF",
+    "#BFB6FF",
+    "#D7B6FF",
+    "#0F67FF",
+    "#FFCFC1",
+    "#FFE8C5",
+    "#4D4D4D",
+    "#E2EFC3",
+    "#DBDBDB",
+    "#67E2FF",
+    "#69A1FF",
+    "#FF835F",
+  ];
+  for (let i = 0; i < res.booktype.length; i++) {
+    let li = $(
+      `<li type=${res.booktype[i]} style=background:${color[i]}>${res.booktype[i]}</li>`
+    );
+    $(".classification_hidden").append(li);
+  }
+});
 //鼠标移到分类显示分类
-$(".fenlei").on("mouseenter",()=>{
-    $(".classification_hidden").addClass("classification_display")
-    // $(".classification_hidden").slideDown("slow")
-})
+$(".fenlei").on("mouseenter", () => {
+  $(".classification_hidden").addClass("classification_display");
+  // $(".classification_hidden").slideDown("slow")
+});
 //鼠标移出隐藏分类
-$(".fenlei").on("mouseleave",()=>{
-    $(".classification_hidden").removeClass("classification_display")
-    // $(".classification_hidden").slideUp("slow")
-})
+$(".fenlei").on("mouseleave", () => {
+  $(".classification_hidden").removeClass("classification_display");
+  // $(".classification_hidden").slideUp("slow")
+});
