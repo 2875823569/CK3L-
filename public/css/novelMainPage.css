@@ -162,45 +162,55 @@ button {
     margin-left: 5rem;
     font-size: 28px;
 }
-.main_content_header{
+
+.main_content_header {
     width: 100%;
 }
-.main_content_header li{
+
+.main_content_header li {
     cursor: pointer;
     font-weight: 1000;
     width: 100%;
     border-bottom: 1.5px solid #757575;
 }
-.main_content_header li span{
+
+.main_content_header li span {
     color: #3B3B3B;
     position: relative;
     top: -.5rem;
     padding-bottom: .5rem;
     box-sizing: border-box;
 }
-.border_bottom{
+
+.border_bottom {
     border-bottom: 5px solid #22538A;
     color: #22538A !important;
 }
-.main_content_page{
+
+.main_content_page {
     width: 100%;
 }
-.main_content_txt{
+
+.main_content_txt {
     width: 100%;
 }
-.main_content_txt li:nth-of-type(1){
+
+.main_content_txt li:nth-of-type(1) {
     margin-top: 1rem;
 }
-.main_content_txt li:nth-of-type(2){
+
+.main_content_txt li:nth-of-type(2) {
     font-size: 20px;
     margin-top: 1rem;
     color: #757575;
     width: 60%;
 }
-.hide{
+
+.hide {
     display: none;
 }
-.main_content_txt_right{
+
+.main_content_txt_right {
     position: relative;
     left: 63%;
     top: -13rem;
@@ -210,37 +220,52 @@ button {
     background-color: aqua;
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
 }
-.readerSay{
+
+.readerSay {
     width: 100%;
     position: relative;
     padding-bottom: 100px;
     box-sizing: border-box;
 }
-.readerSay li:nth-of-type(1){
+
+.readerSay li:nth-of-type(1) {
     color: #3B3B3B;
 }
-.readerSay div{
+
+.readerSay div {
     border-radius: 10px;
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
 }
-.div1{
+
+.div1 {
     width: 60%;
     height: 200px;
     background-color: blue;
 }
-.div2{
+
+.div2 {
     width: 35%;
     height: 620px;
-    /* position: absolute; */
-    /* left: 63%; */
     float: right;
     margin-right: 2%;
     background-color: brown;
 }
-.div3{
+
+.div3 {
     width: 60%;
     height: 400px;
     background-color: burlywood;
-    /* position: relative; */
     margin-top: 2rem;
+}
+
+.main_content_chapter {
+    width: 100%;
+}
+
+.main_content_chapter li:nth-of-type(1) {
+    margin-top: 20px;
+}
+
+.main_content_chapter_page{
+    margin-top: 20px;
 }

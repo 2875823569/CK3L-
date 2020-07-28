@@ -1,4 +1,5 @@
 const novelDate = require("./models/db");
+const novel_zj = require("./models/db_zj");//俊林写的
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
@@ -57,6 +58,18 @@ app.post("/api/booktype", (req, res) => {
   );
 });
 
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post("/api/book_chapter",(req,res)=>{
+  novel_zj.find({},{Chapter:1,_id:0},(err,docs)=>{
+    if(!err){
+      res.send(docs)
+    }
+    else{
+      console.log("查询错误");
+    }
+  })
+})
+/************************************************************/
 app.listen("8888", () => {
   // console.log(arr_img);
 });
