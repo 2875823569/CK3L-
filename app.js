@@ -3,7 +3,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 let path = require("path");
-const router = express.Router()
+const router = express.Router();
+var user=require("./models/userModel")
 
 
 app.use("/", express.static(path.join(__dirname, "/public")));
@@ -57,6 +58,19 @@ app.post("/api/booktype", (req, res) => {
   );
 });
 
+
+/*******************lm：获取后台用户信息*********************/
+var userInformation={}
+user.find({},(err,docs)=>{
+  if(err){
+    console.log("查询错误");
+  }else{
+    userInformation=docs;
+  }
+})
+app.post("/api/homepage",(req,res)=>{
+  res.send(userInformation)
+})
 app.listen("8888", () => {
   // console.log(arr_img);
 });

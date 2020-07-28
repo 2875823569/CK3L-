@@ -262,6 +262,8 @@ li{
     width:90%;
     height:600px;
     background-color: #F1F1F1;
+    background-image: url(../assets/images/log1.png);
+    background-size: contain;
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
     0 18px 20px -10px rgba(0,0,0,.04),
     0 18px 20px -10px rgba(0,0,0,.04),
@@ -269,7 +271,7 @@ li{
     border-radius: 30px;
     position: absolute;
     left:50%;
-    top:20%;
+    top:10%;
     transform: translateX(-50%);
     display: none;
 }
@@ -402,4 +404,114 @@ li{
 #modifyPage #modifyCard #btnCombination .save{
     color: white;
     background-color: #22538A;
+}
+
+@keyframes roll{
+    from{
+        transform: rotateX(0) rotateY() rotateZ(0);
+    }
+    to{
+        transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+    }
+}
+*{
+    margin:0;
+    padding:0;
+}
+img{
+    width:400px;
+    height:400px;
+}
+.wrap{
+    width:400px;
+    height:400px;
+    padding:100px;
+    position:absolute;
+    left:-10%;
+    top:60%;
+    animation:roll 10s linear infinite;
+    transform-style: preserve-3d;
+}
+.m{
+    width:100px;
+    height:100px;
+    color: #fff;
+    font-size: 60px;
+    text-align: center;
+    position:absolute;
+    opacity: 0.7;
+}
+.front{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: translateZ(200px);
+}
+.back{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: rotateY(180deg) translateZ(200px);
+}
+.left{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: rotateY(90deg) translateZ(200px);
+}
+.right{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: rotateY(-90deg) translateZ(200px);
+}
+.top{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: rotateX(90deg) translateZ(200px);
+}
+.bottom{
+    background-image: url(../assets/images/log1.png);
+    background-size: cover;
+    transform: rotateX(-90deg) translateZ(200px);
+}
+
+.m1{
+    width:100px;
+    height:100px;
+    color: #fff;
+    font-size: 60px;
+    text-align: center;
+    position:absolute;
+    top:125px;
+    left:125px;
+    opacity: 0.7;
+}
+.front1{
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: translateZ(50px);
+}
+.back1{
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: rotateY(180deg) translateZ(50px);
+}
+.left1{
+
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: rotateY(90deg) translateZ(50px);
+}
+.right1{
+
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: rotateY(-90deg) translateZ(50px);
+}
+.top1{
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: rotateX(90deg) translateZ(50px);
+}
+.bottom1{
+    background-image: url(../assets/images/log2.png);
+    background-size: cover;
+    transform: rotateX(-90deg) translateZ(50px);
 }
