@@ -213,7 +213,6 @@ button {
 .main_content_txt_right {
     position: relative;
     left: 63%;
-    top: -13rem;
     width: 35%;
     height: 300px;
     border-radius: 10px;
@@ -268,4 +267,29 @@ button {
 
 .main_content_chapter_page{
     margin-top: 20px;
+    width: 100%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+.main_content_chapter_page li:nth-of-type(1){
+    margin-top: 10px;
+}
+
+.main_content_chapter_page li{
+    float: left;
+    width: 33%;
+    margin-top: 10px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.main_content_chapter_page li:hover{
+    cursor: pointer;
+    border-bottom: 1px solid #22538A;
 }

@@ -69,6 +69,17 @@ app.post("/api/book_chapter",(req,res)=>{
     }
   })
 })
+
+app.post("/api/book_desc",(req,res)=>{
+  novelDate.find({book_title:"白骨大圣"},(err,docs)=>{
+    if(!err){
+      res.send(docs)
+    }
+    else{
+      console.log("查询错误");
+    }
+  })
+})
 /************************************************************/
 app.listen("8888", () => {
   // console.log(arr_img);
