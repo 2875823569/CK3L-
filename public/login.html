@@ -104,13 +104,17 @@
         $("#btmBtn").html("登录")
     }
     var isLogin = true;
+
     var submit = function () {
         if (isLogin == true) {
             var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
             $.post("/api/login", { mail, psw }, function (res) {
                 if (!res.code) {
                     alert("登录成功")
-                    location.href = "./index.html"
+                    localStorage["user_name"] = mail;
+                    localStorage["password"] = psw;
+                    // localStorage["head_log"] = head_log;
+                    location.href = "./index.html";
                 } else {
                     alert("登录失败")
                 }

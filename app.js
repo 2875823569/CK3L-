@@ -6,6 +6,8 @@ const novel_zj = require("./models/db_zj");//俊林写的
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
+var user=require("./models/userModel")
+
 var path = require("path");
 const User = require("./models/user");
 const router = express.Router();
@@ -118,6 +120,19 @@ app.post("/api/booktype", (req, res) => {
   );
 });
 
+
+/*******************lm：获取后台用户信息*********************/
+var userInformation={}
+user.find({},(err,docs)=>{
+  if(err){
+    console.log("查询错误");
+  }else{
+    userInformation=docs;
+  }
+})
+app.post("/api/homepage",(req,res)=>{
+  res.send(userInformation)
+})
 /************************查询章节****************************///俊林写的,寇靖别动
 app.post("/api/book_chapter",(req,res)=>{
   novel_zj.find({},{Chapter:1,_id:0},(err,docs)=>{
