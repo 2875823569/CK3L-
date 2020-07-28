@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.header{
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid #ededed;
+    background-color: #f6f6f5;
+}
+body{
+    background-color: #f0f0f0;
+}
+
+.headlogo{
+    width: 120px;
+}
+.headlogo img{
+    width: 120px;
+    /* height: ; */
+}
+.classf_nav{
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 200px;
+}
+.classf_nav li{
+    float: left;
+}
+.classf_nav li a{
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    font-weight: 800;
+}
+.login_btn{
+    text-decoration: none;
+
+}
+.login_btn>a{
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    font-weight: 600;
+
+}
+.classfboxleft{
+    width: 20vw;
+    margin-top: 20px;
+    border: 1px solid rgb(201, 199, 198);
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px 0 rgba(0,0,0,0.1);
+    float: left;
+    background-color: #f6f6f5;
+
+}
+.meanbox{
+    width: 95vw;
+    margin: 0 auto;
+    /* display: flex; */
+    overflow: hidden;
+    
+}
+.allclass{
+    left: 20px;
+}
+.allclass li{
+    line-height: 50px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ededed;
+    font-weight: 800;
+
+}
+
+.classfboxright{
+    float: right;
+    margin-left: 40px;
+    width: 70vw;
+    height: 1200px;
+    margin-top: 20px;
+    border: 1px solid rgb(201, 199, 198);
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px 0 rgba(0,0,0,0.1);
+    background-color: #f6f6f5;
+
+}
+.righttopbox{
+    width: 200px;
+    padding: 20px;
+}
+.buttombox{
+    height: 200px;
+    background-color: white;
+}
+.buttomleftbox{
+    width: 300px;
+}
+.buttomleftbox img{
+    width: 200px;
+}
+.buttomleftbox>p:nth-of-type(1){
+    color: black;
+    font-weight: 500;
+}
+.buttom{
+    height: 60px;
+}
+.allbook{
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+}
+.allbook>li{
+    width: 160px;
+    height: 200px;
+    background-color: antiquewhite;
+    margin: 20px;
+    border-radius: 15px;
+}
+.rightbookbox{
+    height: 1000px;
+}
+.pagination{
+    position: absolute;
+    left: 50%;
+    /* transform: translateX(-50%); */
+}
