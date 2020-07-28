@@ -1,9 +1,11 @@
 body{
-	background-image: url(http://cdn.alezc.com/Sanya-3.jpg@ALE_WEB);
-	background-repeat: no-repeat;
-	background-position-x: -40px;
-    background-color: #000000;
-    background-size: cover;
+	background-image: url(../assets/images/bg.jpg);
+	background-repeat: repeat;
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 .front{
 	border-radius: 35px;
@@ -14,10 +16,21 @@ body{
     right: 0; 
 	margin-left: auto; 
 	margin-right: auto;
-	margin-top: 13%;
+	margin-top: 11%;
 	position: absolute;
 	backface-visibility: hidden;
 	transition: 2s;
+}
+.inputIcon{
+	float: left;
+	width: 52px;
+	color: #7f7f7f;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-right: 1px #bababa solid;
+    box-shadow: black;
+    box-shadow: 1px 0 3px -1px rgba(0,0,0,.1);
 }
 .back{
 	border-radius: 35px;
@@ -39,6 +52,7 @@ body{
 	text-align: center;
 	position: relative;
 	perspective: 800px;
+	z-index: 999;
 }
 .LOGO{
 	height: 100px;
@@ -48,7 +62,9 @@ body{
 }
 .title{
 	font-weight: 540;
-	font-size: 20px;
+    font-size: 18px;
+    color: #3B3B3B;
+    padding-top: 15px;
 }
 .square{
 	margin-left: auto;
@@ -64,11 +80,12 @@ input{
     outline: none;
 }
 .square input{
-    width: 234px;
-    height: 50px;
+    width: 177px;
+    height: 47px;
     border: none;
     text-indent: 2em;
     border-radius: 14px;
+    float: left;
 }
 
 .bottom{
@@ -86,11 +103,23 @@ input{
 	float: left;
 }
 .right{
+	cursor: pointer;
 	float: right;
 	color: #22538A;
 }
+.close{
+	position: absolute;
+    right: 24px;
+    top: 23px;
+    /* font-size: 29px; */
+	color: #848484;
+	cursor: pointer;
+}
+.iconfont{
+	font-size: 20px;
+}
 .note{
-	color: #e6e6e6;
+	color: #949494;
 	display: block;
 	text-align: center;
 	margin-top: 6px;
@@ -102,6 +131,7 @@ input{
 	text-align: center;
 }
 .loginbutton{
+	outline: none;
 	background: linear-gradient(to top right,#357ac9,#22538A);
 	height: 45px;
 	width: 135px;
@@ -111,16 +141,19 @@ input{
 	line-height: 45px;
 	color: white;
     font-size: 23px;
-    border: none;
+	border: none;
+	cursor: pointer;
 }
 .down{
 	position: relative;
-	top: 615px;
+	top: 588px;
 }
 .back p{
-	font-size: 25px;
 	font-weight: 500;
-	margin-bottom: 10px;
+    font-size: 18px;
+    color: #3B3B3B;
+    padding-top: 20px;
+    margin-bottom: 10px;
 }
 /* .login:hover .front{
 	transform: rotateY(180deg);
