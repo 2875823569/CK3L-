@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/2875823569/CK3L-#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.25",
     "mongose": "0.0.2-security",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7"
   }
 }

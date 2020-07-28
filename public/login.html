@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>登录-CK3L小说</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav>
+
+    </nav>
+    <div class="container">
+        <div class="login">
+            <div class="card">
+                <div class="front">
+                    <div class="LOGO">
+                        <img src="https://cdn.alezc.com/LOGO_BLACK.png" alt="logo.png">
+                    </div>
+                    <div class="title">
+                        <br><br>
+                        使用CK3L通行证登陆
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="square">
+                            <input type="email" class="form-control" placeholder="请输入邮箱地址">
+                        </div>
+                        <div class="square">
+                            <input type="password" class="form-control" placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <span class="left checkbox">
+                            <input type="checkbox" name="check" class="checkbox">24小时内免登陆
+                        </span>
+                        <span class="right" id="signIn">
+                            注册CK3L通行证
+                        </span>
+                    </div>
+                </div>
+                <div class="back">
+                    <div>
+                        <p>注册CK3L通行证</p>
+                        <br>
+                    </div>
+                    <div class="square">
+                        <input type="text" class="form-control" id="name" placeholder="请输入昵称">
+                    </div>
+                    <div class="square">
+                        <input type="email" class="form-control" id="email" placeholder="请输入邮箱地址">
+                    </div>
+                    <div class="square">
+                        <input type="password" class="form-control" id="psw1" placeholder="请输入密码">
+                    </div>
+                    <div class="square">
+                        <input type="password" class="form-control" id="psw2" placeholder="请再次输入密码">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="down">
+            <div class="note">
+                <span id="note">登陆遇到问题？</span>
+            </div>
+            <div class="button">
+                <button type="submit" id="btmBtn" class="loginbutton btn btn-default">登陆</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    var logInSwitch = $("#signIn").on("click", function () {
+        $(".front").css("transform", "rotateY(180deg)");
+        $(".back").css("transform", " rotateY(0deg)")
+        $("#btmBtn").html("注册")
+        $("#btmBtn").on("click", function () {
+            var userName = $("#name").val();
+            var email = $("#email").val();
+            var psw1 = $("#psw1").val();
+            var psw2 = $("#psw2").val();
+            if (psw1 != psw2) {
+                $("#psw1").val("");
+                $("#psw2").val("");
+                alert("两次密码输入不一致")
+                return
+            }
+            if (!userName) {
+                $("#psw1").val("");
+                $("#psw2").val("");
+                alert("请输入昵称")
+                return
+            }
+            if (!email) {
+                $("#psw1").val("");
+                $("#psw2").val("");
+                alert("请输入邮箱地址")
+                return
+            }
+            $.post("api/signIn", { userName, email, psw1 }, function (res) {
+                if (!res.code) {
+                    alert("注册成功")
+                    logInSwitch();
+                }
+            })
+        })
+    })
+    $("#note").on("click", () => {
+        $("html").append('<div class="alert alert-info" role="alert">爷没做这功能！</div>')
+    })
+
+</script>
+
+</html>
