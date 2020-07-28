@@ -1,6 +1,6 @@
 var mongoose = require("mongoose")
 var novelDate = require("../models/novelDate")
-mongoose.connect("mongodb://192.168.5.29/noval").then(() => console.log("链接成功"))
+mongoose.connect("mongodb://192.168.31.1/noval").then(() => console.log("链接成功"))
 
 module.exports = novelDate
 // db.on("open",()=>{
