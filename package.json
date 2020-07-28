@@ -22,6 +22,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.25",
     "mongose": "0.0.2-security",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7"
   }
 }
