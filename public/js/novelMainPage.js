@@ -10,14 +10,43 @@ $(function () {
     let goTOLogin = $(".loginInOut").children().eq(1)
     let goTORegister = $(".loginInOut").children().eq(2)
     let main_content_header = $(".main_content_header").children().children()
-    let main_content_txt = $(".main_content_txt")
+    let main_content_page = $(".main_content_page")
     let main_content_chapter = $(".main_content_chapter")
-    
+    let main_content_txt = $(".main_content_txt")
+    let main_content_txt_right = $(".main_content_txt_right")
+    let main_content_chapter_page = $(".main_content_chapter_page")
+
+    //全局变量
+    var pages = new Array();
+
+    //获取章节
+    function getPages() {
+        return new Promise(function (resolve, reject) {
+            $.post("/api/book_chapter", {}, (res) => {
+                for (let i = 0; i < res.length; i++) {
+                    pages.push(res[i].Chapter)
+                }
+                resolve();
+            })
+        })
+    }
+    getPages().then(()=>{
+        init()
+    })
+
     //初始化
     function init() {
         //初始化页面
         function init_page() {
+            main_content_txt.css("height", main_content_txt_right.height() + 40 + "px")
 
+            //渲染章节
+            console.log(pages);
+            main_content_chapter_page.append(
+                `
+                    <span>${pages[0]}</span>
+                `
+            )
         }
         init_page()
 
@@ -66,19 +95,18 @@ $(function () {
             location.href = "#"
         })
 
-        //作品信息&章节目录
+        //作品信息&章节目录切换
         main_content_header.click(function () {
             $(this).siblings().removeClass("border_bottom")
             $(this).addClass("border_bottom")
-            if($(this).index()==0){
-                main_content_txt.removeClass("hide")
-                main_content_txt.next().addClass("hide")
+            if ($(this).index() == 0) {
+                main_content_page.removeClass("hide")
+                main_content_page.next().addClass("hide")
             }
-            else{
+            else {
                 main_content_chapter.removeClass("hide")
                 main_content_chapter.prev().addClass("hide")
             }
         })
     }
-    init()
 })

@@ -5,7 +5,6 @@
 body{
     background-color: #F1F1F1;
     width:100vw;
-    overflow: hidden;
 }
 ul{
     padding:0;
@@ -37,7 +36,7 @@ ul{
     display: flex;
     justify-content: space-between;
     /* background-color: #1a19184a; */
-    position: fixed;
+    /* position: fixed; */
     box-sizing: border-box;
     width: 100%;
     color: white;
@@ -75,7 +74,7 @@ ul{
 .recommend{
     width: 80%;
     margin: auto;
-    padding-top: 70px;
+    /* padding-top: 70px; */
 
 }
 .fenlei{
@@ -159,7 +158,8 @@ ul{
 }
 .book_list{
     display: flex;
-    width: 100%;
+    width: 100vw;
+    overflow: hidden;
 }
 .book_list li{
     width: 200px;

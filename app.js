@@ -1,14 +1,7 @@
 const novelDate = require("./models/db");
 
+const novel_zj = require("./models/db_zj");//俊林写的
 
-// app.all('*', (req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-//     res.header("X-Powered-By", ' 3.2.1');
-//     res.header("Content-Type", "application/json;charset=utf-8");
-//     next();
-// });
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -127,6 +120,18 @@ app.post("/api/booktype", (req, res) => {
   );
 });
 
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post("/api/book_chapter",(req,res)=>{
+  novel_zj.find({},{Chapter:1,_id:0},(err,docs)=>{
+    if(!err){
+      res.send(docs)
+    }
+    else{
+      console.log("查询错误");
+    }
+  })
+})
+/************************************************************/
 app.listen("8888", () => {
   // console.log(arr_img);
 });
