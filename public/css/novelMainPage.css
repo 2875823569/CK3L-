@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: 黑体;
+    background-color: #F1F1F1;
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 9px 30px -6px rgba(0, 0, 0, .2), 0 18px 20px -10px rgba(0, 0, 0, .04);
+}
+
+.box {
+    position: relative;
+    width: 100%;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 5rem;
+    background-color: #F6F6F6;
+    box-shadow: 0 9px 30px -6px rgba(0, 0, 0, .2);
+}
+
+.header_logo {
+    cursor: pointer;
+    width: 10rem;
+    height: 100%;
+    transform: translate(5rem);
+}
+
+.header_right {
+    position: relative;
+    height: 100%;
+    width: 40rem;
+    float: right;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transform: translate(-5rem);
+}
+
+.header_right span {
+    font-weight: 1000;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.loginInOut i {
+    cursor: pointer;
+}
+
+.content {
+    position: relative;
+    left: 5%;
+    top: 10rem;
+    width: 90%;
+    background-color: #F6F6F6;
+    box-shadow: 0 9px 30px -6px rgba(0, 0, 0, .2), 0 18px 20px -10px rgba(0, 0, 0, .04), 0 18px 20px -10px rgba(0, 0, 0, .04), 0 10px 20px -10px rgba(0, 0, 0, .04);
+    margin-bottom: 100px;
+}
+
+.novel_img {
+    width: 18rem;
+    height: 20rem;
+    transform: translate(5rem, -5rem);
+    box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+}
+
+.novel_img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.novel_introduce {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+}
+
+.novel_introduce_left {
+    margin-top: 2rem;
+    position: relative;
+    color: #3B3B3B;
+    font-size: 35px;
+    font-weight: 1000;
+    width: 20rem;
+}
+
+.novel_introduce_left li:nth-of-type(2) {
+    margin-top: 1rem;
+    font-size: 28px;
+    color: #757575;
+}
+
+.novel_introduce_right {
+    float: right;
+    margin-top: -5.5rem;
+    color: #757575;
+    font-size: 28px;
+    margin-right: 5rem;
+}
+
+.novel_introduce_right li:nth-of-type(1) span:nth-of-type(1) {
+    margin-right: 1.5rem;
+}
+
+.novel_introduce_right li:nth-of-type(2) {
+    margin-top: 1rem;
+    float: right;
+}
+
+.novel_introduce_right li:nth-of-type(2) button {
+    border: 0;
+    border-radius: 30px;
+    width: 4rem;
+    height: 2rem;
+    background-color: #757575;
+    color: #F6F6F6;
+    cursor: default;
+}
+
+.novel_introduce_right li:nth-of-type(2) button:nth-of-type(1) {
+    background-color: #00b6ee;
+}
+
+.novel_introduce_btns {
+    margin-top: 3.5rem;
+}
+
+.novel_introduce_btns button {
+    width: 10rem;
+    height: 4rem;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.novel_introduce_btns button:nth-of-type(1) {
+    border: 0;
+    background-color: #22538A;
+    color: #F6F6F6;
+}
+
+.novel_introduce_btns button:nth-of-type(2) {
+    border: 1px solid;
+    background-color: #F6F6F6;
+    color: #757575;
+}
+
+.main_content {
+    width: 90%;
+    margin-left: 5rem;
+    font-size: 28px;
+}
+.main_content_header{
+    width: 100%;
+}
+.main_content_header li{
+    cursor: pointer;
+    font-weight: 1000;
+    width: 100%;
+    border-bottom: 1.5px solid #757575;
+}
+.main_content_header li span{
+    color: #3B3B3B;
+    position: relative;
+    top: -.5rem;
+    padding-bottom: .5rem;
+    box-sizing: border-box;
+}
+.border_bottom{
+    border-bottom: 5px solid #22538A;
+    color: #22538A !important;
+}
+.main_content_page{
+    width: 100%;
+}
+.main_content_txt{
+    width: 100%;
+}
+.main_content_txt li:nth-of-type(1){
+    margin-top: 1rem;
+}
+.main_content_txt li:nth-of-type(2){
+    font-size: 20px;
+    margin-top: 1rem;
+    color: #757575;
+    width: 60%;
+}
+.hide{
+    display: none;
+}
+.main_content_txt_right{
+    position: relative;
+    left: 63%;
+    top: -13rem;
+    width: 35%;
+    height: 300px;
+    border-radius: 10px;
+    background-color: aqua;
+    box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
+}
+.readerSay{
+    width: 100%;
+    position: relative;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+}
+.readerSay li:nth-of-type(1){
+    color: #3B3B3B;
+}
+.readerSay div{
+    border-radius: 10px;
+    box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
+}
+.div1{
+    width: 60%;
+    height: 200px;
+    background-color: blue;
+}
+.div2{
+    width: 35%;
+    height: 620px;
+    /* position: absolute; */
+    /* left: 63%; */
+    float: right;
+    margin-right: 2%;
+    background-color: brown;
+}
+.div3{
+    width: 60%;
+    height: 400px;
+    background-color: burlywood;
+    /* position: relative; */
+    margin-top: 2rem;
+}

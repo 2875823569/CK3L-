@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/2875823569/CK3L-#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.25",
     "mongose": "0.0.2-security",
