@@ -10,14 +10,16 @@ $(function () {
     let goTOLogin = $(".loginInOut").children().eq(1)
     let goTORegister = $(".loginInOut").children().eq(2)
     let main_content_header = $(".main_content_header").children().children()
-    let main_content_txt = $(".main_content_txt")
+    let main_content_page = $(".main_content_page")
     let main_content_chapter = $(".main_content_chapter")
+    let main_content_txt = $(".main_content_txt")
+    let main_content_txt_right = $(".main_content_txt_right")
     
     //初始化
     function init() {
         //初始化页面
         function init_page() {
-
+            main_content_txt.css("height",main_content_txt_right.height()+40+"px")
         }
         init_page()
 
@@ -71,8 +73,8 @@ $(function () {
             $(this).siblings().removeClass("border_bottom")
             $(this).addClass("border_bottom")
             if($(this).index()==0){
-                main_content_txt.removeClass("hide")
-                main_content_txt.next().addClass("hide")
+                main_content_page.removeClass("hide")
+                main_content_page.next().addClass("hide")
             }
             else{
                 main_content_chapter.removeClass("hide")
