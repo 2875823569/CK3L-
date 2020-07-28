@@ -5,6 +5,7 @@
 body{
     background-color: #F1F1F1;
     width:100vw;
+    overflow-x: hidden;
 }
 ul{
     padding:0;
@@ -92,6 +93,7 @@ ul{
     transition: 0.6s;
     position: absolute;
     overflow: hidden;
+    z-index: 4;
     /* display: none; */
 }
 .classification_hidden li{
@@ -146,10 +148,10 @@ ul{
     z-index: 3;
 }
 .go_right{
-    left: 10px;
+    right: 20px;
 }
 .go_left{
-    right: 10px;
+    left: 20px;
 }
 .book_img{
     width: 150px;
@@ -158,8 +160,9 @@ ul{
 }
 .book_list{
     display: flex;
-    width: 100vw;
-    overflow: hidden;
+    /* width: 100vw;
+    overflow: hidden; */
+    transition: .3s;
 }
 .book_list li{
     width: 200px;
@@ -188,6 +191,149 @@ ul{
     height: 50px;
     left: 60%;
 }
+.middle_bottom{
+    display: flex;
+    /* width: 99%;
+    height: 600px; */
+    /* outline: 1px solid; */
+    justify-content: space-between;
+    padding: 0 33px 33px 33px;
+    box-sizing: border-box;
+}
+.middle_bottom_left{
+    width: 350px;
+    height: 600px;
+    /* outline: 1px solid; */
+    padding: 10px;
+}
+.middle_bottom_rigth{
+    height: 600px;
+    /* outline: 1px solid; */
+    flex: 1;
+    margin-left: 20px;
+    padding: 10px;
+}
+.middle_classification{
+    height: 70%;
+    width: 100%;
+    background: rgb(246,246,246);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
+
+}
+.middle_login_box{
+    width: 100%;
+    margin-top: 5%;
+    height: 27%;
+    background: rgb(246,246,246);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
+
+}
+
+
+.activetis{
+    height: 35%;
+    width: 100%;
+    display: grid;
+    background: rgb(246,246,246);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
+
+}
+.recommend2{
+    height: 62%;
+    width: 100%;
+    background: rgb(246,246,246);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
+
+    margin-top: 17px;
+}
+    
+.title{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    color: #22538A;
+}
+.title span{
+    cursor: pointer;
+}
+.titles{
+    display: grid;
+    padding: 10px 30px 10px 30px;
+    grid-template: repeat(6,1fr)/repeat(2,1fr);
+    height: 330px;
+    /* outline: 1px solid red; */
+    text-align: center;
+    grid-gap: 10px 68px;
+    align-items: stretch;
+}
+.titles li{
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #757575;
+    box-shadow: 1px 1px 9px -2px;
+}
+.login_box_top{
+    display: flex;
+    justify-content: center;
+}
+.login_box_top img{
+    width: 50px;
+    height: 50px;
+    padding: 20px;
+}
+.user_login_box{
+    flex: 1;
+    padding: 10px;
+}
+.user_login_box h2{
+    font-size: 20px;
+    color: #22538A;
+}
+.user_login_box span{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    background: white;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 5px;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
+    border-radius: 10px;
+    margin: 5px 12px 0 0;
+}
+.login_box_bottom ul{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 26px;
+}
+.login_box_bottom ul li i{
+    font-size: 40px;
+    color: #757575;
+}
+
+.activetis{
+    display: grid;
+    grid-template: repeat(2,1fr)/repeat(4,1fr);
+}
+.activetis img{
+    width: 195px;
+    height: 83px;
+    padding: 10px;
+}
+
 
 /*-------------------------------------------------------------------------轮播图-----------------------------------------*/
   *{padding: 0; margin: 0}

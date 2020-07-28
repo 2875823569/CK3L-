@@ -3,11 +3,12 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 let path = require("path");
-const router = express.Router()
+// const router = express.Router()
 
 
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
+
 //获取小说信息
 
 app.post("/api/getimg", (req, res) => {
