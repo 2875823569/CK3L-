@@ -52,10 +52,20 @@ function getbooktype() {                //从端口获取书本分类
         $.post("/api/booktype", (res) => {
             // console.log(res.booktype);
             btitle.append(`${res.booktype[0]}小说`) //设置默认显示
+            getInfromation({type1_name:res.booktype[0]}).then((res)=>{
+                for(let i = 0;i<res.arr_img.length;i++){
+                new Book({src:res.arr_img[i],name:res.arr_name[i]})
+            
+                }
+            })
+
             for (let i = 0; i < res.booktype.length; i++) {
                 new classNav({ bookname: res.booktype[i] })
             }
         })
+
+        
+
     })
 }
 getbooktype()
@@ -75,16 +85,31 @@ var clarr=[]
 $(".allclass").on("click","li",function(){             
     // console.log($(this).children().html();
     bookbox.empty();
+    console.log($(this).children().html());
+    let classfy = $(this).children().html();
+    btitle.empty();
+    btitle.append(`${classfy}小说`) 
     clarr.push($(this).children().html())
-    getInfromation({type1_name:clarr[0]}).then((res)=>{
 
-        for(let i = 0;i<res.arr_img.length;i++){
-            // getinformation(res.arr_img[i],res.arr_name[i])
-            new Book({src:res.arr_img[i],name:res.arr_name[i]})
-        }
-    })
+  
+
+    creatbooks()
     clarr=[]
 })
+
+function creatbooks(){
+    
+    getInfromation({type1_name:clarr[0]}).then((res)=>{
+        for(let i = 0;i<res.arr_img.length;i++){
+            // getinformation(res.arr_img[i],res.arr_name[i])
+        new Book({src:res.arr_img[i],name:res.arr_name[i]})
+
+        }
+    })
+
+}
+
+
 
 //传参数
 var clarr2=[]
@@ -92,7 +117,8 @@ $(".allbook").on("click",'li',function(){
     // console.log($(this).children().children().eq(1).html();
     clarr2.push($(this).children().children().eq(1).html());
     console.log(clarr2[0]);
-    $.post("/api/send_information",clarr2[0],(res) => {
+    var clarr3 = clarr2[0]
+    $.post("/api/send_information",{"book_name":clarr3},(res) => {
         // console.log(res.booktype);
         console.log(res);
         clarr2=[]

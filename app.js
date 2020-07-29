@@ -83,6 +83,7 @@ app.use(function (req, res, next) {
   if (!req.url.includes("book_whichChapter")) {
     next(); //放行，执行后面的路由匹配
   } else {
+    next()//-----------------------------------------------------------
     if (req.session.userName) {
       next();
     } else {
@@ -188,13 +189,15 @@ app.post("/upload",(req,res)=>{
 //传递数据
 app.post("/api/send_information", (req, res) => {
   req.session.send_information = req.body;
+  console.log(req.body);
   res.send({
     code: 0,
     msg: "传递成功",
   });
 });
 app.post("/api/get_send_information", (req, res) => { 
-  console.log();
+  // console.log();
+  console.log(req.session.send_information);
   res.send({
     send_information: req.session.send_information,
   });
@@ -276,6 +279,7 @@ app.post("/api/book_desc", (req, res) => {
   // console.log(send_information);
   novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
+      console.log(docs);
       res.send(docs);
     } else {
       console.log("查询错误");
