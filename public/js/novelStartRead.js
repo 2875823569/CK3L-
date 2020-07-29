@@ -5,6 +5,13 @@ $(function () {
     //获取节点
     let book_tittle = $(".book_tittle")
     let book_reader_content = $(".book_reader_content")
+    let book_navigation = $(".book_navigation")
+    let tools_back = $(".book_navigation").children().eq(0)
+    let tools_mnue = $(".book_navigation").children().eq(1)
+    let tools_settings = $(".book_navigation").children().eq(2)
+    let tools_bookshelf = $(".book_navigation").children().eq(3)
+    let tools_888 = $(".book_navigation").children().eq(4)
+    let tools_toTop = $(".book_navigation").children().eq(5)
 
     //获取章节
     function getChapter() {
@@ -27,4 +34,34 @@ $(function () {
         )
     })
 
+    //工具
+    function tools(){
+        // $(window).scroll(function(){
+        //     console.log($(window).scrollTop(),book_navigation.offset().top)
+        //     if($(window).scrollTop()>=book_navigation.offset().top){
+        //         book_navigation.offset().top = 0
+        //         book_navigation.css("top",book_navigation.offset().top)
+        //     }
+        // })
+
+        tools_back.click(function(){
+            location.href="./novelMainPage.html"
+        })
+        tools_mnue.click(function(){
+
+        })
+        tools_settings.click(function(){
+
+        })
+        tools_bookshelf.click(function(){
+            
+        })
+        tools_888.click(function(){
+            
+        })
+        tools_toTop.click(function(){
+            
+        })
+    }
+    tools()
 })

@@ -174,6 +174,14 @@ input{
     background-color: white;
 	box-shadow: 0px 0px 32px -17px;
 	cursor: pointer;
+	overflow: hidden;
+}
+.profilePic img{
+	display: none;
+	width: 80px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 .profilePic input{
 	position: absolute;

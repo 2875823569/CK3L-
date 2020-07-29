@@ -95,6 +95,11 @@ button {
     font-size: 35px;
     font-weight: 1000;
     width: 20rem;
+    box-sizing: border-box;
+}
+
+.novel_introduce_left li{
+    white-space:pre;
 }
 
 .novel_introduce_left li:nth-of-type(2) {
@@ -216,7 +221,7 @@ button {
     width: 35%;
     height: 300px;
     border-radius: 10px;
-    background-color: aqua;
+    background-color: #F6F6F6;
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
 }
 
@@ -239,7 +244,7 @@ button {
 .div1 {
     width: 60%;
     height: 200px;
-    background-color: blue;
+    background-color: #F6F6F6;
 }
 
 .div2 {
@@ -247,13 +252,13 @@ button {
     height: 620px;
     float: right;
     margin-right: 2%;
-    background-color: brown;
+    background-color: #F6F6F6;
 }
 
 .div3 {
     width: 60%;
     height: 400px;
-    background-color: burlywood;
+    background-color: #F6F6F6;
     margin-top: 2rem;
 }
 
