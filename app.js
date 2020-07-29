@@ -213,13 +213,13 @@ app.post("/api/get_send_information", (req, res) => {
 
 //获取用户数据
 app.post("/api/get_user_information",(req,res)=>{
-  console.log(req.session);
   if(req.session || req.session.userName){
     res.send({
       code:0,
       user:{
         userName:req.session.userName,
         pwd : req.session.pwd,
+        email : req.session.email,
         headImage : req.session.headImage
       }
     })

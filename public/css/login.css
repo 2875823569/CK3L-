@@ -108,8 +108,11 @@ input{
 	font-size: 10px;
 	line-height: 60px;
 }
+#logintext{
+	transition: 2s;
+}
 #btmBtn{
-    transition:  2s;
+	display: none;
 }
 .left{
 	float: left;
