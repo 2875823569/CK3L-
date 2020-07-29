@@ -21,6 +21,7 @@ $(function () {
     //全局变量
     var pages = new Array();
     var page_chapter_idx = null
+    var page_chapter_content = null
 
     //获取章节
     function getPages() {
@@ -41,6 +42,7 @@ $(function () {
     function getDesc() {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_desc", {}, (res) => {
+                console.log(res);
                 resolve(res[0].book_desc)
             })
         })
@@ -56,8 +58,9 @@ $(function () {
         main_content_txt.css("height", main_content_txt_right.height() + 40 + "px")
 
         //渲染章节
+        main_content_chapter_page.empty()
+        chapter_pages.empty().append(pages.length)
         pages.forEach(element => {
-            chapter_pages.empty().append(pages.length)
             main_content_chapter_page.append(`<li>${element}</li>`)
         });
     }
@@ -68,8 +71,9 @@ $(function () {
         start_read.click(function () {
             location.href = "./novelStartRead.html"
             page_chapter_idx = 1
+            page_chapter_content = "第一章 修仙归来！"
             return new Promise(function (resolve, reject) {
-                $.post("/api/book_whichChapter", { page_chapter_idx }, () => { })
+                $.post("/api/book_whichChapter", {page_chapter_idx, page_chapter_content }, () => { })
             })
         })
 
@@ -130,10 +134,11 @@ $(function () {
         //章节跳转
         main_content_chapter_page.click(function (e) {
             if (e.target.tagName == "LI") {
-                var page_chapter_idx = ($(e.target).index())
+                page_chapter_idx = ($(e.target).index())
+                page_chapter_content = ($(e.target).html())
                 page_chapter_idx++
                 return new Promise(function (resolve, reject) {
-                    $.post("/api/book_whichChapter", { page_chapter_idx }, () => { })
+                    $.post("/api/book_whichChapter", { page_chapter_idx,page_chapter_content }, () => { })
                     location.href = "./novelStartRead.html"
                 })
             }

@@ -1,7 +1,49 @@
+body{
+    background-color:#F2F1EB;
+}
+
 .read_box{
     width: 90%;
     position: relative;
     left: 5%;
-    background-color: burlywood;
     top: 100px;
+    color:#635752;
+    font-family: 黑体;
+}
+
+.book_content{
+    position: relative;
+    left: 5%;
+    width: 80%;
+    background-color: #FBFFED;
+    border: 1px solid #635752;
+    padding: 5%;
+    box-sizing: border-box;
+}
+
+.book_content p{
+    font-size: 22px;
+    margin-bottom: 10px;
+    white-space:pre-wrap;
+}
+
+.book_tittle{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: 1000;
+}
+
+.book_navigation{
+    position: absolute;
+    right: 5%;
+    top: 0;
+    width: 8%;
+    background-color: #FBFFED;
+    height: 300px;
+    border: 1px solid #635752;
+}
+
+.book_reader_content{
+    width: 100%;
+    height: 100%;
 }
