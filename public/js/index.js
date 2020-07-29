@@ -66,6 +66,7 @@ var getInfromation = function (name) {
   });
 };
 
+
 //点击小说类型函数
 function click_book_type(information) {
   
