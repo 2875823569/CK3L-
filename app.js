@@ -12,6 +12,8 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 var app = express();
 var user = require("./models/userModel");
+var upload = require("./utils/upload")
+
 
 var path = require("path");
 const User = require("./models/user");
@@ -24,25 +26,43 @@ app.use(
     extended: true,
   })
 );
+
+//用户注册
 app.post("/api/signIn", function (req, res) {
-  var user = new User({
-    username: req.body.userName,
-    pwd: req.body.psw1,
-    email: req.body.email,
-  });
-  console.log(user);
-  user.save(function (err, user) {
+  console.log(req.body)
+  let usr = { email: req.body.email };
+  User.find(usr, function (err, data) {
     if (err) {
-      throw err;
+      return err
     }
-    res.send({
-      code: 0,
-      msg: "添加成功！",
+    if (data[0]) {
+      res.send({
+        code: 3,
+        msg: "此邮箱已被注册！",
+      })
+      return
+    }
+    var user = new User({
+      username: req.body.userName,
+      pwd: req.body.psw1,
+      email: req.body.email,
+      profilePic:req.body.profilePic
     });
-  });
+    user.save(function (err, user) {
+      if (err) {
+        throw err;
+      }
+      res.send({
+        code: 0,
+        msg: "添加成功！",
+      });
+      return
+    });
+  })
 });
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, 'uploadcache')))
 app.use(bodyParser.json());
 
 // 设置令牌
@@ -94,12 +114,13 @@ app.post("/api/getimg", (req, res) => {
     req.body,
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
-      for (let i = 0; i < 10; i++) {
-        arr_img.push(date[i].book_img);
+      for (let i = 0; i < 16; i++) {
+        arr_img.push(date[i].book_img || "");
         arr_name.push(date[i].book_title);
         writer.push(date[i].book_author);
         introduce.push(date[i].book_desc);
       }
+      // console.log(book_img,book_title);
       res.send({
         arr_img: arr_img,
         arr_name: arr_name,
@@ -109,7 +130,7 @@ app.post("/api/getimg", (req, res) => {
     }
   );
 });
-//添加用户信息
+//用户登录
 app.post("/api/login", (req, res) => {
   let usr = { email: req.body.mail };
   User.find(usr, function (err, data) {
@@ -121,10 +142,11 @@ app.post("/api/login", (req, res) => {
     }
 
     if (data[0]) {
-      // console.log(req.body.psw+"q")
-      console.log(123);
       if (req.body.psw === data[0].pwd) {
-
+        req.session.userName = data[0].username
+        req.session.pwd = data[0].psd
+        req.session.headImage = data[0].profilePic
+        req.session.email = data[0].email
         res.send({
           code: 0,
           msg: "查询成功！",
@@ -165,6 +187,10 @@ app.post("/api/booktype", (req, res) => {
     }
   );
 });
+//上传头像
+app.post("/upload",(req,res)=>{
+  upload.upload(req,res)
+})
 
 //传递数据
 app.post("/api/send_information", (req, res) => {
@@ -187,6 +213,7 @@ app.post("/api/get_send_information", (req, res) => {
 
 //获取用户数据
 app.post("/api/get_user_information",(req,res)=>{
+  console.log(req.session);
   if(req.session || req.session.userName){
     // req.session.userName = "小明"
     // req.session.pwd = "123"
@@ -245,7 +272,7 @@ app.post("/api/book_chapter", (req, res) => {
 );
 
 app.post("/api/book_desc", (req, res) => {
-  novelDate.find({ book_title: "白骨大圣" }, (err, docs) => {
+  novelDate.find({ book_title: send_information.book_name }, (err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
