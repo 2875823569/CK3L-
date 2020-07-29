@@ -38,40 +38,40 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
 
 //设置令牌
-app.use(
-  session({
-    //
-    secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
-    resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-    rolling: true, //每次请求都重置 cookie的设置
-    cookie: {
-      maxAge: 10000 * 1000 * 3600,
-      secure: false, // 如果为true ，这个cookie的设置只能是 https
-      sameSite: "lax", // 允许三方访问cookie否
-      httpOnly: true, //只能在http协议下 访问 cookie
-    },
-  })
-);
+// app.use(
+//   session({
+//     //
+//     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
+//     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
+//     rolling: true, //每次请求都重置 cookie的设置
+//     cookie: {
+//       maxAge: 10000 * 1000 * 3600,
+//       secure: false, // 如果为true ，这个cookie的设置只能是 https
+//       sameSite: "lax", // 允许三方访问cookie否
+//       httpOnly: true, //只能在http协议下 访问 cookie
+//     },
+//   })
+// );
 
 //注册和登陆跳过令牌验证
-app.use(function (req, res, next) {
-  if (
-    req.url.indexOf("login") > -1 ||
-    req.url.indexOf("register") > -1 ||
-    req.url.indexOf("upload") > -1
-  ) {
-    next(); //放行，执行后面的路由匹配
-  } else {
-    if (req.session.username) {
-      next();
-    } else {
-      res.send({
-        code: 2,
-        msg: "登录失效!",
-      });
-    }
-  }
-});
+// app.use(function (req, res, next) {
+//   if (
+//     req.url.indexOf("login") > -1 ||
+//     req.url.indexOf("register") > -1 ||
+//     req.url.indexOf("upload") > -1
+//   ) {
+//     next(); //放行，执行后面的路由匹配
+//   } else {
+//     if (req.session.username) {
+//       next();
+//     } else {
+//       res.send({
+//         code: 2,
+//         msg: "登录失效!",
+//       });
+//     }
+//   }
+// });
 var send_information = {};
 
 //获取小说信息
@@ -155,6 +155,7 @@ app.post("/api/booktype", (req, res) => {
     }
   );
 });
+
 //传递数据
 app.post("/api/send_information", (req, res) => {
   send_information = req.body;

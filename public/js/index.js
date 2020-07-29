@@ -473,7 +473,7 @@ $(".user_login_box span:nth-of-type(2)").on("click", function () {
     location.href = "../login.html";
   });
 });
-var a
+
 //推荐轮播图添加点击事件
 $(".slider-inner").on("click", ".item", function () {
   send_information({
