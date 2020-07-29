@@ -93,26 +93,6 @@ app.post("/api/signIn", function (req, res) {
     });
   });
 });
-<<<<<<< HEAD
-// 除了观看小说，其他操作跳过令牌验证
-app.use(function (req, res, next) {
-  if (!req.url.includes("book_whichChapter")) {
-    next(); //放行，执行后面的路由匹配
-  } else {
-    next()//-----------------------------------------------------------
-    if (req.session.userName) {
-      next();
-    } else {
-      res.send({
-        code: 2,
-        msg: "登录失效!",
-      });
-    }
-  }
-});
-// req.session.username = user._id
-=======
->>>>>>> 665a0d063812d97513d18992ebb1347716367a68
 
 //获取小说信息
 app.post("/api/getimg", (req, res) => {
@@ -214,12 +194,7 @@ app.post("/api/send_information", (req, res) => {
   });
 });
 app.post("/api/get_send_information", (req, res) => { 
-<<<<<<< HEAD
-  // console.log();
-  console.log(req.session.send_information);
-=======
   
->>>>>>> 665a0d063812d97513d18992ebb1347716367a68
   res.send({
     send_information: req.session.send_information,
   });
