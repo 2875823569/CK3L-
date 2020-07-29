@@ -11,7 +11,7 @@ body{
 	border-radius: 35px;
 	width: 370px;
 	height: 381px;
-	background-color: white;
+	background-color:#f6f6f6;
 	left: 0; 
     right: 0; 
 	margin-left: auto; 
@@ -45,7 +45,7 @@ body{
 	right: 0; 
 	margin-left: auto; 
 	margin-right: auto;
-	background-color: white;
+	background-color: #f6f6f6;
 	margin-top: 13%;
 	position: absolute;
 	backface-visibility: hidden;
@@ -56,6 +56,7 @@ body{
 	0 18px 20px -10px rgba(0,0,0,.04),
 	0 10px 20px -10px rgba(0,0,0,.04)
 	;
+	overflow: hidden;
 }
 .login{
 	padding: center;
@@ -159,11 +160,38 @@ input{
 	position: relative;
 	top: 588px;
 }
+input{
+	background-color: #f6f6f6;
+}
+.profilePic{
+	position: absolute;
+	width: 80px;
+    height: 80px;
+    margin-left: 145px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 80px;
+    background-color: white;
+	box-shadow: 0px 0px 32px -17px;
+	cursor: pointer;
+}
+.profilePic input{
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    opacity: 0;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
 .back p{
 	font-weight: 500;
     font-size: 18px;
     color: #3B3B3B;
-    padding-top: 20px;
+	padding-top: 20px;
+	padding-bottom: 21px;
     margin-bottom: 10px;
 }
 /* .login:hover .front{
