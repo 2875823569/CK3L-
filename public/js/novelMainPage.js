@@ -42,6 +42,7 @@ $(function () {
     function getDesc() {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_desc", {}, (res) => {
+                console.log(res);
                 resolve(res[0].book_desc)
             })
         })

@@ -5,8 +5,6 @@ const novel_zj = require("./models/db_zj");
 var book_whichChapter = {}
 var fs = require('fs');
 
-
-
 /**********************************************/
 
 var express = require("express");
@@ -65,8 +63,7 @@ app.use(
 
 // 注册和登陆跳过令牌验证
 app.use(function (req, res, next) {
-  if (
-    !(req.url.indexOf("book_whichChapter") == -1)
+  if (!req.url.includes("book_whichChapter")
     // req.url.indexOf("register") > -1 ||
     // req.url.indexOf("/api/booktype") > -1 ||
     // req.url.indexOf("/api/getimg") > -1
@@ -76,6 +73,7 @@ app.use(function (req, res, next) {
     if (req.session.username) {
       next();
     } else {
+      next(); //后面删除！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
       res.send({
         code: 2,
         msg: "登录失效!",
