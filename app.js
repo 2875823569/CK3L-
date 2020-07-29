@@ -169,7 +169,6 @@ app.post("/api/booktype", (req, res) => {
 //传递数据
 app.post("/api/send_information", (req, res) => {
   send_information = req.body;
-  console.log(req.body);
   res.send({
     code: 0,
     msg: "传递成功",
@@ -207,7 +206,7 @@ app.post("/api/book_chapter", (req, res) => {
 );
 
 app.post("/api/book_desc", (req, res) => {
-  novelDate.find({ book_title: "白骨大圣" }, (err, docs) => {
+  novelDate.find({ book_title: send_information.book_name }, (err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
