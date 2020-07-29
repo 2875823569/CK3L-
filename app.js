@@ -1,5 +1,8 @@
 const novelDate = require("./models/novelDate");
-const novel_zj = require("./models/db_zj"); //俊林写的
+
+const novel_zj = require("./models/db_zj");//俊林写的
+var book_whichChapter = null//俊林写的
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var session = require("express-session");
@@ -8,6 +11,7 @@ var user = require("./models/userModel");
 
 var path = require("path");
 const User = require("./models/user");
+const { resolve } = require("path");
 const router = express.Router();
 
 app.use(bodyParser.json());
@@ -45,7 +49,7 @@ app.use(
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
     rolling: true, //每次请求都重置 cookie的设置
     cookie: {
-      maxAge: 1000 * 60* 5,
+      maxAge: 1000 * 60* 60,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
       sameSite: "lax", // 允许三方访问cookie否
       httpOnly: true, //只能在http协议下 访问 cookie
@@ -55,12 +59,11 @@ app.use(
 
 // 注册和登陆跳过令牌验证
 app.use(function (req, res, next) {
-  console.log();
   if (
-    req.url.indexOf("login") > -1 ||
-    req.url.indexOf("register") > -1 ||
-    req.url.indexOf("/api/booktype") > -1 ||
-    req.url.indexOf("/api/getimg") > -1
+    !(req.url.indexOf("book_whichChapter") == -1)
+    // req.url.indexOf("register") > -1 ||
+    // req.url.indexOf("/api/booktype") > -1 ||
+    // req.url.indexOf("/api/getimg") > -1
   ) {
     next(); //放行，执行后面的路由匹配
   } else {
@@ -185,9 +188,11 @@ user.find({}, (err, docs) => {
 });
 app.post("/api/homepage", (req, res) => {
   res.send(userInformation);
-}); //俊林写的,寇靖别动
-/************************查询章节****************************/ 
-app.post("/api/book_chapter",(req, res) => {
+}); 
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post(
+  "/api/book_chapter",
+  (req, res) => {
     novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
       if (!err) {
         res.send(docs);
@@ -205,8 +210,17 @@ app.post("/api/book_desc", (req, res) => {
     } else {
       console.log("查询错误");
     }
-  });
-});
+  })
+})
+
+app.post("/api/book_whichChapter",(req,res)=>{
+  book_whichChapter = req.body
+})
+
+app.post("/api/book_yourChapter",(req,res)=>{
+  res.send(book_whichChapter)
+})
+
 /************************************************************/
 app.listen("8888", () => {
   console.log("端口已打开");

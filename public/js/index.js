@@ -439,7 +439,7 @@ $(".recommend2_container ul").on("click","li", function(){
 //登陆按钮点击事件
 $(".login_btn").on("click", function () {
   send_information({
-    is_login: true,
+    is_login: 1,
   }).then(() => {
     location.href = "../login.html";
   });
@@ -448,7 +448,7 @@ $(".login_btn").on("click", function () {
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {
   send_information({
-    is_login: true,
+    is_login: 1,
   }).then(() => {
     location.href = "../login.html";
   });
@@ -456,7 +456,7 @@ $(".user_login_box span:nth-of-type(1)").on("click", function () {
 //注册按钮
 $(".user_login_box span:nth-of-type(2)").on("click", function () {
   send_information({
-    is_login: false,
+    is_login: 0,
   }).then(() => {
     location.href = "../login.html";
   });

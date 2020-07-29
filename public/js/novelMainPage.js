@@ -20,6 +20,7 @@ $(function () {
 
     //全局变量
     var pages = new Array();
+    var page_chapter_idx = null
 
     //获取章节
     function getPages() {
@@ -57,8 +58,7 @@ $(function () {
         //渲染章节
         pages.forEach(element => {
             chapter_pages.empty().append(pages.length)
-            main_content_chapter_page.append(`<li>${element}</li>`
-            )
+            main_content_chapter_page.append(`<li>${element}</li>`)
         });
     }
 
@@ -67,6 +67,10 @@ $(function () {
         //开始阅读
         start_read.click(function () {
             location.href = "./novelStartRead.html"
+            page_chapter_idx = 1
+            return new Promise(function (resolve, reject) {
+                $.post("/api/book_whichChapter", { page_chapter_idx }, () => { })
+            })
         })
 
         //加入书架
@@ -122,6 +126,19 @@ $(function () {
                 main_content_chapter.prev().addClass("hide")
             }
         })
+
+        //章节跳转
+        main_content_chapter_page.click(function (e) {
+            if (e.target.tagName == "LI") {
+                var page_chapter_idx = ($(e.target).index())
+                page_chapter_idx++
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx }, () => { })
+                    location.href = "./novelStartRead.html"
+                })
+            }
+        })
+
     }
     init()
 })
