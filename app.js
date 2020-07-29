@@ -1,7 +1,7 @@
-const novelDate = require("./models/db");
+const novelDate = require("./models/novelDate");
 
 const novel_zj = require("./models/db_zj");//俊林写的
-
+var book_whichChapter = null//俊林写的
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -10,6 +10,7 @@ var user=require("./models/userModel")
 
 var path = require("path");
 const User = require("./models/user");
+const { resolve } = require("path");
 const router = express.Router();
 
 app.use(bodyParser.json());
@@ -136,6 +137,8 @@ user.find({},(err,docs)=>{
 app.post("/api/homepage",(req,res)=>{
   res.send(userInformation)
 })
+
+
 /************************查询章节****************************///俊林写的,寇靖别动
 app.post("/api/book_chapter",(req,res)=>{
   novel_zj.find({},{Chapter:1,_id:0},(err,docs)=>{
@@ -158,6 +161,15 @@ app.post("/api/book_desc",(req,res)=>{
     }
   })
 })
+
+app.post("/api/book_whichChapter",(req,res)=>{
+  book_whichChapter = req.body
+})
+
+app.post("/api/book_yourChapter",(req,res)=>{
+  res.send(book_whichChapter)
+})
+
 /************************************************************/
 app.listen("8888", () => {
   // console.log(arr_img);
