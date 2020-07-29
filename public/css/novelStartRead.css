@@ -19,6 +19,7 @@ body{
     border: 1px solid #635752;
     padding: 5%;
     box-sizing: border-box;
+    z-index: -1;
 }
 
 .book_content p{
@@ -39,6 +40,7 @@ body{
 }
 
 .book_navigation{
+    position: static;
     text-align: center;
     font-size: 20px;
     width: 6%;
@@ -58,4 +60,23 @@ body{
 
 .book_navigation li:hover{
     color: red;
+}
+
+.mune{
+    position: absolute;
+    top: 0;
+    left: -200%;
+    font-size: 16px;
+    background-color: #FBFFED;
+    border: 1px solid #635752;
+    
+}
+
+.mune li{
+	white-space:nowrap;
+    
+}
+
+.hide{
+    display: none;
 }

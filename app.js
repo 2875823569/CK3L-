@@ -25,6 +25,25 @@ app.use(
     extended: true,
   })
 );
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, 'uploadcache')))
+app.use(bodyParser.json());
+
+// 设置令牌
+app.use(
+  session({
+    secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
+    resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
+    rolling: true, //每次请求都重置 cookie的设置
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+      secure: false, // 如果为true ，这个cookie的设置只能是 https
+      sameSite: "lax", // 允许三方访问cookie否
+      httpOnly: true, //只能在http协议下 访问 cookie
+    },
+  })
+);
 
 //用户注册
 app.post("/api/signIn", function (req, res) {
@@ -59,26 +78,6 @@ app.post("/api/signIn", function (req, res) {
     });
   });
 });
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/", express.static(path.join(__dirname, "/public")));
-app.use(express.static(path.join(__dirname, 'uploadcache')))
-app.use(bodyParser.json());
-
-// 设置令牌
-app.use(
-  session({
-    secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
-    resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-    rolling: true, //每次请求都重置 cookie的设置
-    cookie: {
-      maxAge: 1000 * 60 * 60,
-      secure: false, // 如果为true ，这个cookie的设置只能是 https
-      sameSite: "lax", // 允许三方访问cookie否
-      httpOnly: true, //只能在http协议下 访问 cookie
-    },
-  })
-);
-
 // 除了观看小说，其他操作跳过令牌验证
 app.use(function (req, res, next) {
   if (!req.url.includes("book_whichChapter")) {
