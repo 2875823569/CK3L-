@@ -1,9 +1,9 @@
 const novelDate = require("./models/novelDate"); //俊林写的
 
-/**********************************************/ const novel_zj = require("./models/db_zj");
-var book_whichChapter = {};
-var fs = require("fs");
-
+/**********************************************///俊林写的
+const novel_zj = require("./models/db_zj");
+var book_whichChapter = {}
+var fs = require('fs');
 /**********************************************/
 
 var express = require("express");
@@ -194,6 +194,7 @@ app.post("/api/send_information", (req, res) => {
   });
 });
 app.post("/api/get_send_information", (req, res) => { 
+  console.log();
   res.send({
     send_information: req.session.send_information,
   });
@@ -272,7 +273,8 @@ app.post("/api/book_chapter", (req, res) => {
 );
 
 app.post("/api/book_desc", (req, res) => {
-  novelDate.find({ book_title: send_information.book_name }, (err, docs) => {
+  // console.log(send_information);
+  novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
