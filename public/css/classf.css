@@ -115,7 +115,8 @@ body{
     /* justify-content: space-around; */
     align-items: flex-start;
     flex-wrap: wrap;
-
+    height: 970px;
+    overflow: hidden;
 }
 .allbook>li{
     width: 160px;
@@ -135,7 +136,8 @@ body{
 
 }
 .rightbookbox{
-    height: 1000px;
+    height: 970px;
+    /* overflow: hidden; */
 }
 .bookboxs{
     width: 130px;
