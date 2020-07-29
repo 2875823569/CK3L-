@@ -1,6 +1,7 @@
 $(function () {
     //获取节点
     let start_read = $(".novel_introduce_btns").children().eq(0)
+    let header_logo = $(".header_logo")
     let addToBookShelf = $(".novel_introduce_btns").children().eq(1)
     let goTOItemsList = $(".header_right").children().eq(0)
     let goTOBookShelf = $(".header_right").children().eq(1)
@@ -136,6 +137,11 @@ $(function () {
         //跳转注册
         goTORegister.click(function () {
             location.href = "#"
+        })
+
+        //返回首页
+        header_logo.click(function(){
+            location.href = "../index.html"
         })
 
         //作品信息&章节目录切换

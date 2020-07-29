@@ -21,6 +21,17 @@ var transform_x = 0;
 
 
 //--------------------------------------------------------定义功能函数---------------------------------------------------
+//获取用户信息
+var get_user_information = function(){
+  return new Promise((resolve,reject) => {
+    $.post("/api/get_user_information",(res) => {
+      resolve(res.user)
+    })
+  })
+}
+get_user_information().then((res) => {
+  console.log(res);
+})
 //获取传递的信息
 var get_send_information = function () {
   return new Promise((resolve, reject) => {
@@ -54,6 +65,7 @@ var getInfromation = function (name) {
     });
   });
 };
+
 
 //点击小说类型函数
 function click_book_type(information) {
