@@ -30,7 +30,7 @@ var get_user_information = function(){
   })
 }
 get_user_information().then((res) => {
-  console.log(user);
+  console.log(res);
 })
 //获取传递的信息
 var get_send_information = function () {
