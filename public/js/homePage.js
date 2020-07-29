@@ -84,20 +84,20 @@ getUsers().then((data)=>{
 })
 
 //获取小说信息
-var getBook=function(){
-    return new Promise((resolve,reject)=>{
-        $.post('/api/getBook',(data,status)=>{
-            if(status=="success"){
-                resolve(data)
-            }
-        })
-    })
-}
-getBook().then((data)=>{
-    for(var i=0;i<historyBook.length;i++){
-        historyBook[i].style.backgroundImage=`url(${data[i].book_img})`;
-    }
-})
+// var getBook=function(){
+//     return new Promise((resolve,reject)=>{
+//         $.post('/api/getBook',(data,status)=>{
+//             if(status=="success"){
+//                 resolve(data)
+//             }
+//         })
+//     })
+// }
+// getBook().then((data)=>{
+//     for(var i=0;i<historyBook.length;i++){
+//         historyBook[i].style.backgroundImage=`url(${data[i].book_img})`;
+//     }
+// })
 
 //获取传递的信息
 var get_send_information = function () {
@@ -120,7 +120,7 @@ var get_send_information = function () {
   //获取当前登录账户
   var get_user_information = function(){
     return new Promise((resolve,reject) => {
-      $.post("/api/get_user_information",(res) => {
+      $.post("/api/get_send_information",(res) => {
         resolve(res.user)
       })
     })
