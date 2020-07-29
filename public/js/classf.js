@@ -1,6 +1,7 @@
 var classbtn = $('.allclass>li'); //获取分类按钮
 var bookbox = $(".allbook");
 var bookmes= $(".allbook>li")
+var result = $(".righttopbox>p>span")
 
 class Book {
     constructor({src, name}) {
@@ -18,7 +19,6 @@ class Book {
                 <img src="${this.src}"></img>
                 <p>${this.name}</p>
             </div>`
-        
         bookbox.append(li)
     }
 }
@@ -27,6 +27,7 @@ function getinformation(){
     return new Promise((resolve,reject)=>{
         $.post("/api/getimg",{},(res)=>{
             // console.log(res.arr_img);
+
             for(let i = 0;i<res.arr_img.length;i++){
                 // console.log(res.arr_img[i]);
                 // console.log(res.arr_name[i]);
