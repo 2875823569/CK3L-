@@ -24,13 +24,36 @@ var transform_x = 0;
 //获取用户信息
 var get_user_information = function(){
   return new Promise((resolve,reject) => {
+    
     $.post("/api/get_user_information",(res) => {
-      resolve(res.user)
+      console.log(res);
+      if(!res.code) {
+        
+        resolve(res.user)
+      }else{
+        reject()
+      }
     })
   })
 }
+
 get_user_information().then((res) => {
+  
+  $(".login_btn").css({"display":"none"})
+  $(".user").css({"display":"flex"})
+  $(".user img").attr("src",res.headImage)
+  $(".user p").text(`${res.userName}`)
+
+  $(".user_login_box").css({"display":"none"})
+  $(".user_islogin").css({"display":"inline-block"})
+  .prev()
+  .prev()
+  .attr("src",res.headImage)
+
+  $(".user_islogin h2").text(`Hi ${res.userName}`)
   console.log(res);
+},()=>{
+  
 })
 //获取传递的信息
 var get_send_information = function () {
@@ -456,6 +479,10 @@ $(".login_btn").on("click", function () {
     location.href = "../login.html";
   });
 });
+//登陆后用户点击头像进入个人主页
+$(".user img").on("click",() => {
+  location.href = "../html/homepage.html"
+})
 
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {

@@ -14,11 +14,19 @@ var send_information = function (information) {
     });
 };
 
+$("#btmBtn").show(1000);
+$("#logintext").show(1500);
 
 var logInSwitch = () => {
     $(".front").css("transform", "rotateY(0deg)");
     $(".back").css("transform", " rotateY(-180deg)")
-    $("#btmBtn").html("登录")
+    $("#btmBtn").html('<span id="logintext">登录</span>')
+    setTimeout(()=>{
+        $("#btmBtn").show(1000)
+        $("#logintext").css("opacity","1")
+    },1000)
+    $("#btmBtn").hide(1000)
+    $("#logintext").css("opacity","0")
 }
 var isLogin = true;
 
@@ -56,12 +64,14 @@ var get_user_information = function () {
 }
 var submit = function () {
     if (isLogin == true) {
-        console.log("yup")
         var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
         $.post("/api/login", { mail, psw }, function (res) {
             if (!res.code) {
-                alert("登录成功")
                  location.href = "../index.html"
+                // get_user_information().then((res)=>{
+                //     console.log(res);
+                // });
+                alert("登录成功")
             } else {
                 alert("登录失败")
             }
@@ -115,11 +125,17 @@ $(".close").on("click", function () {
 var SignInSwitch = function () {
     isLogin = false
     $(".front").css("transform", "rotateY(180deg)");
-    $(".back").css("transform", " rotateY(0deg)")
+    $(".back").css("transform", " rotateY(0deg)");
+    $("#btmBtn").hide(1000);
+    $("#logintext").css("opacity","0")
     setTimeout(() => {
-        $(".back").css("height", "478px")
+        $(".back").css("height", "478px");
+        $(".back").css("margin-top","9%");
+        $("#btmBtn").html('<span id="logintext">注册</span>')
+        $("#btmBtn").show(1000);
+        $("#logintext").css("opacity","1")
     }, 1000)
-    $("#btmBtn").html("注册")
+    
 }
 $("#btmBtn").on("click", function () {
     submit();

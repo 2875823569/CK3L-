@@ -7,7 +7,6 @@ var result = $(".righttopbox>p>span")  //搜索结果
 var allclassbtn = $('.allclass')  //获取分类框
 var btitle = $(".righttopbox>span") //获取当面分类标题
 
-
 class Book {                        //创建书对象
     constructor({ src, name }) {
         this.src = src;
@@ -45,9 +44,6 @@ class classNav {                    //创建分类对象
             `
         allclassbtn.append(li)
     }
-    // onclicks(){
-
-    // }
 
 }
 
@@ -65,7 +61,6 @@ function getbooktype() {                //从端口获取书本分类
 getbooktype()
 
 //查询数据库的函数
-// let name = {type:"type1_name"}
 var getInfromation = function (name) {
     return new Promise(function (resolve, reject) {
       $.post("/api/getimg", name, (res) => {
@@ -74,16 +69,15 @@ var getInfromation = function (name) {
     });
   };
 
-// getInfromation({type1_name:"玄幻"}).then((res)=>{
-//     console.log(res);
-// })
 
 var clarr=[]
-$(".allclass").on("click","li",function(){
+
+$(".allclass").on("click","li",function(){             
     // console.log($(this).children().html();
+    bookbox.empty();
     clarr.push($(this).children().html())
     getInfromation({type1_name:clarr[0]}).then((res)=>{
-        console.log(res.arr_img.length);
+
         for(let i = 0;i<res.arr_img.length;i++){
             // getinformation(res.arr_img[i],res.arr_name[i])
             new Book({src:res.arr_img[i],name:res.arr_name[i]})
@@ -91,3 +85,18 @@ $(".allclass").on("click","li",function(){
     })
     clarr=[]
 })
+
+//传参数
+var clarr2=[]
+$(".allbook").on("click",'li',function(){
+    // console.log($(this).children().children().eq(1).html();
+    clarr2.push($(this).children().children().eq(1).html());
+    console.log(clarr2[0]);
+    $.post("/api/send_information",clarr2[0],(res) => {
+        // console.log(res.booktype);
+        console.log(res);
+        clarr2=[]
+        location.href='../html/novelMainPage.html'
+    })
+})
+
