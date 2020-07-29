@@ -437,12 +437,12 @@ img{
     height:400px;
 }
 .wrap{
-    width:400px;
-    height:400px;
-    padding:100px;
+    width:100px;
+    height:100px;
+    padding:50px;
     position:absolute;
-    left:-10%;
-    top:60%;
+    left:5%;
+    top:70%;
     animation:roll 10s linear infinite;
     transform-style: preserve-3d;
 }
@@ -528,4 +528,37 @@ img{
     background-image: url(../assets/images/log2.png);
     background-size: cover;
     transform: rotateX(-90deg) translateZ(50px);
+}
+#promptBox{
+    width:400px;
+    height: 100px;
+    background-color: #2db0d1;
+    box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
+    0 18px 20px -10px rgba(0,0,0,.04);
+    line-height: 100px;
+    border-radius:20px;
+    position: fixed;
+    top:0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+#promptBox strong{
+    display: inline-block;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top:-30px;
+}
+#promptBox p{
+    display: inline-block;
+    position: fixed;
+    left:50%;
+    transform: translateX(-50%);
+}
+#promptBox i{
+    display: inline-block;
+    position: fixed;
+    top:-25px;
+    right: 25px;
 }

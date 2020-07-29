@@ -14,13 +14,25 @@ var saveBtn=document.querySelector(".save")
 var historyBook=document.querySelectorAll(".historyBook")
 var modifyPageI=document.querySelector("#modifyHeadportrait i")
 var modifyHeadportrait=document.querySelector("#modifyHeadportrait")
+var closePrompt=document.querySelector(".icon-guanbi7-01copy")
+var promptBox=document.querySelector("#promptBox")
+var pptStrong=document.querySelector("#promptBox strong")
+var pptP=document.querySelector("#promptBox p")
 //点击该修改图标跳出修改页面
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
     modifyPage.style.display = "block";
 })
 
-
+//提示框事件
+closePrompt.addEventListener('click',(e)=>{
+    e.target.parentNode.style.display="none"
+})
+function Prompt(type,content){
+    pptStrong.innerText=type;
+    pptP.innerText=content;
+    promptBox.style.display="block";
+}
 //修改页面
 
 //点击头像旁边的修改进行选择文件
@@ -37,50 +49,12 @@ cancelBtn.addEventListener('click',()=>{
     modifyPage.style.display = "none";
 })
 
-//点击保存按钮
-saveBtn.addEventListener('click',()=>{
-    var afterNickname=nicknameIpt.value;
-    var afterFirstPsw=fisrstPsdInp.value;
-    var afterSecondPsw=secondPsdInp.value;
-    var setUser=function(){
-        return new Promise((resolve,reject)=>{
-            $.post("/api/setUser",{afterNickname,afterFirstPsw,afterSecondPsw},(data,status)=>{
-                if (status == "success") {
-                    resolve(data)
-                }
-            })
-        })
-    }
-    setUser().then((data)=>{
-        // alert(data.msg)
-    })
-})
 //3d效果控制与暂停
 wrap.addEventListener('mouseenter', () => {
     wrap.style.animationPlayState = "paused";
 })
 wrap.addEventListener('mouseleave', () => {
     wrap.style.animationPlayState = "running";
-})
-//向后台获取用户信息
-var getUsers=function() {
-    return new Promise((resolve, reject) => {
-        $.post("/api/homepage", (data, status) => {
-            if (status == "success") {
-                resolve(data)
-            }
-        })
-    })
-}
-getUsers().then((data)=>{
-    nickname.innerText=data[0].username;
-    nicknameIpt.value=data[0].username;
-    fisrstPsdInp.value=data[0].pwd;
-    secondPsdInp.value=data[0].pwd;
-    if(fisrstPsdInp!=secondPsdInp){
-        // alert("两次密码不一致！");
-        return
-    }
 })
 
 //获取小说信息
@@ -120,11 +94,43 @@ var get_send_information = function () {
   //获取当前登录账户
   var get_user_information = function(){
     return new Promise((resolve,reject) => {
-      $.post("/api/get_send_information",(res) => {
-        resolve(res.user)
+      $.post("/api/get_user_information",(res) => {
+        resolve(res)
       })
     })
   }
   get_user_information().then((data)=>{
-      console.log(data);
+        nickname.innerText=data.user.userName;
+        nicknameIpt.value=data.user.userName;
+        fisrstPsdInp.value=data.user.pwd;
+        secondPsdInp.value=data.user.pwd;
+        console.log(data);
   })
+
+
+//点击保存按钮
+saveBtn.addEventListener('click',()=>{
+    var afterNickname=nicknameIpt.value;
+    var afterFirstPsw=fisrstPsdInp.value;
+    var afterSecondPsw=secondPsdInp.value;
+    if(afterFirstPsw!=afterSecondPsw){
+        Prompt('警告！','两次密码不一致')
+        return
+    }
+    var setUser=function(){
+        return new Promise((resolve,reject)=>{
+            $.post("/api/setUser",{afterNickname,afterFirstPsw,afterSecondPsw},(data,status)=>{
+                if (status == "success") {
+                    resolve(data)
+                }
+            })
+        })
+    }
+    setUser().then((data)=>{
+        if(!data.code){
+            Prompt('提示！',data.msg)
+            box.style.display = "block";
+            modifyPage.style.display = "none";
+        }
+    })
+})
