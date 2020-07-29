@@ -97,6 +97,16 @@
     </div>
 </body>
 <script>
+  var get_send_information = function () {
+  return new Promise((resolve, reject) => {
+    $.post("/api/get_send_information", (res) => {
+      resolve(res);
+    });
+  });
+};
+get_send_information().then((res)=>{
+    console.log(res);
+})
 
     var logInSwitch = () => {
         $(".front").css("transform", "rotateY(0deg)");

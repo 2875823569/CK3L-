@@ -150,7 +150,8 @@ ul{
 .go_right{
     right: 20px;
 }
-.go_left{
+.go_left.go_left{
+    display: none;
     left: 20px;
 }
 .book_img{
@@ -442,7 +443,7 @@ h2{
   .slider .slider-inner .img {
     background-position: center top !important;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
     width: 100%;
     height: 100%;
   }
