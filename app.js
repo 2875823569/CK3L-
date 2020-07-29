@@ -35,7 +35,7 @@ app.use(
   session({
     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-    rolling: true, //每次请求都重置 cookie的设置
+    rolling: false, //每次请求都重置 cookie的设置
     cookie: {
       maxAge: 1000 * 60 * 60,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
@@ -44,10 +44,25 @@ app.use(
     },
   })
 );
+// 除了观看小说，其他操作跳过令牌验证
 
+app.use(function (req, res, next) {
+  if (!req.url.includes("book_whichChapter")) {
+    next(); //放行，执行后面的路由匹配
+  } else {
+    if (req.session.userName) {
+      next();
+    } else {
+      res.send({
+        code: 2,
+        msg: "登录失效!",
+      });
+    }
+  }
+});
 //用户注册
 app.post("/api/signIn", function (req, res) {
-  console.log(req.body)
+  
   let usr = { email: req.body.email };
   User.find(usr, function (err, data) {
     if (err) {
@@ -78,6 +93,7 @@ app.post("/api/signIn", function (req, res) {
     });
   });
 });
+<<<<<<< HEAD
 // 除了观看小说，其他操作跳过令牌验证
 app.use(function (req, res, next) {
   if (!req.url.includes("book_whichChapter")) {
@@ -95,6 +111,8 @@ app.use(function (req, res, next) {
   }
 });
 // req.session.username = user._id
+=======
+>>>>>>> d0abfa2d9270d3992e65bcf42a231a72fd1b25f5
 
 //获取小说信息
 app.post("/api/getimg", (req, res) => {
@@ -114,7 +132,7 @@ app.post("/api/getimg", (req, res) => {
         writer.push(date[i].book_author);
         introduce.push(date[i].book_desc);
       }
-      // console.log(book_img,book_title);
+      // 
       res.send({
         arr_img: arr_img,
         arr_name: arr_name,
@@ -138,7 +156,7 @@ app.post("/api/login", (req, res) => {
     if (data[0]) {
       if (req.body.psw === data[0].pwd) {
         req.session.userName = data[0].username
-        req.session.pwd = data[0].psd
+        req.session.pwd = data[0].pwd
         req.session.headImage = data[0].profilePic
         req.session.email = data[0].email
         res.send({
@@ -189,13 +207,14 @@ app.post("/upload",(req,res)=>{
 //传递数据
 app.post("/api/send_information", (req, res) => {
   req.session.send_information = req.body;
+  console.log(req.body);
   res.send({
     code: 0,
     msg: "传递成功",
   });
 });
 app.post("/api/get_send_information", (req, res) => { 
-  console.log();
+  
   res.send({
     send_information: req.session.send_information,
   });
@@ -212,7 +231,7 @@ app.post("/api/get_user_information", (req, res) => {
   // req.session.pwd = "123"
   // req.session.headImage = "../assets/user_head/斗破苍穹.jpg"
   // req.session.email = "fjlsa@fds"
-  console.log(req.session);
+  
   if (req.session && req.session.userName) {
     res.send({
       code: 0,
@@ -224,6 +243,7 @@ app.post("/api/get_user_information", (req, res) => {
       },
     });
   } else {
+    
     res.send({
       code: 1,
       msg: "登陆失败",
@@ -235,7 +255,7 @@ app.post("/api/get_user_information", (req, res) => {
 var userInformation = {};
 user.find({}, (err, docs) => {
   if (err) {
-    console.log("查询错误");
+    
   } else {
     userInformation = docs;
   }
@@ -247,7 +267,7 @@ app.post("/api/homepage", (req, res) => {
 app.post("/api/setUser",(req,res)=>{
   user.find({username:"小明"},(err,docs)=>{
     if(err){
-      console.log("更改查询失败！");
+      
     }else{
       // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
       user.update({username:"test"},{$set:{username:req.body.afterNickname,pwd:req.body.afterSecondPsw}},(err)=>{
@@ -267,19 +287,20 @@ app.post("/api/book_chapter", (req, res) => {
     if (!err) {
       res.send(docs);
     } else {
-      console.log("查询错误");
+      
     }
   });
 }
 );
 
 app.post("/api/book_desc", (req, res) => {
-  // console.log(send_information);
+  // 
   novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
+      console.log(docs);
       res.send(docs);
     } else {
-      console.log("查询错误");
+      
     }
   });
 });
@@ -294,7 +315,7 @@ app.post("/api/book_yourChapter", (req, res) => {
     "utf-8",
     function (err, data) {
       if (err) {
-        console.error(err);
+        
       } else {
         res.send({ book_whichChapter, data });
       }
@@ -304,5 +325,5 @@ app.post("/api/book_yourChapter", (req, res) => {
 
 /************************************************************/
 app.listen("8888", () => {
-  console.log("端口已打开");
+  
 });
