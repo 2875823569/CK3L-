@@ -12,6 +12,8 @@ var secondPsdInp=document.querySelector("#secondPsdInp")
 var cancelBtn=document.querySelector(".cancel")
 var saveBtn=document.querySelector(".save")
 var historyBook=document.querySelectorAll(".historyBook")
+var modifyPageI=document.querySelector("#modifyHeadportrait i")
+var modifyHeadportrait=document.querySelector("#modifyHeadportrait")
 //点击该修改图标跳出修改页面
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
@@ -21,6 +23,14 @@ modifyI.addEventListener('click', () => {
 
 //修改页面
 
+//点击头像旁边的修改进行选择文件
+modifyPageI.addEventListener('click',()=>{
+    var selectHeader=document.querySelector("#selectHeader");
+    selectHeader.click();
+})
+selectHeader.addEventListener("change",()=>{
+    console.log(selectHeader.files[0]);
+})
 //点击取消按钮
 cancelBtn.addEventListener('click',()=>{
     box.style.display = "block";
@@ -41,6 +51,9 @@ saveBtn.addEventListener('click',()=>{
             })
         })
     }
+    setUser().then((data)=>{
+        // alert(data.msg)
+    })
 })
 //3d效果控制与暂停
 wrap.addEventListener('mouseenter', () => {
@@ -85,3 +98,33 @@ getBook().then((data)=>{
         historyBook[i].style.backgroundImage=`url(${data[i].book_img})`;
     }
 })
+
+//获取传递的信息
+var get_send_information = function () {
+    return new Promise((resolve, reject) => {
+      $.post("/api/get_send_information", (res) => {
+        resolve(res);
+      });
+    });
+  };
+  
+  //传递信息
+  var send_information = function (information) {
+    return new Promise((resolve, reject) => {
+      $.post("/api/send_information", information, (res) => {
+        resolve(res);
+      });
+    });
+  };
+
+  //获取当前登录账户
+  var get_user_information = function(){
+    return new Promise((resolve,reject) => {
+      $.post("/api/get_user_information",(res) => {
+        resolve(res.user)
+      })
+    })
+  }
+  get_user_information().then((data)=>{
+      console.log(data);
+  })

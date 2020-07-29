@@ -318,7 +318,9 @@ li{
     width: 150px;
     height: 150px;
     background-color: white;
+    background-image: url(../assets/homePageImg/header1.jpeg);
     border-radius: 50%;
+    background-size: cover;
     position: absolute;
     left:50%;
     top:5%;
@@ -332,6 +334,9 @@ li{
     right: 0;
     bottom: 0;
 }
+/* #modifyPage #modifyCard #modifyHeadportrait #selectHeader{
+    display: none;
+} */
 #modifyPage #modifyCard #modifyNickname{
     width:60%;
     height: 50px;
