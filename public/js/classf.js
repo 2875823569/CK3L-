@@ -100,3 +100,11 @@ $(".allbook").on("click",'li',function(){
     })
 })
 
+
+$('.log_btn').on('click',()=>{
+    location.href='../../login.html'
+})
+$('.reg_btn').on('click',()=>{
+    location.href='../../login.html'
+})
+
