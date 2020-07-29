@@ -200,7 +200,7 @@ app.post("/api/send_information", (req, res) => {
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (req, res) => {
+app.post("/api/get_send_information", (req, res) => { 
   res.send({
     send_information: req.session.send_information,
   });
@@ -215,6 +215,9 @@ app.post("/api/get_send_information", (req, res) => {
 app.post("/api/get_user_information",(req,res)=>{
   console.log(req.session);
   if(req.session || req.session.userName){
+    // req.session.userName = "小明"
+    // req.session.pwd = "123"
+    // req.session.headImage = "fjlsajf"
     res.send({
       code:0,
       user:{
@@ -239,6 +242,23 @@ app.post("/api/homepage", (req, res) => {
   res.send(userInformation);
 });
 
+app.post("/api/setUser",(req,res)=>{
+  user.find({username:"小明"},(err,docs)=>{
+    if(err){
+      console.log("更改查询失败！");
+    }else{
+      // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
+      user.update({username:"test"},{$set:{username:req.body.afterNickname,pwd:req.body.afterSecondPsw}},(err)=>{
+        if(!err){
+          res.send({
+            code:0,
+            msg:"修改成功！"
+          })
+        }
+      })
+    }
+  })
+})
 /************************查询章节****************************///俊林写的,寇靖别动
 app.post("/api/book_chapter", (req, res) => {
   novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
