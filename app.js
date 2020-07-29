@@ -83,6 +83,7 @@ app.use(function (req, res, next) {
   if (!req.url.includes("book_whichChapter")) {
     next(); //放行，执行后面的路由匹配
   } else {
+    next()//-------------------------------------------------------------
     if (req.session.userName) {
       next();
     } else {

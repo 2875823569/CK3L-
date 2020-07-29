@@ -65,7 +65,7 @@ $(function () {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_desc", {}, (res) => {
                 console.log(res);
-                if(res.length == 0){
+                if (res.length == 0) {
                     $("body").empty().append("404错误,服务器资源丢失!")
                 }
                 resolve(res[0])
@@ -91,11 +91,11 @@ $(function () {
 
         //开始阅读
         start_read.click(function () {
-            location.href = "./novelStartRead.html"
             page_chapter_idx = 1
             page_chapter_content = "第一章 修仙归来！"
             return new Promise(function (resolve, reject) {
                 $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                location.href = "./novelStartRead.html"
             })
         })
 
@@ -140,7 +140,7 @@ $(function () {
         })
 
         //返回首页
-        header_logo.click(function(){
+        header_logo.click(function () {
             location.href = "../index.html"
         })
 

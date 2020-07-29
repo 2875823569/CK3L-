@@ -7,7 +7,7 @@ $(function () {
     let header_logo = $(".header_logo")
     let book_reader_content = $(".book_reader_content")
     let mune = $(".mune")
-    // let book_navigation = $(".book_navigation")
+    let book_navigation = $(".book_navigation")
     let tools_back = $(".book_navigation").children().eq(0)
     let tools_mnue = $(".book_navigation").children().eq(1)
     let tools_settings = $(".book_navigation").children().eq(2)
@@ -51,33 +51,49 @@ $(function () {
         pages.forEach(element => {
             mune.append(`<li>${element}</li>`)
         });
+        mune.append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
+        tools()
     })
 
     //工具
-    function tools(){
+    function tools() {
+        var windowlHeight = window.innerHeight;
+        mune.css("left", -(mune.width() + 30))
+        mune.height(windowlHeight - book_navigation.offset().top)
+
         //返回首页
-        header_logo.click(function(){
+        header_logo.click(function () {
             location.href = "../index.html"
         })
 
-        tools_back.click(function(){
-            location.href="./novelMainPage.html"
+        tools_back.click(function () {
+            location.href = "./novelMainPage.html"
         })
-        tools_mnue.click(function(){
+
+        tools_mnue.click(function () {
+            if(mune.hasClass("hide")){
+                mune.siblings().addClass("hide")
+                mune.removeClass("hide")
+            }
+            else{
+                mune.addClass("hide")
+            }
+        })
+
+        tools_settings.click(function () {
 
         })
-        tools_settings.click(function(){
+
+        tools_bookshelf.click(function () {
 
         })
-        tools_bookshelf.click(function(){
-            
+
+        tools_888.click(function () {
+
         })
-        tools_888.click(function(){
-            
-        })
-        tools_toTop.click(function(){
-            
+
+        tools_toTop.click(function () {
+
         })
     }
-    tools()
 })
