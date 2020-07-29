@@ -205,7 +205,7 @@ ul{
     box-sizing: border-box;
 }
 .middle_bottom_left{
-    width: 350px;
+    min-width: 350px;
     height: 600px;
     /* outline: 1px solid; */
     padding: 10px;

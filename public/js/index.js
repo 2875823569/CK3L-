@@ -1,16 +1,3 @@
-//---------------------------------------------------------轮播图 --------------------------------------------------------
-/**
- * Author         : CheneyLiu
- * Date           : date
- * isAuto:        true, 自动播放
- * transTime:     3000, 自动播放间隔
- * animateSpeed:  1000,  动画速度
- * sliderMode:    'slide', 类型//'slide | fade',
- * pointerControl: true, 指示器开关
- * pointerEvent:  'click', 指示器类型//'hover' | 'click',
- * arrowControl:  true, 左右控制
- */
-
 //--------------------------------------------------------获取数据库信息---------------------------------------------
 var arr_img = [
   "../assets/轮播图images/我的徒弟都是大反派.jpg",
@@ -31,14 +18,20 @@ var introduce = [];
 // document.body.style.width = `${document.body.clientWidth}px`;
 var transform_x = 0;
 
-//封装查询 信息的函数，输入条件name返回{
-//   arr_img: arr_img,
-//   arr_name: arr_name,
-//   writer: writer,
-//   introduce: introduce
-// }
+
 
 //--------------------------------------------------------定义功能函数---------------------------------------------------
+//获取用户信息
+var get_user_information = function(){
+  return new Promise((resolve,reject) => {
+    $.post("/api/get_user_information",(res) => {
+      resolve(res.user)
+    })
+  })
+}
+get_user_information().then((res) => {
+  console.log(user);
+})
 //获取传递的信息
 var get_send_information = function () {
   return new Promise((resolve, reject) => {
@@ -57,6 +50,12 @@ var send_information = function (information) {
   });
 };
 
+//封装查询 信息的函数，输入条件name返回{
+//   arr_img: arr_img,
+//   arr_name: arr_name,
+//   writer: writer,
+//   introduce: introduce
+// }
 //查询数据库的函数
 // let name = {type:"type1_name"}
 var getInfromation = function (name) {
@@ -452,7 +451,7 @@ $(".recommend2_container ul").on("click","li", function(){
 //登陆按钮点击事件
 $(".login_btn").on("click", function () {
   send_information({
-    is_login: true,
+    is_login: 1,
   }).then(() => {
     location.href = "../login.html";
   });

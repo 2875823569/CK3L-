@@ -1,5 +1,12 @@
 const novelDate = require("./models/novelDate");
-const novel_zj = require("./models/db_zj"); //俊林写的
+
+/**********************************************///俊林写的
+const novel_zj = require("./models/db_zj");
+var book_whichChapter = {}
+var fs = require('fs');
+
+/**********************************************/
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var session = require("express-session");
@@ -8,6 +15,7 @@ var user = require("./models/userModel");
 
 var path = require("path");
 const User = require("./models/user");
+const { resolve } = require("path");
 const router = express.Router();
 
 app.use(bodyParser.json());
@@ -51,42 +59,42 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
 
-//设置令牌
-// app.use(
-//   session({
-//     //
-//     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
-//     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-//     rolling: true, //每次请求都重置 cookie的设置
-//     cookie: {
-//       maxAge: 10000 * 1000 * 3600,
-//       secure: false, // 如果为true ，这个cookie的设置只能是 https
-//       sameSite: "lax", // 允许三方访问cookie否
-//       httpOnly: true, //只能在http协议下 访问 cookie
-//     },
-//   })
-// );
+// 设置令牌
+app.use(session({
+    secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
+    resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
+    rolling: true, //每次请求都重置 cookie的设置
+    cookie: {
+      maxAge: 1000 * 60* 60,
+      secure: false, // 如果为true ，这个cookie的设置只能是 https
+      sameSite: "lax", // 允许三方访问cookie否
+      httpOnly: true, //只能在http协议下 访问 cookie
+    },
+  })
+);
 
-//注册和登陆跳过令牌验证
-// app.use(function (req, res, next) {
-//   if (
-//     req.url.indexOf("login") > -1 ||
-//     req.url.indexOf("register") > -1 ||
-//     req.url.indexOf("upload") > -1
-//   ) {
-//     next(); //放行，执行后面的路由匹配
-//   } else {
-//     if (req.session.username) {
-//       next();
-//     } else {
-//       res.send({
-//         code: 2,
-//         msg: "登录失效!",
-//       });
-//     }
-//   }
-// });
-var send_information = {};
+// 除了观看小说，其他操作跳过令牌验证
+app.use(function (req, res, next) {
+  if (!req.url.includes("book_whichChapter"))
+    // req.url.indexOf("register") > -1 ||
+    // req.url.indexOf("/api/booktype") > -1 ||
+    // req.url.indexOf("/api/getimg") > -1
+   {
+    next(); //放行，执行后面的路由匹配
+  } else {
+    next();//后面删除---------------------------------------------------------------------------------------------
+    if (req.session.username) {
+      next();
+    } else {
+      next(); //后面删除！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+      res.send({
+        code: 2,
+        msg: "登录失效!",
+      });
+    }
+  }
+});
+// req.session.username = user._id
 
 //获取小说信息
 app.post("/api/getimg", (req, res) => {
@@ -130,6 +138,7 @@ app.post("/api/login", (req, res) => {
       // console.log(req.body.psw+"q")
       console.log(123);
       if (req.body.psw === data[0].pwd) {
+
         res.send({
           code: 0,
           msg: "查询成功！",
@@ -148,6 +157,7 @@ app.post("/api/login", (req, res) => {
     }
   });
 });
+//获取所有小说类型
 app.post("/api/booktype", (req, res) => {
   let booktype = [];
   novelDate.aggregate(
@@ -172,18 +182,36 @@ app.post("/api/booktype", (req, res) => {
 
 //传递数据
 app.post("/api/send_information", (req, res) => {
-  send_information = req.body;
-  console.log(req.body);
+  req.session.send_information = req.body;
   res.send({
     code: 0,
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (res, req) => {
-  req.send({
-    send_information: send_information,
+app.post("/api/get_send_information", (req, res) => {
+  res.send({
+    send_information: req.session.send_information,
   });
 });
+//------------------------------------------------测试用例-----------------------------------
+// req.session.userName = "小明"
+// req.session.pwd = "123"
+// req.session.headImage = "fjlsajf"
+//------------------------------------------------测试用例-----------------------------------
+
+//获取用户数据
+app.post("/api/get_user_information",(req,res)=>{
+  if(req.session || req.session.userName){
+    res.send({
+      code:0,
+      user:{
+        userName:req.session.userName,
+        pwd : req.session.pwd,
+        headImage : req.session.headImage
+      }
+    })
+  }
+})
 
 /*******************lm：获取后台用户信息*********************/
 var userInformation = {};
@@ -196,18 +224,18 @@ user.find({}, (err, docs) => {
 });
 app.post("/api/homepage", (req, res) => {
   res.send(userInformation);
-}); //俊林写的,寇靖别动
-/************************查询章节****************************/ app.post(
-  "/api/book_chapter",
-  (req, res) => {
-    novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
-      if (!err) {
-        res.send(docs);
-      } else {
-        console.log("查询错误");
-      }
-    });
-  }
+});
+
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post("/api/book_chapter", (req, res) => {
+  novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+      console.log("查询错误");
+    }
+  });
+}
 );
 
 app.post("/api/book_desc", (req, res) => {
@@ -217,8 +245,24 @@ app.post("/api/book_desc", (req, res) => {
     } else {
       console.log("查询错误");
     }
+  })
+})
+
+app.post("/api/book_whichChapter", (req, res) => {
+  book_whichChapter = req.body
+})
+
+app.post("/api/book_yourChapter", (req, res) => {
+  fs.readFile(`./public/assets/novels/${book_whichChapter.page_chapter_idx}.txt`, 'utf-8', function (err, data) {
+    if (err) {
+      console.error(err);
+    }
+    else {
+      res.send({book_whichChapter,data})
+    }
   });
-});
+})
+
 /************************************************************/
 app.listen("8888", () => {
   console.log("端口已打开");
