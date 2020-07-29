@@ -4,7 +4,7 @@
 }
 html,body{
     width:100%;
-    height:1500px;
+    height:1300px;
     background-color: #F1F1F1;
 }
 li{
@@ -245,7 +245,6 @@ li{
 #box #history #historyFloor{
     width: 90%;
     height: 60%;
-    background-color: #22538A;
     position: absolute;
     top:25%;
     left:5%;
@@ -255,8 +254,22 @@ li{
 #box #history #historyFloor .historyBook{
     width:17%;
     height:100%;
-    background-color: aqua;
     border-radius: 20px;
+}
+#box #history #historyFloor .historyBook p{
+    /* border-radius: 20%;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display:box;
+    line-clamp: 2;
+    box-orient: vertical;
+    text-indent: 10%; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+     -webkit-line-clamp: 8;            /*设置p元素最大4行，父元素需填写宽度才明显*/
+     text-overflow: ellipsis;
+     overflow: hidden;
+
 }
 #modifyPage{
     width:90%;
@@ -288,7 +301,6 @@ li{
 }
 #modifyPage #leftTop p{
     font-size: 25px;
-    /* font-weight:bold; */
     display: inline-block;
     position: absolute;
     top:0;
@@ -297,7 +309,6 @@ li{
 #modifyPage #modifyCard{
     width:50%;
     height:90%;
-    /* background-color: aqua; */
     position: absolute;
     left:50%;
     top:5%;
@@ -325,7 +336,6 @@ li{
     width:60%;
     height: 50px;
     line-height: 50px;
-    /* background-color: steelblue; */
     position: absolute;
     left:50%;
     top:40%;
@@ -347,7 +357,6 @@ li{
     width:60%;
     height: 50px;
     line-height: 50px;
-    /* background-color: steelblue; */
     position: absolute;
     left:50%;
     top:55%;

@@ -1,4 +1,4 @@
-const novelDate = require("./models/db");
+const novelDate = require("./models/novelDate");
 
 const novel_zj = require("./models/db_zj");//俊林写的
 
@@ -135,6 +135,25 @@ user.find({},(err,docs)=>{
 })
 app.post("/api/homepage",(req,res)=>{
   res.send(userInformation)
+})
+
+//传回后台修改后的用户信息
+app.post("/api/setUser",(req,res)=>{
+  res.send({
+    code:0,
+    msg:"保存成功！"
+  })
+})
+
+//给前台小说信息
+app.post("/api/getBook",(req,res)=>{
+  novelDate.find({},(err,docs)=>{
+    if(err){
+      console.log("查询错误！");
+    }else{
+      res.send(docs)
+    }
+  })
 })
 /************************查询章节****************************///俊林写的,寇靖别动
 app.post("/api/book_chapter",(req,res)=>{
