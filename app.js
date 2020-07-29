@@ -17,21 +17,35 @@ app.use(
   })
 );
 app.post("/api/signIn", function (req, res) {
-  var user = new User({
-    username: req.body.userName,
-    pwd: req.body.psw1,
-    email: req.body.email,
-  });
-  console.log(user);
-  user.save(function (err, user) {
+  let usr = { email: req.body.email };
+  User.find(usr, function (err, data) {
     if (err) {
-      throw err;
+      return err
     }
-    res.send({
-      code: 0,
-      msg: "添加成功！",
+    if (data[0]) {
+      console.log("cx")
+      res.send({
+        code: 3,
+        msg: "此邮箱已被注册！",
+      })
+      return
+    }
+    var user = new User({
+      username: req.body.userName,
+      pwd: req.body.psw1,
+      email: req.body.email,
     });
-  });
+    user.save(function (err, user) {
+      if (err) {
+        throw err;
+      }
+      res.send({
+        code: 0,
+        msg: "添加成功！",
+      });
+      return
+    });
+  })
 });
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "/public")));

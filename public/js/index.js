@@ -67,6 +67,7 @@ var getInfromation = function (name) {
   });
 };
 
+
 //点击小说类型函数
 function click_book_type(information) {
   
@@ -460,7 +461,7 @@ $(".login_btn").on("click", function () {
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {
   send_information({
-    is_login: true,
+    is_login: 1,
   }).then(() => {
     location.href = "../login.html";
   });
@@ -468,7 +469,7 @@ $(".user_login_box span:nth-of-type(1)").on("click", function () {
 //注册按钮
 $(".user_login_box span:nth-of-type(2)").on("click", function () {
   send_information({
-    is_login: false,
+    is_login: 0,
   }).then(() => {
     location.href = "../login.html";
   });

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
     <title>登录-CK3L小说</title>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1969052_27ibko57ov9.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1969052_j458g6odejd.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
@@ -57,13 +57,16 @@
                     </div>
                     <div>
                         <p>注册CK3L通行证</p>
-                        <br>
                     </div>
-                    <div class="square">
+                    <div class="profilePic">
+                        <input type="file">
+                        <i class="iconfont icon-shangchuantouxiang1-copy"style="color: #151515;font-size: 43px;"></i>
+                    </div>
+                    <div class="square" style="margin-top:114px">
                         <span class="inputIcon">
                             <i class="iconfont icon-yonghu"></i>
                         </span>
-                        <input type="text" class="form-control" id="name" placeholder="请输入昵称">
+                        <input type="text"  class="form-control" id="name" placeholder="请输入昵称">
                     </div>
                     <div class="square">
                         <span class="inputIcon">
@@ -97,16 +100,21 @@
     </div>
 </body>
 <script>
-  var get_send_information = function () {
-  return new Promise((resolve, reject) => {
-    $.post("/api/get_send_information", (res) => {
-      resolve(res);
-    });
-  });
-};
-get_send_information().then((res)=>{
-    console.log(res);
-})
+    var get_send_information = function () {
+        return new Promise((resolve, reject) => {
+            $.post("/api/get_send_information", (res) => {
+                resolve(res);
+            });
+        });
+    };
+    var send_information = function (information) {
+        return new Promise((resolve, reject) => {
+            $.post("/api/send_information", information, (res) => {
+                resolve(res);
+            });
+        });
+    };
+
 
     var logInSwitch = () => {
         $(".front").css("transform", "rotateY(0deg)");
@@ -121,10 +129,9 @@ get_send_information().then((res)=>{
             $.post("/api/login", { mail, psw }, function (res) {
                 if (!res.code) {
                     alert("登录成功")
-                    localStorage["user_name"] = mail;
-                    localStorage["password"] = psw;
-                    // localStorage["head_log"] = head_log;
-                    location.href = "./index.html";
+                    send_information({ mail: mail }).then(() => {
+                        location.href = "./index.html";
+                    })
                 } else {
                     alert("登录失败")
                 }
@@ -154,32 +161,48 @@ get_send_information().then((res)=>{
                 return
             }
             $.post("api/signIn", { userName, email, psw1 }, function (res) {
-                if (!res.code) {
+                if (res.code == 0) {
                     isLogin = true;
                     alert("注册成功");
                     logInSwitch()
+                } else if (res.code == 3) {
+                    alert("此邮箱已被注册！")
+                    return
                 }
             })
         }
     }
-    $(".close").on("click",function(){
+    $(".close").on("click", function () {
         isLogin = true;
         logInSwitch()
     })
-    $("#signIn").on("click", function () {
+    var SignInSwitch = function () {
         isLogin = false
         $(".front").css("transform", "rotateY(180deg)");
         $(".back").css("transform", " rotateY(0deg)")
+        setTimeout(() => {
+            $(".back").css("height", "478px")
+        }, 1000)
         $("#btmBtn").html("注册")
-    })
-    $("#btmBtn").on("click", function () {
-        submit();
+        $("#btmBtn").on("click", function () {
+            submit();
+        })
+    }
+
+    $("#signIn").on("click", function () {
+        SignInSwitch();
     })
 
     // $("#note").on("click", () => {
     //     $("html").append('<div class="alert alert-info" role="alert">爷没做这功能！</div>')
     // })
 
+    get_send_information().then((res) => {
+        if(res.send_information.is_login == 0){
+            console.log()
+            SignInSwitch();
+        }
+    })
 </script>
 
 </html>
