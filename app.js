@@ -87,11 +87,12 @@ app.post("/api/getimg", (req, res) => {
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
       for (let i = 0; i < 10; i++) {
-        arr_img.push(date[i].book_img);
+        arr_img.push(date[i].book_img || "");
         arr_name.push(date[i].book_title);
         writer.push(date[i].book_author);
         introduce.push(date[i].book_desc);
       }
+      // console.log(book_img,book_title);
       res.send({
         arr_img: arr_img,
         arr_name: arr_name,
@@ -205,6 +206,31 @@ app.post("/api/book_desc", (req, res) => {
     }
   });
 });
+
+// //获取分类
+// app.post("/api/getwx",(req,res)=>{
+//   let imgarr = [],
+//       booknamearr = [],
+//       writerarr = [],
+//       introducearr = [];
+//   novelDate.find({arr_name:"武侠"},(err,date)=>{
+//     if(err) throw err;
+//     for (let i = 0; i < 10; i++) {
+//       imgarr.push(date[i].arr_img);
+//       booknamearr.push(date[i].arr_name);
+//       writerarr.push(date[i].writer);
+//       introducearr.push(date[i].introduce);
+//     }
+//     app.send({
+//         imgarr: arr_img,
+//         booknamearr:arr_name,
+//         writerarr:  writer,
+//         introducearr: introduce,
+//     })
+//   })
+
+// })
+
 /************************************************************/
 app.listen("8888", () => {
   console.log("端口已打开");
