@@ -158,7 +158,7 @@ class Book {
 //调用查找函数并渲染界面
 getInfromation({ type1_name: "玄幻" }).then((res) => {
   
-  for (let i = 0; i < res.arr_name.length; i++) {
+  for (let i = 0; i < 8; i++) {
     // 将十本小说的信息保存下来备用
     book_img.push(res.arr_img[i]);
     writer.push(res.writer[i]);
@@ -483,6 +483,10 @@ $(".login_btn").on("click", function () {
 $(".user img").on("click",() => {
   location.href = "../html/homepage.html"
 })
+//点击底部个人主页按钮进入个人主页
+$(".user_islogin").on("click",() => {
+  location.href = "../html/homepage.html"
+})
 
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {
@@ -509,3 +513,4 @@ $(".slider-inner").on("click", ".item", function () {
     location.href = "../html/novelMainPage.html";
   });
 });
+

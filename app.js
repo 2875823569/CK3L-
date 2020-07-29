@@ -137,7 +137,7 @@ app.post("/api/login", (req, res) => {
     if (data[0]) {
       if (req.body.psw === data[0].pwd) {
         req.session.userName = data[0].username
-        req.session.pwd = data[0].psd
+        req.session.pwd = data[0].pwd
         req.session.headImage = data[0].profilePic
         req.session.email = data[0].email
         res.send({
