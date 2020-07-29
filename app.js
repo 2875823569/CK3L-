@@ -12,6 +12,8 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 var app = express();
 var user = require("./models/userModel");
+var upload = require("./utils/upload")
+
 
 var path = require("path");
 const User = require("./models/user");
@@ -24,14 +26,16 @@ app.use(
     extended: true,
   })
 );
+
+//用户注册
 app.post("/api/signIn", function (req, res) {
+  console.log(req.body)
   let usr = { email: req.body.email };
   User.find(usr, function (err, data) {
     if (err) {
       return err
     }
     if (data[0]) {
-      console.log("cx")
       res.send({
         code: 3,
         msg: "此邮箱已被注册！",
@@ -42,6 +46,7 @@ app.post("/api/signIn", function (req, res) {
       username: req.body.userName,
       pwd: req.body.psw1,
       email: req.body.email,
+      profilePic:req.body.profilePic
     });
     user.save(function (err, user) {
       if (err) {
@@ -57,6 +62,7 @@ app.post("/api/signIn", function (req, res) {
 });
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, 'uploadcache')))
 app.use(bodyParser.json());
 
 // 设置令牌
@@ -123,7 +129,7 @@ app.post("/api/getimg", (req, res) => {
     }
   );
 });
-//添加用户信息
+//用户登录
 app.post("/api/login", (req, res) => {
   let usr = { email: req.body.mail };
   User.find(usr, function (err, data) {
@@ -135,10 +141,11 @@ app.post("/api/login", (req, res) => {
     }
 
     if (data[0]) {
-      // console.log(req.body.psw+"q")
-      console.log(123);
       if (req.body.psw === data[0].pwd) {
-
+        req.session.userName = data[0].username
+        req.session.pwd = data[0].psd
+        req.session.headImage = data[0].profilePic
+        req.session.email = data[0].email
         res.send({
           code: 0,
           msg: "查询成功！",
@@ -179,6 +186,10 @@ app.post("/api/booktype", (req, res) => {
     }
   );
 });
+//上传头像
+app.post("/upload",(req,res)=>{
+  upload.upload(req,res)
+})
 
 //传递数据
 app.post("/api/send_information", (req, res) => {
@@ -201,6 +212,7 @@ app.post("/api/get_send_information", (req, res) => {
 
 //获取用户数据
 app.post("/api/get_user_information",(req,res)=>{
+  console.log(req.session);
   if(req.session || req.session.userName){
     res.send({
       code:0,
