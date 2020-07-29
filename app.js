@@ -1,7 +1,13 @@
 const novelDate = require("./models/novelDate");
 
-const novel_zj = require("./models/db_zj");//俊林写的
-var book_whichChapter = null//俊林写的
+/**********************************************///俊林写的
+const novel_zj = require("./models/db_zj");
+var book_whichChapter = {}
+var fs = require('fs');
+
+
+
+/**********************************************/
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -186,19 +192,18 @@ user.find({}, (err, docs) => {
 });
 app.post("/api/homepage", (req, res) => {
   res.send(userInformation);
-}); 
+});
+
 /************************查询章节****************************///俊林写的,寇靖别动
-app.post(
-  "/api/book_chapter",
-  (req, res) => {
-    novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
-      if (!err) {
-        res.send(docs);
-      } else {
-        console.log("查询错误");
-      }
-    });
-  }
+app.post("/api/book_chapter", (req, res) => {
+  novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+      console.log("查询错误");
+    }
+  });
+}
 );
 
 app.post("/api/book_desc", (req, res) => {
@@ -211,12 +216,19 @@ app.post("/api/book_desc", (req, res) => {
   })
 })
 
-app.post("/api/book_whichChapter",(req,res)=>{
+app.post("/api/book_whichChapter", (req, res) => {
   book_whichChapter = req.body
 })
 
-app.post("/api/book_yourChapter",(req,res)=>{
-  res.send(book_whichChapter)
+app.post("/api/book_yourChapter", (req, res) => {
+  fs.readFile(`./public/assets/novels/${book_whichChapter.page_chapter_idx}.txt`, 'utf-8', function (err, data) {
+    if (err) {
+      console.error(err);
+    }
+    else {
+      res.send({book_whichChapter,data})
+    }
+  });
 })
 
 /************************************************************/
