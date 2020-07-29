@@ -46,9 +46,7 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
 
 // 设置令牌
-app.use(
-  session({
-    //
+app.use(session({
     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
     rolling: true, //每次请求都重置 cookie的设置
@@ -61,15 +59,16 @@ app.use(
   })
 );
 
-// 注册和登陆跳过令牌验证
+// 除了观看小说，其他操作跳过令牌验证
 app.use(function (req, res, next) {
-  if (!req.url.includes("book_whichChapter")
+  if (!req.url.includes("book_whichChapter"))
     // req.url.indexOf("register") > -1 ||
     // req.url.indexOf("/api/booktype") > -1 ||
     // req.url.indexOf("/api/getimg") > -1
-  ) {
+   {
     next(); //放行，执行后面的路由匹配
   } else {
+    next();//后面删除---------------------------------------------------------------------------------------------
     if (req.session.username) {
       next();
     } else {
@@ -82,7 +81,6 @@ app.use(function (req, res, next) {
   }
 });
 // req.session.username = user._id
-var send_information = {};
 
 //获取小说信息
 app.post("/api/getimg", (req, res) => {
@@ -126,6 +124,7 @@ app.post("/api/login", (req, res) => {
       // console.log(req.body.psw+"q")
       console.log(123);
       if (req.body.psw === data[0].pwd) {
+
         res.send({
           code: 0,
           msg: "查询成功！",
@@ -144,6 +143,7 @@ app.post("/api/login", (req, res) => {
     }
   });
 });
+//获取所有小说类型
 app.post("/api/booktype", (req, res) => {
   let booktype = [];
   novelDate.aggregate(
@@ -168,18 +168,36 @@ app.post("/api/booktype", (req, res) => {
 
 //传递数据
 app.post("/api/send_information", (req, res) => {
-  send_information = req.body;
-  console.log(req.body);
+  req.session.send_information = req.body;
   res.send({
     code: 0,
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (res, req) => {
-  req.send({
-    send_information: send_information,
+app.post("/api/get_send_information", (req, res) => {
+  res.send({
+    send_information: req.session.send_information,
   });
 });
+//------------------------------------------------测试用例-----------------------------------
+// req.session.userName = "小明"
+// req.session.pwd = "123"
+// req.session.headImage = "fjlsajf"
+//------------------------------------------------测试用例-----------------------------------
+
+//获取用户数据
+app.post("/api/get_user_information",(req,res)=>{
+  if(req.session || req.session.userName){
+    res.send({
+      code:0,
+      user:{
+        userName:req.session.userName,
+        pwd : req.session.pwd,
+        headImage : req.session.headImage
+      }
+    })
+  }
+})
 
 /*******************lm：获取后台用户信息*********************/
 var userInformation = {};

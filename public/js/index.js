@@ -21,6 +21,17 @@ var transform_x = 0;
 
 
 //--------------------------------------------------------定义功能函数---------------------------------------------------
+//获取用户信息
+var get_user_information = function(){
+  return new Promise((resolve,reject) => {
+    $.post("/api/get_user_information",(res) => {
+      resolve(res.user)
+    })
+  })
+}
+get_user_information().then((res) => {
+  console.log(user);
+})
 //获取传递的信息
 var get_send_information = function () {
   return new Promise((resolve, reject) => {
