@@ -52,6 +52,7 @@ app.use(function (req, res, next) {
     if (req.session.userName) {
       next();
     } else {
+      next()/////////////////////////////////////////////
       res.send({
         code: 2,
         msg: "登录失效!",
