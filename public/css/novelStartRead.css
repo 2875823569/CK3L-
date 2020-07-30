@@ -64,8 +64,8 @@ body{
 
 .mune{
     position: absolute;
-    top: 0;
-    left: -200%;
+    top: -1px;
+    overflow-y:auto;
     font-size: 16px;
     background-color: #FBFFED;
     border: 1px solid #635752;
