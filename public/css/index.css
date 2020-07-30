@@ -75,6 +75,7 @@ ul{
 .user{
     display: none;
     align-items: center;
+
 }
 .user img{
     width:30px;
@@ -89,6 +90,39 @@ ul{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.person_box{
+    position: relative;
+    bottom: 0;
+}
+.person_box ul{
+    position: absolute;
+    /* min-width: 140px; */
+    max-width: 0;
+    max-height: 0;
+    transition: .6s;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: white;
+    border-radius: 2px;
+    overflow: hidden;
+    
+}
+.person_box:hover ul{
+    min-width: 140px;
+    max-height: 400px;
+}
+.person_box ul li{
+    font-size: 16px;
+    padding:10px 0;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+.person_box ul li:hover{
+    background-color: rgba(128, 128, 128, 0.404);
 }
 .top_nav span{
     padding:15px 5px;
@@ -192,7 +226,7 @@ ul{
     /* outline: 1px solid; */
     position: relative;
     text-align: center;
-    padding: 20px;
+    padding: 0 20px;
 }
 .book_list li>p{
     font-size: 12px;

@@ -1,4 +1,4 @@
-const novelDate = require("./models/novelDate"); //俊林写的
+const novelDate = require("./models/novelDate"); 
 
 /**********************************************///俊林写的
 const novel_zj = require("./models/db_zj");
@@ -36,7 +36,7 @@ app.use(
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
     rolling: false, //每次请求都重置 cookie的设置
     cookie: {
-      maxAge: 1000 * 60 * 60 * 10,
+      maxAge: 1000 * 60 * 60,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
       sameSite: "lax", // 允许三方访问cookie否
       httpOnly: true, //只能在http协议下 访问 cookie
@@ -106,7 +106,8 @@ app.post("/api/getimg", (req, res) => {
     req.body,
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
-      for (let i = 0; i < 16; i++) {
+      if(err) throw err;
+      for (let i = 0; i < 10; i++) {
         arr_img.push(date[i].book_img || "");
         arr_name.push(date[i].book_title);
         writer.push(date[i].book_author);
@@ -217,11 +218,9 @@ app.post("/api/update_num",(req,res) => {
   console.log(req.body.book_title);
   novelDate.find({"book_title":req.body.book_title},{number:1},(err,date) => {
     let number = JSON.parse(JSON.stringify(date[0])).number-0+1;
-    console.log(number)
     
     novelDate.updateOne({"book_title":req.body.book_title},{ $set:{number:number} },function(err,date1){
       if(err){
-        console.log(err);
         console.log("更新失败");
       }else{
         console.log("更新成功");
@@ -230,8 +229,6 @@ app.post("/api/update_num",(req,res) => {
           msg:"更新成功"
         })
       }
-      console.log(date1);
-      
     })
   })
 })
@@ -243,7 +240,28 @@ app.post("/api/get_top_book",(req,res) => {
   introduce = [];
   novelDate.find({}).sort({"number":-1}).limit(12).exec((err,date)=>{
     for (let i = 0; i < date.length; i++) {
-      arr_img.push(date[i].book_img || "");
+      arr_img.push(date[i].book_img);
+      arr_name.push(date[i].book_title);
+      writer.push(date[i].book_author);
+      introduce.push(date[i].book_desc);
+    }
+    res.send({
+      arr_img: arr_img,
+      arr_name: arr_name,
+      writer: writer,
+      introduce: introduce,
+    });
+  })
+})
+//随机获取书籍当作编辑推荐页面
+app.post("/api/round_book",(req,res) => {
+  let arr_img = [],
+  arr_name = [],
+  writer = [],
+  introduce = [];
+  novelDate.find({}).skip((Math.random()*5141)+1).limit(8).exec((err,date) => {
+    for (let i = 0; i < date.length; i++) {
+      arr_img.push(date[i].book_img);
       arr_name.push(date[i].book_title);
       writer.push(date[i].book_author);
       introduce.push(date[i].book_desc);
@@ -334,7 +352,6 @@ app.post("/api/book_desc", (req, res) => {
   // 
   novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
-      console.log(docs);
       res.send(docs);
     } else {
       
@@ -362,5 +379,5 @@ app.post("/api/book_yourChapter", (req, res) => {
 
 /************************************************************/
 app.listen("8888", () => {
-  
+  console.log("端口已开启");
 });
