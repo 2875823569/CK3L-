@@ -7,7 +7,7 @@ $(function () {
     let header_logo = $(".header_logo")
     let book_reader_content = $(".book_reader_content")
     let mune = $(".mune")
-    // let book_navigation = $(".book_navigation")
+    let book_navigation = $(".book_navigation")
     let tools_back = $(".book_navigation").children().eq(0)
     let tools_mnue = $(".book_navigation").children().eq(1)
     let tools_settings = $(".book_navigation").children().eq(2)
@@ -34,50 +34,83 @@ $(function () {
         book_reader_content.append(
             `<p>${res.data}</p>`
         )
+        return res
     })
-
-    //渲染章节
-    function getPages() {
-        return new Promise(function (resolve, reject) {
-            $.post("/api/book_chapter", {}, (res) => {
-                for (let i = 0; i < res.length; i++) {
-                    pages.push(res[i].Chapter)
-                }
-                resolve();
+        .then(function (ress) {
+            //渲染章节
+            return new Promise(function (resolve, reject) {
+                $.post("/api/book_chapter", {}, (res) => {
+                    for (let i = 0; i < res.length; i++) {
+                        pages.push(res[i].Chapter)
+                    }
+                    resolve(ress);
+                })
             })
+                .then((res) => {
+                    console.log();
+                    pages.forEach(element => {
+                        mune.append(`<li>${element}</li>`)
+                    });
+                    mune.children().eq(res.book_whichChapter.page_chapter_idx-1).css("color","red")
+                    mune.append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
+                    tools()
+                })
         })
-    }
-    getPages().then(() => {
-        pages.forEach(element => {
-            mune.append(`<li>${element}</li>`)
-        });
-    })
 
     //工具
-    function tools(){
+    function tools() {
+        var windowlHeight = window.innerHeight;
+        mune.css("left", -(mune.width() + 30))
+        mune.height(windowlHeight - book_navigation.offset().top)
+
         //返回首页
-        header_logo.click(function(){
+        header_logo.click(function () {
             location.href = "../index.html"
         })
 
-        tools_back.click(function(){
-            location.href="./novelMainPage.html"
+        //返回小说页
+        tools_back.click(function () {
+            location.href = "./novelMainPage.html"
         })
-        tools_mnue.click(function(){
+
+        //目录开关
+        tools_mnue.click(function (e) {
+            if (mune.hasClass("hide")) {
+                mune.siblings().addClass("hide")
+                mune.removeClass("hide")
+            }
+            else {
+                mune.addClass("hide")
+            }
+        })
+
+        //目录跳转
+        mune.click(function(e){
+            if(e.target.tagName=="LI"){
+                page_chapter_idx = ($(e.target).index())
+                page_chapter_content = ($(e.target).html())
+                page_chapter_idx++
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                    // location.href = "./novelStartRead.html"
+                })
+            }
+        })
+
+        tools_settings.click(function () {
 
         })
-        tools_settings.click(function(){
+
+        tools_bookshelf.click(function () {
 
         })
-        tools_bookshelf.click(function(){
-            
+
+        tools_888.click(function () {
+
         })
-        tools_888.click(function(){
-            
-        })
-        tools_toTop.click(function(){
-            
+
+        tools_toTop.click(function () {
+
         })
     }
-    tools()
 })

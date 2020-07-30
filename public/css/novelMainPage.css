@@ -7,6 +7,16 @@
 body {
     font-family: 黑体;
     background-color: #F1F1F1;
+    -moz-user-select: none;
+    /*firefox*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -ms-user-select: none;
+    /*ie10+*/
+    -khtml-user-select: none;
+    /*早期的浏览器*/
+    user-select: none;
+    /*文字不能被选中*/
 }
 
 button {
@@ -98,8 +108,8 @@ button {
     box-sizing: border-box;
 }
 
-.novel_introduce_left li{
-    white-space:pre;
+.novel_introduce_left li {
+    white-space: pre;
 }
 
 .novel_introduce_left li:nth-of-type(2) {
@@ -270,21 +280,21 @@ button {
     margin-top: 20px;
 }
 
-.main_content_chapter_page{
+.main_content_chapter_page {
     margin-top: 20px;
     width: 100%;
     padding-bottom: 30px;
     box-sizing: border-box;
     overflow: hidden;
-	white-space:nowrap;
-	text-overflow:ellipsis;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.main_content_chapter_page li:nth-of-type(1){
+.main_content_chapter_page li:nth-of-type(1) {
     margin-top: 10px;
 }
 
-.main_content_chapter_page li{
+.main_content_chapter_page li {
     float: left;
     width: 33%;
     margin-top: 10px;
@@ -294,7 +304,7 @@ button {
     border-bottom: 1px solid #ebebeb;
 }
 
-.main_content_chapter_page li:hover{
+.main_content_chapter_page li:hover {
     cursor: pointer;
     border-bottom: 1px solid #22538A;
 }

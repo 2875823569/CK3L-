@@ -17,6 +17,7 @@ body{
 
 .headlogo{
     width: 120px;
+    cursor: pointer;
 }
 .headlogo img{
     width: 120px;
@@ -111,7 +112,7 @@ body{
     height: 60px;
 }
 .allbook{
-    display: flex;
+    /* display: flex; */
     /* justify-content: space-around; */
     align-items: flex-start;
     flex-wrap: wrap;
@@ -119,15 +120,13 @@ body{
     overflow: hidden;
 }
 .allbook>li{
+    float: left;
     width: 160px;
     height: 200px;
     /* background-color: antiquewhite; */
     margin: 20px;
     border-radius: 15px;
-    /* display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center; */
+    
 }
 .bookboxs>img{
     width: 130px;

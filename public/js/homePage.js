@@ -12,6 +12,8 @@ var secondPsdInp=document.querySelector("#secondPsdInp")
 var cancelBtn=document.querySelector(".cancel")
 var saveBtn=document.querySelector(".save")
 var historyBook=document.querySelectorAll(".historyBook")
+var historyBack=document.querySelectorAll(".historyBack")
+var historyBackP=document.querySelectorAll(".historyBack p")
 var headPortrait=document.querySelector("#headPortrait")
 var modifyPageI=document.querySelector("#modifyHeadportrait i")
 var modifyHeadportrait=document.querySelector("#modifyHeadportrait")
@@ -20,8 +22,15 @@ var promptBox=document.querySelector("#promptBox")
 var pptStrong=document.querySelector("#promptBox strong")
 var pptP=document.querySelector("#promptBox p")
 var loginBtn=document.querySelector("#loginBtn")
+var backToHome=document.querySelector("#backToHome")
 
 var beforeName=null;//为修改之前，登录账户的昵称
+
+//返回主页
+backToHome.addEventListener("click",()=>{
+    location.href='../index.html'
+})
+
 //点击该修改图标跳出修改页面
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
@@ -84,22 +93,39 @@ wrap.addEventListener('mouseenter', () => {
 wrap.addEventListener('mouseleave', () => {
     wrap.style.animationPlayState = "running";
 })
+wrap.addEventListener("click",()=>{
+    location.href="../index.html"
+})
 
 //获取小说信息
-// var getBook=function(){
-//     return new Promise((resolve,reject)=>{
-//         $.post('/api/getBook',(data,status)=>{
-//             if(status=="success"){
-//                 resolve(data)
-//             }
-//         })
-//     })
-// }
-// getBook().then((data)=>{
-//     for(var i=0;i<historyBook.length;i++){
-//         historyBook[i].style.backgroundImage=`url(${data[i].book_img})`;
-//     }
-// })
+var getBook=function(){
+    return new Promise((resolve,reject)=>{
+        $.post('/api/getBook',(data,status)=>{
+            if(status=="success"){
+                resolve(data)
+            }
+        })
+    })
+}
+getBook().then((data)=>{
+    for(var i=0;i<historyBook.length;i++){
+        historyBook[i].style.backgroundImage=`url(${data.msg[i].book_img})`;
+        historyBook[i].addEventListener("mouseenter",(e)=>{
+            e.target.children[0].classList.add("show")
+        })
+        historyBook[i].addEventListener("mouseleave",(e)=>{
+            e.target.children[0].classList.remove("show")
+        })
+        historyBackP[i].innerText=data.msg[i].book_desc;
+    }
+})
+//历史记录：
+//点击之后跳转到小说阅读
+for(var i=0;i<historyBack.length;i++){
+    historyBack[i].addEventListener("click",()=>{
+    location.href = "../html/novelMainPage.html"
+})
+}
 
 //获取传递的信息
 var get_send_information = function () {
