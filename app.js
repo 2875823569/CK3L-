@@ -107,7 +107,7 @@ app.post("/api/getimg", (req, res) => {
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
       if(err) throw err;
-      for (let i = 0; i < 16; i++) {
+      for (let i = 0; i < 10; i++) {
         arr_img.push(date[i].book_img || "");
         arr_name.push(date[i].book_title);
         writer.push(date[i].book_author);
