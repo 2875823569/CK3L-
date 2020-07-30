@@ -62,11 +62,33 @@ ul{
 .top_nav{
     margin-right: 50px;
 }
+.search{
+    display: flex;
+    align-items: center;
+}
 .search i{
     margin-right:10px;
 }
 .login_btn{
     cursor: pointer;
+}
+.user{
+    display: none;
+    align-items: center;
+}
+.user img{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.user p{
+    font-size: 16px;
+    padding: 10px;
+    display: inline-block;
+    max-width: 132px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .top_nav span{
     padding:15px 5px;
@@ -176,7 +198,7 @@ ul{
     font-size: 12px;
     width: 150px;
     margin: auto;
-    height: 52px;
+    height: 50px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
      -webkit-line-clamp: 3;            /*设置p元素最大4行，父元素需填写宽度才明显*/
@@ -212,6 +234,7 @@ ul{
 }
 .middle_bottom_rigth{
     height: 600px;
+    width: 800px;
     /* outline: 1px solid; */
     flex: 1;
     margin-left: 20px;
@@ -236,7 +259,15 @@ ul{
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2), 0 18px 20px -10px rgba(0,0,0,.04), 0 18px 20px -10px rgba(0,0,0,.04), 0 10px 20px -10px rgba(0,0,0,.04);
 
 }
-
+.recommend2_container ul li:nth-of-type(4n){
+    border-right:none
+}
+.recommend2_container ul li:nth-of-type(5),
+.recommend2_container ul li:nth-of-type(6),
+.recommend2_container ul li:nth-of-type(7),
+.recommend2_container ul li:nth-of-type(8){
+    border-bottom:none
+}
 
 .activetis{
     height: 35%;
@@ -297,10 +328,12 @@ ul{
     width: 50px;
     height: 50px;
     padding: 20px;
+    border-radius: 50%;
 }
 .user_login_box{
     flex: 1;
     padding: 10px;
+    /* display: none; */
 }
 .user_login_box h2{
     font-size: 20px;
@@ -319,13 +352,34 @@ ul{
     margin: 5px 12px 0 0;
     cursor: pointer;
 }
+.user_islogin{
+    display: none;
+    flex: 1;
+    padding: 11px 0;
+}
+.user_islogin span{
+    width: 30%;
+    display: inline-block;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #757575;
+    box-shadow: 1px 1px 9px -2px;
+    margin: 12px 0;
+    cursor: pointer;
+}
 .login_box_bottom ul{
     display: flex;
     justify-content: space-between;
     margin: 0 26px;
 }
 .login_box_bottom ul li i{
-    font-size: 40px;
+    font-size: 25px;
     color: #757575;
 }
 
@@ -334,7 +388,7 @@ ul{
     grid-template: repeat(2,1fr)/repeat(4,1fr);
 }
 .activetis img{
-    width: 238px;
+    width: 88%;
     height: 83px;
     padding: 10px;
 }
@@ -394,6 +448,7 @@ h2{
      overflow: hidden;
     -webkit-box-orient: vertical;
 }
+
 
 
 /*-------------------------------------------------------------------------轮播图-----------------------------------------*/

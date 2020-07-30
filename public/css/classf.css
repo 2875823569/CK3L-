@@ -17,6 +17,7 @@ body{
 
 .headlogo{
     width: 120px;
+    cursor: pointer;
 }
 .headlogo img{
     width: 120px;
