@@ -12,18 +12,25 @@ var secondPsdInp=document.querySelector("#secondPsdInp")
 var cancelBtn=document.querySelector(".cancel")
 var saveBtn=document.querySelector(".save")
 var historyBook=document.querySelectorAll(".historyBook")
+var headPortrait=document.querySelector("#headPortrait")
 var modifyPageI=document.querySelector("#modifyHeadportrait i")
 var modifyHeadportrait=document.querySelector("#modifyHeadportrait")
 var closePrompt=document.querySelector(".icon-guanbi7-01copy")
 var promptBox=document.querySelector("#promptBox")
 var pptStrong=document.querySelector("#promptBox strong")
 var pptP=document.querySelector("#promptBox p")
+var loginBtn=document.querySelector("#loginBtn")
+
+var beforeName=null;//为修改之前，登录账户的昵称
 //点击该修改图标跳出修改页面
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
     modifyPage.style.display = "block";
 })
-
+//点击登录与注册跳转页面
+loginBtn.addEventListener('click',()=>{
+    location.href='../login.html'
+})
 //提示框事件
 closePrompt.addEventListener('click',(e)=>{
     e.target.parentNode.style.display="none"
@@ -36,12 +43,33 @@ function Prompt(type,content){
 //修改页面
 
 //点击头像旁边的修改进行选择文件
+var afterUrl=null;
 modifyPageI.addEventListener('click',()=>{
-    var selectHeader=document.querySelector("#selectHeader");
     selectHeader.click();
 })
-selectHeader.addEventListener("change",()=>{
-    console.log(selectHeader.files[0]);
+$("#selectHeader").on("change", function (e) {
+    var type = this.files[0].type;
+    if (type == "image/jpeg" || type == "image/png") {
+        var form = new FormData();
+        form.append("upload", this.files[0]);
+        $.ajax({
+            url: "/upload",
+            dataType: "json",
+            data: form,
+            type: "POST",
+            processData: false,
+            contentType: false
+        }).done((res) => {
+            modifyHeadportrait.style.backgroundImage=`url(${res.img})`;
+            headPortrait.style.backgroundImage=`url(${res.img})`;
+            // $pic.attr("src", res.img);
+            // $pic.css("display", "block");
+            // profilePic = res.img
+            afterUrl=res.img;
+        })
+    } else {
+        alert("请上传JPEG/PNG格式的图片")
+    }
 })
 //点击取消按钮
 cancelBtn.addEventListener('click',()=>{
@@ -100,11 +128,13 @@ var get_send_information = function () {
     })
   }
   get_user_information().then((data)=>{
+        beforeName=data.user.userName;
+        modifyHeadportrait.style.backgroundImage=`url(${data.user.headImage})`;
         nickname.innerText=data.user.userName;
         nicknameIpt.value=data.user.userName;
         fisrstPsdInp.value=data.user.pwd;
         secondPsdInp.value=data.user.pwd;
-        console.log(data);
+        headPortrait.style.backgroundImage=`url(${data.user.headImage})`
   })
 
 
@@ -113,13 +143,14 @@ saveBtn.addEventListener('click',()=>{
     var afterNickname=nicknameIpt.value;
     var afterFirstPsw=fisrstPsdInp.value;
     var afterSecondPsw=secondPsdInp.value;
+    nickname.innerText=afterNickname;
     if(afterFirstPsw!=afterSecondPsw){
         Prompt('警告！','两次密码不一致')
         return
     }
     var setUser=function(){
         return new Promise((resolve,reject)=>{
-            $.post("/api/setUser",{afterNickname,afterFirstPsw,afterSecondPsw},(data,status)=>{
+            $.post("/api/setUser",{beforeName,afterUrl,afterNickname,afterFirstPsw,afterSecondPsw},(data,status)=>{
                 if (status == "success") {
                     resolve(data)
                 }

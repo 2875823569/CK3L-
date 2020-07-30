@@ -84,7 +84,8 @@ li{
 #header #card #cardTop #headPortrait{
     width: 150px;
     height:150px;
-    background-color: tomato;
+    background-color: gray;
+    background-size: cover;
     border-radius: 50%;
     position: absolute;
     top:20px;
@@ -318,7 +319,7 @@ li{
     width: 150px;
     height: 150px;
     background-color: white;
-    background-image: url(../assets/homePageImg/header1.jpeg);
+    /* background-image: url(../assets/homePageImg/header1.jpeg); */
     border-radius: 50%;
     background-size: cover;
     position: absolute;
@@ -334,9 +335,9 @@ li{
     right: 0;
     bottom: 0;
 }
-/* #modifyPage #modifyCard #modifyHeadportrait #selectHeader{
+#modifyPage #modifyCard #modifyHeadportrait #selectHeader{
     display: none;
-} */
+}
 #modifyPage #modifyCard #modifyNickname{
     width:60%;
     height: 50px;
@@ -532,7 +533,7 @@ img{
 #promptBox{
     width:400px;
     height: 100px;
-    background-color: #2db0d1;
+    background-color: #f1f1f1;
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
     0 18px 20px -10px rgba(0,0,0,.04);
     line-height: 100px;
@@ -561,4 +562,9 @@ img{
     position: fixed;
     top:-25px;
     right: 25px;
+}
+#footerBox{
+    width: 100%;
+    height:300px;
+    position: absolute;
 }

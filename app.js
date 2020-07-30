@@ -64,7 +64,7 @@ app.post("/api/signIn", function (req, res) {
       username: req.body.userName,
       pwd: req.body.psw1,
       email: req.body.email,
-      profilePic:req.body.profilePic
+      profilePic: req.body.profilePic
     });
     user.save(function (err, user) {
       if (err) {
@@ -137,7 +137,7 @@ app.post("/api/login", (req, res) => {
     if (data[0]) {
       if (req.body.psw === data[0].pwd) {
         req.session.userName = data[0].username
-        req.session.pwd = data[0].psd
+        req.session.pwd = data[0].pwd
         req.session.headImage = data[0].profilePic
         req.session.email = data[0].email
         res.send({
@@ -181,8 +181,8 @@ app.post("/api/booktype", (req, res) => {
   );
 });
 //上传头像
-app.post("/upload",(req,res)=>{
-  upload.upload(req,res)
+app.post("/upload", (req, res) => {
+  upload.upload(req, res)
 })
 
 //传递数据
@@ -193,7 +193,7 @@ app.post("/api/send_information", (req, res) => {
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (req, res) => { 
+app.post("/api/get_send_information", (req, res) => {
   res.send({
     send_information: req.session.send_information,
   });
@@ -210,7 +210,6 @@ app.post("/api/get_user_information", (req, res) => {
   // req.session.pwd = "123"
   // req.session.headImage = "../assets/user_head/斗破苍穹.jpg"
   // req.session.email = "fjlsa@fds"
-  console.log(req.session);
   if (req.session && req.session.userName) {
     res.send({
       code: 0,
@@ -240,21 +239,16 @@ user.find({}, (err, docs) => {
 });
 app.post("/api/homepage", (req, res) => {
   res.send(userInformation);
-}); //俊林写的,寇靖别动
+});
 
-app.post("/api/setUser",(req,res)=>{
-  user.find({username:"小明"},(err,docs)=>{
-    if(err){
-      console.log("更改查询失败！");
-    }else{
-      // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
-      user.update({username:"test"},{$set:{username:req.body.afterNickname,pwd:req.body.afterSecondPsw}},(err)=>{
-        if(!err){
-          res.send({
-            code:0,
-            msg:"修改成功！"
-          })
-        }
+app.post("/api/setUser", (req, res) => {
+  // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
+  user.updateOne({ username: req.body.beforeName }, { $set: { username: req.body.afterNickname, pwd: req.body.afterSecondPsw, profilePic: req.body.afterUrl}}, (err) => {
+    if (!err) {
+      console.log(req.body.afterUrl);
+      res.send({
+        code: 0,
+        msg: "修改成功！"
       })
     }
   })
