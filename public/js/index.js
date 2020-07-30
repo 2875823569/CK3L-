@@ -121,9 +121,15 @@ function get_top_book() {
     });
   });
 }
-get_top_book().then((res) => {
-  console.log(res);
-});
+//随机获取书本的函数
+function round_book() {
+  return new Promise((resolve,reject) => {
+    $.post("/api/round_book",(res) => {
+      resolve(res)
+    })
+  })
+}
+
 
 //编写十本推荐小说的类
 class Book {
@@ -440,6 +446,8 @@ $.post("/api/booktype", {}, (res) => {
     li.on("click", click_book_type({ book_type: res.booktype[i] }));
   }
 });
+
+//-------------------------------------------------------------------------事件---------------------------------------------
 //鼠标移到分类显示分类
 $(".fenlei").on("mouseenter", () => {
   $(".classification_hidden").addClass("classification_display");
@@ -510,6 +518,11 @@ $(".user img").on("click", () => {
 $(".user_islogin span").on("click", () => {
   location.href = "../html/homepage.html";
 });
+$(".login_out").on("click",function(){
+  send_information({alreadyLogin:false}).then(() => {
+    location.href = "../login.html"
+  })
+})
 
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {
@@ -536,3 +549,21 @@ $(".slider-inner").on("click", ".item", function () {
     location.href = "../html/novelMainPage.html";
   });
 });
+
+// 点击更新随机切换八本小说推荐
+$(".remommend2_top i").on("click",function(){
+  round_book().then((res) => {
+    $(".recommend2_container ul").html("")
+    let li = ""
+    for(let i = 0;i<8; i ++){
+      let li_ = ` <li book_name=${res.arr_name[i]}>
+      <p class="book_name">${res.arr_name[i]}</p>
+      <p class="book_container">
+        ${res.introduce[i]}
+      </p>
+    </li>`;
+      li += li_
+    }
+    $(".recommend2_container ul").html(li);
+  })
+})
