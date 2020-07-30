@@ -567,3 +567,10 @@ $(".remommend2_top i").on("click",function(){
     $(".recommend2_container ul").html(li);
   })
 })
+//点击放大镜显示搜索框
+$(".search i").on("click",function(){
+  $(".top_nav").fadeToggle("fast")
+  $(".search input").slideToggle("fast")
+  $(this).toggleClass("icon-fangdajing").toggleClass("icon-guanbi")
+})
+//搜索框事件

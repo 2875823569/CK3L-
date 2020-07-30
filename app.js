@@ -187,7 +187,7 @@ app.post("/upload",(req,res)=>{
 //传递数据
 app.post("/api/send_information", (req, res) => {
   req.session.send_information = req.body;
-  console.log(req.body);
+  
   res.send({
     code: 0,
     msg: "传递成功",
@@ -203,15 +203,15 @@ app.post("/api/get_send_information", (req, res) => {
 //------------------------------------------------排行榜相关-----------------------------------
 //点击小说后观看次数加一
 app.post("/api/update_num",(req,res) => {
-  console.log(req.body.book_title);
+  
   novelDate.find({"book_title":req.body.book_title},{number:1},(err,date) => {
     let number = JSON.parse(JSON.stringify(date[0])).number-0+1;
     
     novelDate.updateOne({"book_title":req.body.book_title},{ $set:{number:number} },function(err,date1){
       if(err){
-        console.log("更新失败");
+        
       }else{
-        console.log("更新成功");
+        
         res.send({
           code:0,
           msg:"更新成功"
@@ -276,6 +276,7 @@ app.post("/api/get_user_information", (req, res) => {
   // req.session.email = "fjlsa@fds"
   
   if (req.session && req.session.userName) {
+    
     res.send({
       code: 0,
       user: {
@@ -367,5 +368,5 @@ app.post("/api/book_yourChapter", (req, res) => {
 
 /************************************************************/
 app.listen("8888", () => {
-  console.log("端口已开启");
+  
 });
