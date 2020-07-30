@@ -58,7 +58,7 @@ function getbooktype() {
 
             btitle.append(`${res.booktype[0]}小说`) //设置默认显示
             getInfromation({type1_name:res.booktype[0]}).then((res)=>{
-                console.log(res.arr_img.length);
+                // console.log(res.arr_img.length);
                 result.append(res.arr_img.length)
                 for(let i = 0;i<res.arr_img.length;i++){
                 new Book({src:res.arr_img[i],name:res.arr_name[i]})
@@ -91,9 +91,8 @@ var getInfromation = function (name) {
 var clarr=[]
 //-------------------分类-----------------------------
 $(".allclass").on("click","li",function(){             
-    // console.log($(this).children().html();
     bookbox.empty();
-    console.log($(this).children().html());
+    // console.log($(this).children().html();
     let classfy = $(this).children().html();
     btitle.empty();
     btitle.append(`${classfy}小说`) 
@@ -106,7 +105,7 @@ $(".allclass").on("click","li",function(){
 function creatbooks(){  
     
     getInfromation({type1_name:clarr[0]}).then((res)=>{
-        console.log(res.arr_img.length);
+        // console.log(res.arr_img.length);
         result.empty()
         result.append(res.arr_img.length) //搜索结果
         for(let i = 0;i<res.arr_img.length;i++){
