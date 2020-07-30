@@ -16,7 +16,6 @@ var upload = require("./utils/upload")
 
 var path = require("path");
 const User = require("./models/user");
-const { resolve } = require("path");
 const router = express.Router();
 
 app.use(bodyParser.json());
@@ -37,7 +36,7 @@ app.use(
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
     rolling: false, //每次请求都重置 cookie的设置
     cookie: {
-      maxAge: 1000 * 60 * 60,
+      maxAge: 1000 * 60 * 60 * 10,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
       sameSite: "lax", // 允许三方访问cookie否
       httpOnly: true, //只能在http协议下 访问 cookie
@@ -45,11 +44,11 @@ app.use(
   })
 );
 // 除了观看小说，其他操作跳过令牌验证
-
 app.use(function (req, res, next) {
   if (!req.url.includes("book_whichChapter")) {
     next(); //放行，执行后面的路由匹配
   } else {
+    next()//------------------------------------------------后面删除-----------------------------------
     if (req.session.userName) {
       next();
     } else {
@@ -184,7 +183,6 @@ app.post("/api/booktype", (req, res) => {
 app.post("/upload",(req,res)=>{
   upload.upload(req,res)
 })
-
 //传递数据
 app.post("/api/send_information", (req, res) => {
   req.session.send_information = req.body;
@@ -200,7 +198,53 @@ app.post("/api/get_send_information", (req, res) => {
     send_information: req.session.send_information,
   });
 });
-//------------------------------------------------测试用例-----------------------------------
+
+//------------------------------------------------排行榜相关-----------------------------------
+//点击小说后观看次数加一
+app.post("/api/update_num",(req,res) => {
+  console.log(req.body.book_title);
+  novelDate.find({"book_title":req.body.book_title},{number:1},(err,date) => {
+    let number = JSON.parse(JSON.stringify(date[0])).number-0+1;
+    console.log(number)
+    
+    novelDate.updateOne({"book_title":req.body.book_title},{ $set:{number:number} },function(err,date1){
+      if(err){
+        console.log(err);
+        console.log("更新失败");
+      }else{
+        console.log("更新成功");
+        res.send({
+          code:0,
+          msg:"更新成功"
+        })
+      }
+      console.log(date1);
+      
+    })
+  })
+})
+//查询排名前几的书
+app.post("/api/get_top_book",(req,res) => {
+  let arr_img = [],
+  arr_name = [],
+  writer = [],
+  introduce = [];
+  novelDate.find({}).sort({"number":-1}).limit(12).exec((err,date)=>{
+    for (let i = 0; i < date.length; i++) {
+      arr_img.push(date[i].book_img || "");
+      arr_name.push(date[i].book_title);
+      writer.push(date[i].book_author);
+      introduce.push(date[i].book_desc);
+    }
+    res.send({
+      arr_img: arr_img,
+      arr_name: arr_name,
+      writer: writer,
+      introduce: introduce,
+    });
+  })
+})
+//------------------------------------------------排行榜相关-----------------------------------
 // req.session.userName = "小明"
 // req.session.pwd = "123"
 // req.session.headImage = "../assets/user_head/用户.png"
