@@ -157,6 +157,19 @@ app.post("/api/login", (req, res) => {
     }
   });
 });
+
+//清空cookie登录信息
+app.post("/api/logout",(req,res)=>{
+        req.session.userName = ""
+        req.session.pwd = ""
+        req.session.headImage = ""
+        req.session.email = ""
+        res.send({
+          code: 0,
+          msg: "注销成功！",
+        })
+})
+
 //获取所有小说类型
 app.post("/api/booktype", (req, res) => {
   let booktype = [];
@@ -192,8 +205,7 @@ app.post("/api/send_information", (req, res) => {
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (req, res) => { 
-  
+app.post("/api/get_send_information", (req, res) => {
   res.send({
     send_information: req.session.send_information,
   });
