@@ -322,7 +322,6 @@ app.post("/api/book_desc", (req, res) => {
   // 
   novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
-      console.log(docs);
       res.send(docs);
     } else {
       
