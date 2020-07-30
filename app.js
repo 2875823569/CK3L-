@@ -106,7 +106,8 @@ app.post("/api/getimg", (req, res) => {
     req.body,
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
-      for (let i = 0; i < 16; i++) {
+      if(err) throw err;
+      for (let i = 0; i < 10; i++) {
         arr_img.push(date[i].book_img || "");
         arr_name.push(date[i].book_title);
         writer.push(date[i].book_author);
@@ -339,7 +340,6 @@ app.post("/api/book_desc", (req, res) => {
   // 
   novelDate.find({ book_title: req.session.send_information.book_name }, (err, docs) => {
     if (!err) {
-      console.log(docs);
       res.send(docs);
     } else {
       
