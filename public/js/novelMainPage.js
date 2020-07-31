@@ -95,7 +95,6 @@ $(function () {
             page_chapter_content = "第一章 修仙归来！"
             return new Promise(function (resolve, reject) {
                 $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
-                    console.log(res.code);
                     if (res.code != 0) {
                         alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
                     }
@@ -109,7 +108,6 @@ $(function () {
         //加入书架
         addToBookShelf.click(function () {
             var book_name = novel_introduce_tittle.html()
-            console.log(book_name);
             new Promise(function (resolve, reject) {
                 $.post("/api/get_user_information", {}, (res) => {
                     // console.log(res);
@@ -117,13 +115,12 @@ $(function () {
                 })
                     .then(function (res) {
                         new Promise(function (resolve, reject) {
-                            // console.log(res);
                             if (res.code != 0) {
                                 alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
                             }
                             else {
                                 $.post("/api/user_likes", { email: res.user.email, book_name }, (ress) => {
-                                    console.log(1);
+                                    alert("已成功加入书架。")
                                     resolve(res);
                                 })
                             }
