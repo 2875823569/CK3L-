@@ -647,9 +647,6 @@ function book_pagination(query,onepage_num,page_num) {
     })
   })
 }
-// book_pagination({"type1_name":"玄幻"},3,3).then((res) => {
-//   console.log(res);
-// })
 
 //弹窗测试
 // let alertName = {}//弹窗名字
@@ -658,9 +655,9 @@ function alert(alertName) {
     return alertName.dialog11.show();
   }
   alertName.dialog11 = jqueryAlert({
-    'icon'    : '../assets/images/',
+    'icon'    : '',
     'content' : '当前未登录',
-    'closeTime' : 200000,
+    'closeTime' : 2000,
   })
 }
 

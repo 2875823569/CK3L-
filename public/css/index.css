@@ -631,7 +631,10 @@ h2 {
 }
 .myallter {
   top: 30px !important;
-  width: 200px;
-  background-color: yellowgreen;
+  width: 200px !important;  
+  background-color: rgba(173, 255, 47, 0.68) !important;
   color: white;
+}
+.active{
+    background-color: #22538a;
 }
