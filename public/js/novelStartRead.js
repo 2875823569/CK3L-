@@ -21,6 +21,7 @@ $(function () {
     let font_size = $(".setting").children().eq(3).children().eq(1).children()
     let close = $(".setting").children().eq(4)
     let reset = $(".setting").children().eq(5)
+    let now_chapter = $(".now_chapter")
 
     //渲染页面
     function getChapter() {
@@ -58,16 +59,17 @@ $(function () {
             })
         })
             .then((res) => {
-                console.log();
                 pages.forEach(element => {
-                    mune.append(`<li>${element}</li>`)
+                    mune.children("div").append(`<li>${element}</li>`)
                 });
-                mune.children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
-                mune.append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
+                mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
+                now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                mune.children("div").append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
                 tools()
             })
     }
 
+    //工具开关
     function tools_close_open(e) {
         if (e.hasClass("hide")) {
             e.siblings().addClass("hide")
@@ -83,8 +85,9 @@ $(function () {
         //初始化
         var windowlHeight = window.innerHeight;
         mune.css("left", -(mune.width() + 30))
-        mune.height(windowlHeight - book_navigation.offset().top)
-        setting.css("left", -setting.width())
+        mune.height(windowlHeight - book_navigation.offset().top - 30)
+        mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
+        setting.css("left", -(setting.width() + 56))
 
         //返回首页
         header_logo.click(function () {
@@ -127,6 +130,9 @@ $(function () {
                             book_reader_content.empty().append(
                                 `<p>${res.data}</p>`
                             )
+                            //目录下标
+                            now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                            mune.css("left", -(mune.width() + 14))
                         })
                     })
                 }
@@ -218,11 +224,11 @@ $(function () {
         })
 
         tools_888.click(function () {
-
+            
         })
 
         tools_toTop.click(function () {
-
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         })
     }
 })

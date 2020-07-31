@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const novelDate = require("./models/novelDate");
-=======
 const novelDate = require("./models/novelDate"); 
->>>>>>> a7bd03fe04f7a7a7d726bebf5713160f524b35fe
 
 /**********************************************///俊林写的
 const novel_zj = require("./models/db_zj");
@@ -211,10 +207,6 @@ app.post("/api/send_information", (req, res) => {
   });
 });
 app.post("/api/get_send_information", (req, res) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> a7bd03fe04f7a7a7d726bebf5713160f524b35fe
   res.send({
     send_information: req.session.send_information,
   });
@@ -224,21 +216,11 @@ app.post("/api/get_send_information", (req, res) => {
 //点击小说后观看次数加一
 app.post("/api/update_num", (req, res) => {
   console.log(req.body.book_title);
-<<<<<<< HEAD
-  novelDate.find({ "book_title": req.body.book_title }, { number: 1 }, (err, date) => {
-    let number = JSON.parse(JSON.stringify(date[0])).number - 0 + 1;
-    console.log(number)
-
-    novelDate.updateOne({ "book_title": req.body.book_title }, { $set: { number: number } }, function (err, date1) {
-      if (err) {
-        console.log(err);
-=======
   novelDate.find({"book_title":req.body.book_title},{number:1},(err,date) => {
     let number = JSON.parse(JSON.stringify(date[0])).number-0+1;
     
     novelDate.updateOne({"book_title":req.body.book_title},{ $set:{number:number} },function(err,date1){
       if(err){
->>>>>>> a7bd03fe04f7a7a7d726bebf5713160f524b35fe
         console.log("更新失败");
       } else {
         console.log("更新成功");
@@ -247,11 +229,6 @@ app.post("/api/update_num", (req, res) => {
           msg: "更新成功"
         })
       }
-<<<<<<< HEAD
-      console.log(date1);
-
-=======
->>>>>>> a7bd03fe04f7a7a7d726bebf5713160f524b35fe
     })
   })
 })
@@ -411,9 +388,5 @@ app.post("/api/book_yourChapter", (req, res) => {
 
 /************************************************************/
 app.listen("8888", () => {
-<<<<<<< HEAD
-
-=======
   console.log("端口已开启");
->>>>>>> a7bd03fe04f7a7a7d726bebf5713160f524b35fe
 });
