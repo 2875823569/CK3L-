@@ -24,10 +24,7 @@ $(function () {
     let font_size = $(".setting").children().eq(3).children().eq(1).children()
     let close = $(".setting").children().eq(4)
     let reset = $(".setting").children().eq(5)
-<<<<<<< HEAD
-=======
     let now_chapter = $(".now_chapter")
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
 
     //渲染页面
     function getChapter() {
@@ -65,35 +62,20 @@ $(function () {
             })
         })
             .then((res) => {
-<<<<<<< HEAD
-                console.log();
-                pages.forEach(element => {
-                    mune.append(`<li>${element}</li>`)
-                });
-                mune.children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
-                mune.append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
-=======
                 pages.forEach(element => {
                     mune.children("div").append(`<li>${element}</li>`)
                 });
                 mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
                 now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                 mune.children("div").append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
-<<<<<<< HEAD
                 //
                 idx.length = 0
                 idx.push(res.book_whichChapter.page_chapter_idx)
-=======
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
->>>>>>> e8535826527327f4c42cbdbdb0f44aa89c7fe8fb
                 tools()
             })
     }
 
-<<<<<<< HEAD
-=======
     //工具开关
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     function tools_close_open(e) {
         if (e.hasClass("hide")) {
             e.siblings().addClass("hide")
@@ -109,14 +91,11 @@ $(function () {
         //初始化
         var windowlHeight = window.innerHeight;
         mune.css("left", -(mune.width() + 30))
-<<<<<<< HEAD
         mune.height(windowlHeight - book_navigation.offset().top)
         setting.css("left", -setting.width())
-=======
         mune.height(windowlHeight - book_navigation.offset().top - 30)
         mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
         setting.css("left", -(setting.width() + 56))
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
 
         //返回首页
         header_logo.click(function () {
@@ -159,17 +138,11 @@ $(function () {
                             book_reader_content.empty().append(
                                 `<p>${res.data}</p>`
                             )
-<<<<<<< HEAD
-=======
                             //目录下标
                             now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                             mune.css("left", -(mune.width() + 14))
-<<<<<<< HEAD
                             idx.length = 0
                             idx.push(res.book_whichChapter.page_chapter_idx)
-=======
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
->>>>>>> e8535826527327f4c42cbdbdb0f44aa89c7fe8fb
                         })
                     })
                 }
@@ -180,7 +153,6 @@ $(function () {
         tools_settings.click(function () {
             tools_close_open(setting)
         })
-<<<<<<< HEAD
 
         //换主题
         color_change.click(function (e) {
@@ -247,8 +219,6 @@ $(function () {
             setting.addClass("hide")
         })
 
-=======
-
         //换主题
         color_change.click(function (e) {
             if (e.target.tagName == "SPAN" || e.target.tagName == "I") {
@@ -314,7 +284,6 @@ $(function () {
             setting.addClass("hide")
         })
 
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
         //重置样式
         reset.click(function () {
             console.log(color_change, font_change, font_size);
