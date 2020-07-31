@@ -70,7 +70,7 @@ app.use(function (req, res, next) {
 // ----------------------------------------------------小说信息获取与处理----------------------------------------------------
 //用户注册
 app.post("/api/signIn", function (req, res) {
-
+  
   let usr = { email: req.body.email };
   User.find(usr, function (err, data) {
     if (err) {
@@ -114,6 +114,7 @@ app.post("/api/getimg", (req, res) => {
     req.body,
     { book_img: 1, book_title: 1, book_author: 1, book_desc: 1 },
     (err, date) => {
+      if(err) throw err;
       if (err) throw err;
       for (let i = 0; i < 10; i++) {
         arr_img.push(date[i].book_img || "");
@@ -121,7 +122,7 @@ app.post("/api/getimg", (req, res) => {
         writer.push(date[i].book_author);
         introduce.push(date[i].book_desc);
       }
-      // 
+      
       res.send({
         arr_img: arr_img,
         arr_name: arr_name,
@@ -205,7 +206,6 @@ app.post("/upload", (req, res) => {
 //传递数据
 app.post("/api/send_information", (req, res) => {
   req.session.send_information = req.body;
-  
   res.send({
     code: 0,
     msg: "传递成功",
@@ -233,23 +233,24 @@ app.post("/api/update_num", (req, res) => {
     novelDate.updateOne({"book_title":req.body.book_title},{ $set:{number:number} },function(err,date1){
       if(err){
         console.log("更新失败");
-      } else {
+      }else{
         console.log("更新成功");
         res.send({
-          code: 0,
-          msg: "更新成功"
+          code:0,
+          msg:"更新成功"
         })
       }
+      console.log(date1);
     })
   })
 })
 //查询排名前几的书
 app.post("/api/get_top_book", (req, res) => {
   let arr_img = [],
-    arr_name = [],
-    writer = [],
-    introduce = [];
-  novelDate.find({}).sort({ "number": -1 }).limit(12).exec((err, date) => {
+  arr_name = [],
+  writer = [],
+  introduce = [];
+  novelDate.find({}).sort({"number":-1}).limit(12).exec((err,date)=>{
     for (let i = 0; i < date.length; i++) {
       arr_img.push(date[i].book_img);
       arr_name.push(date[i].book_title);
@@ -368,7 +369,7 @@ app.post("/api/get_user_information", (req, res) => {
   // req.session.pwd = "123"
   // req.session.headImage = "../assets/user_head/斗破苍穹.jpg"
   // req.session.email = "fjlsa@fds"
-
+  
   if (req.session && req.session.userName) {
     
     res.send({
@@ -381,7 +382,7 @@ app.post("/api/get_user_information", (req, res) => {
       },
     });
   } else {
-
+    
     res.send({
       code: 1,
       msg: "登陆失败",
@@ -397,7 +398,7 @@ app.post("/api/get_user_information", (req, res) => {
 var userInformation = {};
 user.find({}, (err, docs) => {
   if (err) {
-
+    
   } else {
     userInformation = docs;
   }
@@ -407,18 +408,24 @@ app.post("/api/homepage", (req, res) => {
 });
 
 app.post("/api/setUser", (req, res) => {
-  user.find({ username: "小明" }, (err, docs) => {
-    if (err) {
+  // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
+  user.updateOne({ username: req.body.beforeName }, { $set: { username: req.body.afterNickname, pwd: req.body.afterSecondPsw, profilePic: req.body.afterUrl}}, (err) => {
+    if (!err) {
+      console.log(req.body.afterUrl);
+      res.send({
+        code: 0,
+        msg: "修改成功！"
+      })
+    }
+  })
+})
 
-    } else {
-      // { afterNickname: '小明', afterFirstPsw: '123', afterSecondPsw: '123' }
-      user.update({ username: "test" }, { $set: { username: req.body.afterNickname, pwd: req.body.afterSecondPsw } }, (err) => {
-        if (!err) {
-          res.send({
-            code: 0,
-            msg: "修改成功！"
-          })
-        }
+app.post("/api/getBook",(req,res)=>{
+  novelDate.find({},(err,docs)=>{
+    if(!err){
+      res.send({
+        code:0,
+        msg:docs
       })
     }
   })
@@ -429,7 +436,7 @@ app.post("/api/book_chapter", (req, res) => {
     if (!err) {
       res.send(docs);
     } else {
-
+      
     }
   });
 });
@@ -451,16 +458,29 @@ app.post("/api/book_whichChapter", (req, res) => {
 });
 
 app.post("/api/book_yourChapter", (req, res) => {
+  fs.readFile(
+    `./public/assets/novels/${book_whichChapter.page_chapter_idx}.txt`,
+    "utf-8",
+    function (err, data) {
+      if (err) {
+        console.log("错误");
+      } else {
+        res.send({ book_whichChapter, data });
+      }
   fs.readFile(`./public/assets/novels/${book_whichChapter.page_chapter_idx}.txt`, "utf-8", function (err, data) {
     if (err) {
 
     } else {
       res.send({ book_whichChapter, data });
     }
-  }
-  );
+  });
+})
 });
 
+/************************************************************/
+app.listen("8888", () => {
+  console.log("端口已开启");
+});
 // app.post("/api/user_likes", (req, res) => {
 //   if (req.body == '') {
 //     console.log("传入数据失败");
@@ -471,9 +491,3 @@ app.post("/api/book_yourChapter", (req, res) => {
 //     novel_sj.create(req.body)
 //   }
 // })
-
-/************************************************************/
-app.listen("8888", () => {
-
-  console.log("端口已开启");
-});
