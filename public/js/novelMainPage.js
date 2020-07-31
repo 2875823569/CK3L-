@@ -101,7 +101,14 @@ $(function () {
 
         //加入书架
         addToBookShelf.click(function () {
-            location.href = "#"
+            var book_name = novel_introduce_tittle.html()
+            console.log(book_name);
+            // return new Promise(function (resolve, reject) {
+            //     $.post("/api/user_likes", { book_name }, (res) => {
+            //         console.log(res);
+            //     })
+                // alert()
+            // })
         })
 
         //跳转分类

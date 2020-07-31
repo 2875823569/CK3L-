@@ -59,7 +59,7 @@ body{
 }
 
 .book_navigation li:hover{
-    color: red;
+    color: gold;
 }
 
 .mune{
@@ -74,7 +74,136 @@ body{
 
 .mune li{
 	white-space:nowrap;
-    
+}
+
+.setting{
+    position: absolute;
+    top: -1px;
+    overflow-y:auto;
+    font-size: 14px;
+    background-color: #FBFFED;
+    border: 1px solid #635752;
+}
+
+.setting span{
+    cursor: pointer;
+}
+
+.setting button{
+    width: 30%;
+    height: 25px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    border: 0;
+    color: white;
+    background-color: tomato;
+}
+
+.setting p{
+    text-align: left;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 1000;
+}
+
+.setting div{
+    position: relative;
+    margin: 10px;
+    display: flex;
+}
+
+.setting div span{
+    display: flex;
+    align-items: center;
+}
+
+.setting div div i{
+    font-style: normal;
+    position: relative;
+    left: 0 !important;
+}
+
+.setting div:nth-of-type(1) span{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #635752;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setting div:nth-of-type(1) span i{
+    color: red;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(1){
+    background-color: #FBFFED;
+    border: 1px solid red;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(2){
+    background-color: #f6edd4;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(3){
+    background-color: #ebf4e9;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(4){
+    background-color: #e9f3f5;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(5){
+    background-color: #f6e8e7;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(1) i{
+    display: block;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(2) i{
+    display: none;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(3) i{
+    display: none;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(4) i{
+    display: none;
+}
+
+.setting div:nth-of-type(1) span:nth-of-type(5) i{
+    display: none;
+}
+
+.setting div:nth-of-type(2) div:nth-of-type(2),.setting div:nth-of-type(3) div:nth-of-type(2){
+    flex-grow:1;
+    justify-content: space-around;
+}
+
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(1){
+    color: red;
+}
+
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(2){
+    font-family: 宋体;
+}
+
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(3){
+    font-family: 楷书;
+}
+
+.setting div:nth-of-type(3) div:nth-of-type(2) span:nth-of-type(2){
+    cursor: auto;
+}
+
+.color{
+    color: red;
 }
 
 .hide{

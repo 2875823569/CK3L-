@@ -652,16 +652,15 @@ function book_pagination(query,onepage_num,page_num) {
 // })
 
 //弹窗测试
-let alertName = {}//弹窗名字
+// let alertName = {}//弹窗名字
 function alert(alertName) {
-  let alertName = {}//弹窗名字
   if(alertName.dialog11){
     return alertName.dialog11.show();
   }
   alertName.dialog11 = jqueryAlert({
-    'icon'    : '',
+    'icon'    : '../assets/images/',
     'content' : '当前未登录',
-    'closeTime' : 2000,
+    'closeTime' : 200000,
   })
 }
 
