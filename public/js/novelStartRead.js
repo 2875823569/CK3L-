@@ -95,7 +95,7 @@ $(function () {
         setting.css("left", -setting.width())
         mune.height(windowlHeight - book_navigation.offset().top - 30)
         mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
-        setting.css("left", -(setting.width() + 56))
+        setting.css("left", -(setting.width() + 14))
 
         //返回首页
         header_logo.click(function () {
@@ -167,7 +167,7 @@ $(function () {
                     $(e.target).children().css("display", "block").css("border", "red")
 
                     //更换主题
-                    console.log($(e.target).css("background-color"));
+                    // console.log($(e.target).css("background-color"));
                     book_content.css("background-color", $(e.target).css("background-color"))
                     setting.css("background-color", $(e.target).css("background-color"))
                     mune.css("background-color", $(e.target).css("background-color"))
@@ -217,28 +217,6 @@ $(function () {
         //确认样式
         close.click(function () {
             setting.addClass("hide")
-        })
-
-        //换主题
-        color_change.click(function (e) {
-            if (e.target.tagName == "SPAN" || e.target.tagName == "I") {
-                if ($(e.target).children().css("display") == "block" || $(e.target).css("display") == "block") {
-                    return false
-                }
-                else {
-                    $(e.target).siblings().css("border-color", "#635752")
-                    $(e.target).css("border-color", "red")
-                    $(e.target).siblings("span").children().css("display", "none")
-                    $(e.target).children().css("display", "block").css("border", "red")
-
-                    //更换主题
-                    console.log($(e.target).css("background-color"));
-                    book_content.css("background-color", $(e.target).css("background-color"))
-                    setting.css("background-color", $(e.target).css("background-color"))
-                    mune.css("background-color", $(e.target).css("background-color"))
-                    book_navigation.css("background-color", $(e.target).css("background-color"))
-                }
-            }
         })
 
         //换字体
@@ -286,7 +264,7 @@ $(function () {
 
         //重置样式
         reset.click(function () {
-            console.log(color_change, font_change, font_size);
+            // console.log(color_change, font_change, font_size);
             color_change.children().eq(1).click()
             font_change.eq(0).click()
             font_size.eq(1).empty().append(22)
@@ -328,7 +306,7 @@ $(function () {
                         })
                     }).then(function (res) {
                         mune.addClass("hide")
-                        console.log(res);
+                        // console.log(res);
                         //标题
                         book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
                         //文章
@@ -363,7 +341,7 @@ $(function () {
                         })
                     }).then(function (res) {
                         mune.addClass("hide")
-                        console.log(res);
+                        // console.log(res);
                         //标题
                         book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
                         //文章
