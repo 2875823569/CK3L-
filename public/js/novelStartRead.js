@@ -219,49 +219,6 @@ $(function () {
             setting.addClass("hide")
         })
 
-        //换字体
-        font_change.click(function () {
-            book_content.css("font-family", $(this).html())
-            $(this).css("color", "red").siblings().css("color", "#635752")
-        })
-
-        //换字体大小
-        font_size.click(function () {
-            if ($(this).index() == 0) {
-                var font_size_num = parseInt($(this).next().html())
-                var book_content_num = parseInt($(this).next().html()) + 8
-                if (font_size_num <= 10) {
-                    return false
-                }
-                else {
-                    font_size_num -= 2
-                    book_content_num -= 2
-                    $(this).next().empty().append(font_size_num)
-                    book_reader_content.children().css("font-size", font_size_num)
-                    book_tittle.css("font-size", book_content_num)
-                }
-            }
-            else if ($(this).index() == 2) {
-                var font_size_num = parseInt($(this).prev().html())
-                var book_content_num = parseInt($(this).prev().html()) + 8
-                if (font_size_num >= 34) {
-                    return false
-                }
-                else {
-                    book_content_num += 2
-                    font_size_num += 2
-                    $(this).prev().empty().append(font_size_num)
-                    book_reader_content.children().css("font-size", font_size_num)
-                    book_tittle.css("font-size", book_content_num)
-                }
-            }
-        })
-
-        //确认样式
-        close.click(function () {
-            setting.addClass("hide")
-        })
-
         //重置样式
         reset.click(function () {
             // console.log(color_change, font_change, font_size);
