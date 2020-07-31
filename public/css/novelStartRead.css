@@ -1,17 +1,17 @@
-body{
-    background-color:#F2F1EB;
+body {
+    background-color: #F2F1EB;
 }
 
-.read_box{
+.read_box {
     width: 90%;
     position: relative;
     left: 5%;
     top: 100px;
-    color:#635752;
+    color: #635752;
     font-family: 黑体;
 }
 
-.book_content{
+.book_content {
     position: relative;
     left: 8%;
     width: 80%;
@@ -22,24 +22,24 @@ body{
     z-index: -1;
 }
 
-.book_content p{
+.book_content p {
     font-size: 22px;
     margin-bottom: 10px;
-    white-space:pre-wrap;
+    white-space: pre-wrap;
 }
 
-.book_tittle{
+.book_tittle {
     font-size: 30px;
     margin-bottom: 20px;
     font-weight: 1000;
 }
 
-.book_reader_content{
+.book_reader_content {
     width: 100%;
     height: 100%;
 }
 
-.book_navigation{
+.book_navigation {
     position: static;
     text-align: center;
     font-size: 20px;
@@ -52,44 +52,82 @@ body{
     margin-right: 5%;
 }
 
-.book_navigation li{
+.book_navigation li {
     cursor: pointer;
     box-sizing: border-box;
     padding: 5px;
 }
 
-.book_navigation li:hover{
+.book_navigation li:hover {
     color: gold;
 }
 
-.mune{
+.mune {
     position: absolute;
     top: -1px;
-    overflow-y:auto;
     font-size: 16px;
     background-color: #FBFFED;
     border: 1px solid #635752;
-    
 }
 
-.mune li{
-	white-space:nowrap;
+.mune li {
+    white-space: nowrap;
 }
 
-.setting{
+.nume_span1{
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    font-weight: 1000;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.mune div{
+    position: relative;
+    margin-top: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.mune p {
+    margin-bottom: -10px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 1000;
+    position: sticky;
+    top: 0;
+    font-style: normal;
+    box-sizing: border-box;
+    padding-left: 10px;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #635752;
+}
+
+.now_chapter{
+    font-size: 16px;
+    font-weight: normal;
+    position: relative;
+    top: 5px;
+    white-space: nowrap;
+}
+
+.setting {
     position: absolute;
     top: -1px;
-    overflow-y:auto;
+    overflow-y: auto;
     font-size: 14px;
     background-color: #FBFFED;
     border: 1px solid #635752;
 }
 
-.setting span{
+.setting span {
     cursor: pointer;
 }
 
-.setting button{
+.setting button {
     width: 30%;
     height: 25px;
     margin-bottom: 10px;
@@ -99,7 +137,7 @@ body{
     background-color: tomato;
 }
 
-.setting p{
+.setting p {
     text-align: left;
     box-sizing: border-box;
     padding: 10px;
@@ -107,24 +145,24 @@ body{
     font-weight: 1000;
 }
 
-.setting div{
+.setting div {
     position: relative;
     margin: 10px;
     display: flex;
 }
 
-.setting div span{
+.setting div span {
     display: flex;
     align-items: center;
 }
 
-.setting div div i{
+.setting div div i {
     font-style: normal;
     position: relative;
     left: 0 !important;
 }
 
-.setting div:nth-of-type(1) span{
+.setting div:nth-of-type(1) span {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -136,76 +174,76 @@ body{
     justify-content: center;
 }
 
-.setting div:nth-of-type(1) span i{
+.setting div:nth-of-type(1) span i {
     color: red;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(1){
+.setting div:nth-of-type(1) span:nth-of-type(1) {
     background-color: #FBFFED;
     border: 1px solid red;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(2){
+.setting div:nth-of-type(1) span:nth-of-type(2) {
     background-color: #f6edd4;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(3){
+.setting div:nth-of-type(1) span:nth-of-type(3) {
     background-color: #ebf4e9;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(4){
+.setting div:nth-of-type(1) span:nth-of-type(4) {
     background-color: #e9f3f5;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(5){
+.setting div:nth-of-type(1) span:nth-of-type(5) {
     background-color: #f6e8e7;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(1) i{
+.setting div:nth-of-type(1) span:nth-of-type(1) i {
     display: block;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(2) i{
+.setting div:nth-of-type(1) span:nth-of-type(2) i {
     display: none;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(3) i{
+.setting div:nth-of-type(1) span:nth-of-type(3) i {
     display: none;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(4) i{
+.setting div:nth-of-type(1) span:nth-of-type(4) i {
     display: none;
 }
 
-.setting div:nth-of-type(1) span:nth-of-type(5) i{
+.setting div:nth-of-type(1) span:nth-of-type(5) i {
     display: none;
 }
 
-.setting div:nth-of-type(2) div:nth-of-type(2),.setting div:nth-of-type(3) div:nth-of-type(2){
-    flex-grow:1;
+.setting div:nth-of-type(2) div:nth-of-type(2), .setting div:nth-of-type(3) div:nth-of-type(2) {
+    flex-grow: 1;
     justify-content: space-around;
 }
 
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(1){
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(1) {
     color: red;
 }
 
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(2){
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(2) {
     font-family: 宋体;
 }
 
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(3){
+.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(3) {
     font-family: 楷书;
 }
 
-.setting div:nth-of-type(3) div:nth-of-type(2) span:nth-of-type(2){
+.setting div:nth-of-type(3) div:nth-of-type(2) span:nth-of-type(2) {
     cursor: auto;
 }
 
-.color{
+.color {
     color: red;
 }
 
-.hide{
+.hide {
     display: none;
 }
