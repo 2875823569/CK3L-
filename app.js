@@ -213,7 +213,6 @@ app.post("/api/send_information", (req, res) => {
     msg: "传递成功",
   });
 });
-app.post("/api/get_send_information", (req, res) => {
 //接收数据
 app.post("/api/get_send_information", (req, res) => {
   res.send({
@@ -229,8 +228,6 @@ app.post("/api/get_send_information", (req, res) => {
 
 //-----------------------------------------------------------排行榜相关-----------------------------------------------------
 //点击小说后观看次数加一
-app.post("/api/update_num",(req,res) => {
-  console.log(req.body.book_title);
 app.post("/api/update_num", (req, res) => {
   novelDate.find({"book_title":req.body.book_title},{number:1},(err,date) => {
     let number = JSON.parse(JSON.stringify(date[0])).number-0+1;
@@ -250,7 +247,6 @@ app.post("/api/update_num", (req, res) => {
   })
 })
 //查询排名前几的书
-app.post("/api/get_top_book",(req,res) => {
 app.post("/api/get_top_book", (req, res) => {
   let arr_img = [],
   arr_name = [],
@@ -484,7 +480,7 @@ app.post("/api/book_yourChapter", (req, res) => {
 });
 
 /************************************************************/
-app.listen("888 8", () => {
+app.listen("8888", () => {
   console.log("端口已开启");
 });
 // app.post("/api/user_likes", (req, res) => {
