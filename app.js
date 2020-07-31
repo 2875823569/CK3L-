@@ -54,9 +54,10 @@ app.use(function (req, res, next) {
     next(); //放行，执行后面的路由匹配
   } else {
     if (req.session.userName) {
-      res.send({
-        code: 0
-      })
+      // res.send({
+      // code: 0,
+      // msg: "登录失效!",
+      // });
       next();
     } else {
       res.send({
@@ -374,7 +375,6 @@ app.post("/api/get_user_information", (req, res) => {
   // req.session.email = "fjlsa@fds"
 
   if (req.session && req.session.userName) {
-
     res.send({
       code: 0,
       user: {
@@ -473,15 +473,44 @@ app.post("/api/book_yourChapter", (req, res) => {
 });
 
 app.post("/api/user_likes", (req, res) => {
-  console.log(res.body);
-  // if (req.body == '') {
-  //   console.log("传入数据失败");
-  //   return false
-  // }
-  // else {
-  //   console.log(req.body);
-  //   novel_sj.create(req.body)
-  // }
+  var email = req.body.email
+  var book_name = req.body.book_name
+  if (email != undefined && book_name != undefined) {
+    user.find({ email: email }, (err, docs) => {
+      if (!err) {
+        var arr = docs[0].user_likes
+        if (arr.length <= 0) {
+          console.log(3);
+          arr.push(book_name)
+          user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
+          // res.send({ code: 0, success: "成功加入书架" })
+        }
+        else {
+          for (var i = 0; i < arr.length; i++) {
+            console.log(arr[i], book_name);
+            if (arr[i] == book_name) {
+              console.log(1);
+              // res.send({ code: 1, err: "已在书架" })
+              break
+            }
+            if(i == arr.length-1){
+              arr.push(book_name)
+              console.log(2, arr);
+              user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
+              // res.send({ code: 0, success: "成功加入书架" })
+            }
+          }
+        }
+      }
+      else {
+        return false
+      }
+    })
+  }
+  else {
+    return false
+  }
+
 })
 
 /************************************************************/
