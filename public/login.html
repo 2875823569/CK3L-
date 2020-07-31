@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
     <title>登录-CK3L小说</title>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1969052_j458g6odejd.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1969052_s9hvm7wfgg.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
@@ -21,32 +21,34 @@
                     <div class="LOGO">
                         <img src="https://cdn.alezc.com/LOGO_BLACK.png" alt="logo.png">
                     </div>
-                    <div class="title">
+                    <div class="notLogIn">
+                        <div class="title">
+                            <br>
+                            使用CK3L通行证登陆
+                        </div>
                         <br>
-                        使用CK3L通行证登陆
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="square">
-                            <span class="inputIcon">
-                                <i class="iconfont icon-youxiang"></i>
-                            </span>
-                            <input type="email" class="form-control" id="LogEmail" placeholder="请输入邮箱地址">
+                        <div class="form-group">
+                            <div class="square">
+                                <span class="inputIcon">
+                                    <i class="iconfont icon-youxiang"></i>
+                                </span>
+                                <input type="email" class="form-control" id="LogEmail" placeholder="请输入邮箱地址">
+                            </div>
+                            <div class="square">
+                                <span class="inputIcon">
+                                    <i class="iconfont icon-mima"></i>
+                                </span>
+                                <input type="password" class="form-control" id="LogPsw" placeholder="请输入密码">
+                            </div>
                         </div>
-                        <div class="square">
-                            <span class="inputIcon">
-                                <i class="iconfont icon-mima"></i>
+                        <div class="bottom">
+                            <span class="left checkbox">
+                                <input type="checkbox" name="check" class="checkbox">24小时内免登陆
                             </span>
-                            <input type="password" class="form-control" id="LogPsw" placeholder="请输入密码">
+                            <span class="right" id="signIn">
+                                注册CK3L通行证
+                            </span>
                         </div>
-                    </div>
-                    <div class="bottom">
-                        <span class="left checkbox">
-                            <input type="checkbox" name="check" class="checkbox">24小时内免登陆
-                        </span>
-                        <span class="right" id="signIn">
-                            注册CK3L通行证
-                        </span>
                     </div>
                 </div>
                 <div class="back">
@@ -61,13 +63,13 @@
                     <div class="profilePic">
                         <input id="profilePic" type="file">
                         <img id="pic" src="" alt="">
-                        <i class="iconfont icon-shangchuantouxiang1-copy"style="color: #151515;font-size: 43px;"></i>
+                        <i class="iconfont icon-shangchuantouxiang1-copy" style="color: #151515;font-size: 43px;"></i>
                     </div>
                     <div class="square" style="margin-top:114px">
                         <span class="inputIcon">
                             <i class="iconfont icon-yonghu"></i>
                         </span>
-                        <input type="text"  class="form-control" id="name" placeholder="请输入昵称">
+                        <input type="text" class="form-control" id="name" placeholder="请输入昵称">
                     </div>
                     <div class="square">
                         <span class="inputIcon">
@@ -96,7 +98,7 @@
             </div>
             <div class="button">
                 <button type="submit" id="btmBtn" class="loginbutton btn btn-default">
-                <span id="logintext">登陆</span>
+                    <span id="logintext">登陆</span>
                 </button>
             </div>
         </div>
