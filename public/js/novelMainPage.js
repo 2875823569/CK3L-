@@ -119,12 +119,9 @@ $(function () {
                                 alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
                             }
                             else {
-                                $.post("/api/user_likes", { email: res.user.email, book_name }, (ress) => {
-                                    alert("已成功加入书架。")
-                                    resolve(res);
-                                })
+                                $.post("/api/user_likes", { email: res.user.email, book_name }, () => { })
+                                alert("已成功加入书架。")
                             }
-
                         })
                     })
             })
