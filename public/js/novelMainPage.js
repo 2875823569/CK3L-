@@ -94,8 +94,14 @@ $(function () {
             page_chapter_idx = 1
             page_chapter_content = "第一章 修仙归来！"
             return new Promise(function (resolve, reject) {
-                $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
-                location.href = "./novelStartRead.html"
+                $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
+                    if (res.code != 0) {
+                        alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                    }
+                    else {
+                        location.href = "./novelStartRead.html"
+                    }
+                })
             })
         })
 
@@ -107,7 +113,7 @@ $(function () {
             //     $.post("/api/user_likes", { book_name }, (res) => {
             //         console.log(res);
             //     })
-                // alert()
+            // alert()
             // })
         })
 
@@ -172,8 +178,14 @@ $(function () {
                 page_chapter_content = ($(e.target).html())
                 page_chapter_idx++
                 return new Promise(function (resolve, reject) {
-                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
-                    location.href = "./novelStartRead.html"
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
+                        if (res.code != 0) {
+                            alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                        }
+                        else {
+                            location.href = "./novelStartRead.html"
+                        }
+                    })
                 })
             }
         })

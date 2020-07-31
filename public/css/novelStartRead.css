@@ -58,11 +58,7 @@ body {
     padding: 5px;
 }
 
-<<<<<<< HEAD
-.book_navigation li:hover{
-=======
 .book_navigation li:hover {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     color: gold;
 }
 
@@ -74,16 +70,6 @@ body {
     border: 1px solid #635752;
 }
 
-<<<<<<< HEAD
-.mune li{
-	white-space:nowrap;
-}
-
-.setting{
-    position: absolute;
-    top: -1px;
-    overflow-y:auto;
-=======
 .mune li {
     white-space: nowrap;
 }
@@ -132,25 +118,16 @@ body {
     position: absolute;
     top: -1px;
     overflow-y: auto;
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     font-size: 14px;
     background-color: #FBFFED;
     border: 1px solid #635752;
 }
 
-<<<<<<< HEAD
-.setting span{
-    cursor: pointer;
-}
-
-.setting button{
-=======
 .setting span {
     cursor: pointer;
 }
 
 .setting button {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     width: 30%;
     height: 25px;
     margin-bottom: 10px;
@@ -160,11 +137,7 @@ body {
     background-color: tomato;
 }
 
-<<<<<<< HEAD
-.setting p{
-=======
 .setting p {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     text-align: left;
     box-sizing: border-box;
     padding: 10px;
@@ -172,40 +145,24 @@ body {
     font-weight: 1000;
 }
 
-<<<<<<< HEAD
-.setting div{
-=======
 .setting div {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     position: relative;
     margin: 10px;
     display: flex;
 }
 
-<<<<<<< HEAD
-.setting div span{
-=======
 .setting div span {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     display: flex;
     align-items: center;
 }
 
-<<<<<<< HEAD
-.setting div div i{
-=======
 .setting div div i {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     font-style: normal;
     position: relative;
     left: 0 !important;
 }
 
-<<<<<<< HEAD
-.setting div:nth-of-type(1) span{
-=======
 .setting div:nth-of-type(1) span {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -217,83 +174,15 @@ body {
     justify-content: center;
 }
 
-<<<<<<< HEAD
-.setting div:nth-of-type(1) span i{
-    color: red;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(1){
-=======
 .setting div:nth-of-type(1) span i {
     color: red;
 }
 
 .setting div:nth-of-type(1) span:nth-of-type(1) {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     background-color: #FBFFED;
     border: 1px solid red;
 }
 
-<<<<<<< HEAD
-.setting div:nth-of-type(1) span:nth-of-type(2){
-    background-color: #f6edd4;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(3){
-    background-color: #ebf4e9;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(4){
-    background-color: #e9f3f5;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(5){
-    background-color: #f6e8e7;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(1) i{
-    display: block;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(2) i{
-    display: none;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(3) i{
-    display: none;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(4) i{
-    display: none;
-}
-
-.setting div:nth-of-type(1) span:nth-of-type(5) i{
-    display: none;
-}
-
-.setting div:nth-of-type(2) div:nth-of-type(2),.setting div:nth-of-type(3) div:nth-of-type(2){
-    flex-grow:1;
-    justify-content: space-around;
-}
-
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(1){
-    color: red;
-}
-
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(2){
-    font-family: 宋体;
-}
-
-.setting div:nth-of-type(2) div:nth-of-type(2) span:nth-of-type(3){
-    font-family: 楷书;
-}
-
-.setting div:nth-of-type(3) div:nth-of-type(2) span:nth-of-type(2){
-    cursor: auto;
-}
-
-.color{
-=======
 .setting div:nth-of-type(1) span:nth-of-type(2) {
     background-color: #f6edd4;
 }
@@ -352,7 +241,6 @@ body {
 }
 
 .color {
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     color: red;
 }
 

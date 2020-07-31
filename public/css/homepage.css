@@ -10,6 +10,12 @@ html,body{
 li{
     list-style: none;
 }
+.show{
+    opacity: 1!important;
+}
+.hidden{
+    opacity: 0!important;
+}
 #box{
     width: 100%;
     height:100%;
@@ -84,7 +90,8 @@ li{
 #header #card #cardTop #headPortrait{
     width: 150px;
     height:150px;
-    background-color: tomato;
+    background-color: gray;
+    background-size: cover;
     border-radius: 50%;
     position: absolute;
     top:20px;
@@ -97,6 +104,7 @@ li{
     display: inline-block;
     position:absolute;
     right: -50%;
+    cursor: pointer;
 }
 #header #card #accountInformation{
     width: 100%;
@@ -155,6 +163,10 @@ li{
     display: flex;
     flex-direction:column;
     justify-content:space-between;
+}
+#header #card #cardBottom #information li:hover{
+    color: lightseagreen;
+    cursor: pointer;
 }
 #header #bookshelf{
     width:60%;
@@ -255,18 +267,16 @@ li{
     width:17%;
     height:100%;
     border-radius: 20px;
+    cursor: pointer;
+}
+.historyBack{
+    opacity: 0; 
 }
 #box #history #historyFloor .historyBook p{
-    /* border-radius: 20%;
-    overflow : hidden;
-    text-overflow: ellipsis;
-    display:box;
-    line-clamp: 2;
-    box-orient: vertical;
-    text-indent: 10%; */
+    text-indent: 20%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-     -webkit-line-clamp: 8;            /*设置p元素最大4行，父元素需填写宽度才明显*/
+     -webkit-line-clamp: 6;            /*设置p元素最大4行，父元素需填写宽度才明显*/
      text-overflow: ellipsis;
      overflow: hidden;
 
@@ -318,7 +328,7 @@ li{
     width: 150px;
     height: 150px;
     background-color: white;
-    background-image: url(../assets/homePageImg/header1.jpeg);
+    /* background-image: url(../assets/homePageImg/header1.jpeg); */
     border-radius: 50%;
     background-size: cover;
     position: absolute;
@@ -333,10 +343,11 @@ li{
     position: absolute;
     right: 0;
     bottom: 0;
+    cursor: pointer;    
 }
-/* #modifyPage #modifyCard #modifyHeadportrait #selectHeader{
+#modifyPage #modifyCard #modifyHeadportrait #selectHeader{
     display: none;
-} */
+}
 #modifyPage #modifyCard #modifyNickname{
     width:60%;
     height: 50px;
@@ -414,6 +425,7 @@ li{
     border-radius: 20px;
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
     0 18px 20px -10px rgba(0,0,0,.04);
+    cursor: pointer;
 }
 #modifyPage #modifyCard #btnCombination .save{
     color: white;
@@ -445,6 +457,7 @@ img{
     top:70%;
     animation:roll 10s linear infinite;
     transform-style: preserve-3d;
+    cursor: pointer;
 }
 .m{
     width:100px;
@@ -532,7 +545,7 @@ img{
 #promptBox{
     width:400px;
     height: 100px;
-    background-color: #2db0d1;
+    background-color: #f1f1f1;
     box-shadow: 0 9px 30px -6px rgba(0,0,0,.2),
     0 18px 20px -10px rgba(0,0,0,.04);
     line-height: 100px;
@@ -561,4 +574,10 @@ img{
     position: fixed;
     top:-25px;
     right: 25px;
+    cursor: pointer;
+}
+#footerBox{
+    width: 100%;
+    height:300px;
+    position: absolute;
 }

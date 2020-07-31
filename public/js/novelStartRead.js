@@ -1,6 +1,7 @@
 $(function () {
     //全局变量
     let pages = []
+    let idx = []
 
     //获取节点
     let book_tittle = $(".book_tittle")
@@ -14,6 +15,8 @@ $(function () {
     let tools_bookshelf = $(".book_navigation").children().eq(3)
     let tools_888 = $(".book_navigation").children().eq(4)
     let tools_toTop = $(".book_navigation").children().eq(5)
+    let tools_next = $(".book_navigation").children().eq(7)
+    let tools_prev = $(".book_navigation").children().eq(6)
     let setting = $(".setting")
     let book_content = $(".book_content")
     let color_change = $(".setting").children().eq(1)
@@ -21,16 +24,13 @@ $(function () {
     let font_size = $(".setting").children().eq(3).children().eq(1).children()
     let close = $(".setting").children().eq(4)
     let reset = $(".setting").children().eq(5)
-<<<<<<< HEAD
-=======
     let now_chapter = $(".now_chapter")
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
 
     //渲染页面
     function getChapter() {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_yourChapter", {}, (res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.page_chapter_content == undefined || res.page_chapter_content == 1) {
                     res.page_chapter_content = "第一章 修仙归来！"
                 }
@@ -62,29 +62,20 @@ $(function () {
             })
         })
             .then((res) => {
-<<<<<<< HEAD
-                console.log();
-                pages.forEach(element => {
-                    mune.append(`<li>${element}</li>`)
-                });
-                mune.children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
-                mune.append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
-=======
                 pages.forEach(element => {
                     mune.children("div").append(`<li>${element}</li>`)
                 });
                 mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
                 now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                 mune.children("div").append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
+                //
+                idx.length = 0
+                idx.push(res.book_whichChapter.page_chapter_idx)
                 tools()
             })
     }
 
-<<<<<<< HEAD
-=======
     //工具开关
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
     function tools_close_open(e) {
         if (e.hasClass("hide")) {
             e.siblings().addClass("hide")
@@ -100,14 +91,11 @@ $(function () {
         //初始化
         var windowlHeight = window.innerHeight;
         mune.css("left", -(mune.width() + 30))
-<<<<<<< HEAD
         mune.height(windowlHeight - book_navigation.offset().top)
         setting.css("left", -setting.width())
-=======
         mune.height(windowlHeight - book_navigation.offset().top - 30)
         mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
         setting.css("left", -(setting.width() + 56))
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
 
         //返回首页
         header_logo.click(function () {
@@ -150,12 +138,11 @@ $(function () {
                             book_reader_content.empty().append(
                                 `<p>${res.data}</p>`
                             )
-<<<<<<< HEAD
-=======
                             //目录下标
                             now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                             mune.css("left", -(mune.width() + 14))
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
+                            idx.length = 0
+                            idx.push(res.book_whichChapter.page_chapter_idx)
                         })
                     })
                 }
@@ -166,7 +153,6 @@ $(function () {
         tools_settings.click(function () {
             tools_close_open(setting)
         })
-<<<<<<< HEAD
 
         //换主题
         color_change.click(function (e) {
@@ -233,8 +219,6 @@ $(function () {
             setting.addClass("hide")
         })
 
-=======
-
         //换主题
         color_change.click(function (e) {
             if (e.target.tagName == "SPAN" || e.target.tagName == "I") {
@@ -300,7 +284,6 @@ $(function () {
             setting.addClass("hide")
         })
 
->>>>>>> 309aa66d473325715fd6658a16e1a03a25962467
         //重置样式
         reset.click(function () {
             console.log(color_change, font_change, font_size);
@@ -311,16 +294,90 @@ $(function () {
             book_tittle.css("font-size", 30)
         })
 
+        //加入书架
         tools_bookshelf.click(function () {
 
+            alert("书本已加入书架!")
         })
 
+        //充值提示
         tools_888.click(function () {
-            
+            alert("加客服寇靖QQ：2875823569,充值成为VIP享受暴打服务~")
         })
 
+        //至顶部
         tools_toTop.click(function () {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
+        })
+
+        //下一章
+        tools_next.click(function () {
+            var page_chapter_idx = parseInt(idx[0])
+            if (page_chapter_idx >= 74) {
+                return false
+            }
+            else {
+                page_chapter_idx += 1
+                idx[0] = page_chapter_idx
+                page_chapter_content = (mune.children("div").children().eq(page_chapter_idx - 1).html())
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                    return new Promise(function (resolve, reject) {
+                        $.post("/api/book_yourChapter", {}, (res) => {
+                            resolve(res)
+                        })
+                    }).then(function (res) {
+                        mune.addClass("hide")
+                        console.log(res);
+                        //标题
+                        book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
+                        //文章
+                        book_reader_content.empty().append(
+                            `<p>${res.data}</p>`
+                        )
+                        //目录下标
+                        now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                        mune.css("left", -(mune.width() + 14))
+                        mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color").siblings().removeClass("color")
+                        tools_toTop.click()
+                    })
+                })
+            }
+        })
+
+        //上一章
+        tools_prev.click(function () {
+            var page_chapter_idx = parseInt(idx[0])
+            if (page_chapter_idx <= 1) {
+                return false
+            }
+            else {
+                page_chapter_idx -= 1
+                idx[0] = page_chapter_idx
+                page_chapter_content = (mune.children("div").children().eq(page_chapter_idx - 1).html())
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                    return new Promise(function (resolve, reject) {
+                        $.post("/api/book_yourChapter", {}, (res) => {
+                            resolve(res)
+                        })
+                    }).then(function (res) {
+                        mune.addClass("hide")
+                        console.log(res);
+                        //标题
+                        book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
+                        //文章
+                        book_reader_content.empty().append(
+                            `<p>${res.data}</p>`
+                        )
+                        //目录下标
+                        now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                        mune.css("left", -(mune.width() + 14))
+                        mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color").siblings().removeClass("color")
+                        tools_toTop.click()
+                    })
+                })
+            }
         })
     }
 })
