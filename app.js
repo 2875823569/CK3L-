@@ -113,7 +113,7 @@ app.post("/api/getimg", (req, res) => {
         writer.push(date[i].book_author);
         introduce.push(date[i].book_desc);
       }
-      // 
+      
       res.send({
         arr_img: arr_img,
         arr_name: arr_name,
@@ -386,4 +386,4 @@ app.post("/api/book_yourChapter", (req, res) => {
 /************************************************************/
 app.listen("8888", () => {
   console.log("端口已开启");
-});
+}); 

@@ -23,6 +23,8 @@ var pptStrong=document.querySelector("#promptBox strong")
 var pptP=document.querySelector("#promptBox p")
 var loginBtn=document.querySelector("#loginBtn")
 var backToHome=document.querySelector("#backToHome")
+var footerBox=document.querySelector("#footerBox")
+var historyMore=document.querySelector("#icon-danseshixintubiao-")
 
 var beforeName=null;//为修改之前，登录账户的昵称
 
@@ -35,6 +37,7 @@ backToHome.addEventListener("click",()=>{
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
     modifyPage.style.display = "block";
+    footerBox.style.display="none";
 })
 //点击登录与注册跳转页面
 loginBtn.addEventListener('click',()=>{
@@ -110,22 +113,32 @@ var getBook=function(){
 getBook().then((data)=>{
     for(var i=0;i<historyBook.length;i++){
         historyBook[i].style.backgroundImage=`url(${data.msg[i].book_img})`;
+        historyBack[i].setAttribute('data-bookName',data.msg[i].book_title);
         historyBook[i].addEventListener("mouseenter",(e)=>{
-            e.target.children[0].classList.add("show")
+            e.target.children[0].classList.add("show");
         })
         historyBook[i].addEventListener("mouseleave",(e)=>{
             e.target.children[0].classList.remove("show")
         })
         historyBackP[i].innerText=data.msg[i].book_desc;
+
     }
 })
 //历史记录：
 //点击之后跳转到小说阅读
-for(var i=0;i<historyBack.length;i++){
+for(let i=0;i<historyBack.length;i++){
     historyBack[i].addEventListener("click",()=>{
+    send_information({book_name:historyBack[i].getAttribute("data-bookName")})
     location.href = "../html/novelMainPage.html"
 })
 }
+
+//点击显示更多历史记录
+historyMore.addEventListener('click',()=>{
+    
+})
+
+
 
 //获取传递的信息
 var get_send_information = function () {
@@ -188,6 +201,8 @@ saveBtn.addEventListener('click',()=>{
             Prompt('提示！',data.msg)
             box.style.display = "block";
             modifyPage.style.display = "none";
+            footerBox.style.display="block";
         }
     })
 })
+

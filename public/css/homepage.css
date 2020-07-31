@@ -574,6 +574,7 @@ img{
     position: fixed;
     top:-25px;
     right: 25px;
+    cursor: pointer;
 }
 #footerBox{
     width: 100%;
