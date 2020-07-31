@@ -51,7 +51,7 @@ $profilePic.on("change", function (e) {
             profilePic = res.img
         })
     } else {
-        alert("请上传JPEG/PNG格式的图片")
+        _alert("请上传JPEG/PNG格式的图片")
     }
 })
 
@@ -85,10 +85,12 @@ get_user_information().then((data) => {
             $("#logout").on("click", () => {
                 $.post("/api/logout",(req,res)=>{
                     if(res){
-                        alert("注销成功")
+                        _alert("green","注销成功")
                     }
                     alreadyLogin = false
-                    location.reload()
+                    setTimeout(() => {
+                        location.reload()
+                    }, 2700);
                 })
             })
         }, 1100);
@@ -104,12 +106,15 @@ var submit = function () {
         var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
         $.post("/api/login", { mail, psw }, function (res) {
             if (!res.code) {
-                location.href = "../index.html"
+                _alert("green","登录成功嘤嘤嘤")
+                setTimeout(() => {
+                    location.href = "../index.html"
+                }, 2700);
                 // get_user_information().then((res)=>{
                 //     console.log(res);
                 // });
             } else {
-                alert("登录失败，原因不详")
+                _alert("red","登录失败，原因不详")
             }
 
         })
@@ -121,34 +126,34 @@ var submit = function () {
         if (psw1 != psw2) {
             $("#psw1").val("");
             $("#psw2").val("");
-            alert("两次密码输入不一致")
+            _alert("red","两次密码输入不一致")
             return
         }
         if (!userName) {
             $("#psw1").val("");
             $("#psw2").val("");
-            alert("请输入昵称")
+            _alert("red","请输入昵称")
             return
         }
         if (!email) {
             $("#psw1").val("");
             $("#psw2").val("");
-            alert("请输入邮箱地址")
+            _alert("red","请输入邮箱地址")
             return
         }
         if (!profilePic) {
             $("#psw1").val("");
             $("#psw2").val("");
-            alert("请上传头像")
+            _alert("red","请上传头像")
             return
         }
         $.post("api/signIn", { userName, email, psw1, profilePic }, function (res) {
             if (res.code == 0) {
                 isLogin = true;
-                alert("注册成功");
+                _alert("green","注册成功")
                 logInSwitch()
             } else if (res.code == 3) {
-                alert("此邮箱已被注册！")
+                _alert("red","此邮箱已被注册！")
                 return
             }
         })
@@ -190,15 +195,19 @@ get_send_information().then((res) => {
         SignInSwitch();
     }
 })
-get_send_information().then((res) => {
-    if (res.send_information.alreadyLogin == false) {
-        alreadyLogin = false;
-        $.post("/api/logout",(req,res)=>{
-            if(res){
-                alert("注销成功")
-            }
-            alreadyLogin = false
-            location.reload()
-        })
+ function _alert(color,content){
+    $(`<div class="alert" style="position: absolute;width: 15%;height: 50px;border-radius: 15px;font-weight: bold;text-align: center;line-height: 50px;left: 42.5%;top: -10%;z-index: 9999;box-shadow: 1px 1px 12px 1px #bfbfbf;" >${content}</div>`).appendTo("body");
+    $(".alert").animate({top:"+6%",opacity:"1"},1000 ,"swing")
+    setTimeout(() => {
+        $(".alert").animate({top:"-6%",opacity:"0"},800,"swing")
+    }, 2000);
+    setTimeout(() => {
+        $(".alert").remove()
+    }, 3000);if(color == "green"){
+        $(".alert").css({"background-color":"rgb(223 240 216 / 1)","color":"#66a31f"})
+    }else if(color == "red"){
+        $(".alert").css({"background-color":"rgb(242, 222, 222)","color":"rgb(182 65 29)"})
+    }else{
+        console.log("啥啊，这颜色没做呢")
     }
-})
+ }

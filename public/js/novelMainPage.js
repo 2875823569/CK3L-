@@ -94,8 +94,15 @@ $(function () {
             page_chapter_idx = 1
             page_chapter_content = "第一章 修仙归来！"
             return new Promise(function (resolve, reject) {
-                $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
-                location.href = "./novelStartRead.html"
+                $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
+                    console.log(res.code);
+                    if (res.code != 0) {
+                        alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                    }
+                    else {
+                        location.href = "./novelStartRead.html"
+                    }
+                })
             })
         })
 
@@ -103,12 +110,12 @@ $(function () {
         addToBookShelf.click(function () {
             var book_name = novel_introduce_tittle.html()
             console.log(book_name);
-            // return new Promise(function (resolve, reject) {
-            //     $.post("/api/user_likes", { book_name }, (res) => {
-            //         console.log(res);
-            //     })
+            return new Promise(function (resolve, reject) {
+                $.post("/api/user_likes", { book_name }, (res) => {
+                    console.log(res);
+                })
                 // alert()
-            // })
+            })
         })
 
         //跳转分类
@@ -172,8 +179,14 @@ $(function () {
                 page_chapter_content = ($(e.target).html())
                 page_chapter_idx++
                 return new Promise(function (resolve, reject) {
-                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
-                    location.href = "./novelStartRead.html"
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
+                        if (res.code != 0) {
+                            alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                        }
+                        else {
+                            location.href = "./novelStartRead.html"
+                        }
+                    })
                 })
             }
         })
