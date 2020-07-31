@@ -1,6 +1,7 @@
 $(function () {
     //全局变量
     let pages = []
+    let idx = []
 
     //获取节点
     let book_tittle = $(".book_tittle")
@@ -14,6 +15,8 @@ $(function () {
     let tools_bookshelf = $(".book_navigation").children().eq(3)
     let tools_888 = $(".book_navigation").children().eq(4)
     let tools_toTop = $(".book_navigation").children().eq(5)
+    let tools_next = $(".book_navigation").children().eq(6)
+    let tools_prev = $(".book_navigation").children().eq(7)
     let setting = $(".setting")
     let book_content = $(".book_content")
     let color_change = $(".setting").children().eq(1)
@@ -27,7 +30,7 @@ $(function () {
     function getChapter() {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_yourChapter", {}, (res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.page_chapter_content == undefined || res.page_chapter_content == 1) {
                     res.page_chapter_content = "第一章 修仙归来！"
                 }
@@ -65,6 +68,9 @@ $(function () {
                 mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color")
                 now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                 mune.children("div").append(`<li style="font-size:14px">人家也是有底线的啦~</li>`)
+                //
+                idx.length = 0
+                idx.push(res.book_whichChapter.page_chapter_idx)
                 tools()
             })
     }
@@ -133,6 +139,8 @@ $(function () {
                             //目录下标
                             now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
                             mune.css("left", -(mune.width() + 14))
+                            idx.length = 0
+                            idx.push(res.book_whichChapter.page_chapter_idx)
                         })
                     })
                 }
@@ -219,16 +227,90 @@ $(function () {
             book_tittle.css("font-size", 30)
         })
 
+        //加入书架
         tools_bookshelf.click(function () {
 
+            alert("书本已加入书架!")
         })
 
+        //充值提示
         tools_888.click(function () {
-            
+            alert("加客服寇靖QQ：2875823569,充值成为VIP享受暴打服务~")
         })
 
+        //至顶部
         tools_toTop.click(function () {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
+        })
+
+        //下一章
+        tools_next.click(function () {
+            var page_chapter_idx = parseInt(idx[0])
+            if (page_chapter_idx >= 74) {
+                return false
+            }
+            else {
+                page_chapter_idx += 1
+                idx[0] = page_chapter_idx
+                page_chapter_content = (mune.children("div").children().eq(page_chapter_idx - 1).html())
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                    return new Promise(function (resolve, reject) {
+                        $.post("/api/book_yourChapter", {}, (res) => {
+                            resolve(res)
+                        })
+                    }).then(function (res) {
+                        mune.addClass("hide")
+                        console.log(res);
+                        //标题
+                        book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
+                        //文章
+                        book_reader_content.empty().append(
+                            `<p>${res.data}</p>`
+                        )
+                        //目录下标
+                        now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                        mune.css("left", -(mune.width() + 14))
+                        mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color").siblings().removeClass("color")
+                        tools_toTop.click()
+                    })
+                })
+            }
+        })
+
+        //上一章
+        tools_prev.click(function () {
+            var page_chapter_idx = parseInt(idx[0])
+            if (page_chapter_idx <= 1) {
+                return false
+            }
+            else {
+                page_chapter_idx -= 1
+                idx[0] = page_chapter_idx
+                page_chapter_content = (mune.children("div").children().eq(page_chapter_idx - 1).html())
+                return new Promise(function (resolve, reject) {
+                    $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, () => { })
+                    return new Promise(function (resolve, reject) {
+                        $.post("/api/book_yourChapter", {}, (res) => {
+                            resolve(res)
+                        })
+                    }).then(function (res) {
+                        mune.addClass("hide")
+                        console.log(res);
+                        //标题
+                        book_tittle.empty().append(res.book_whichChapter.page_chapter_content)
+                        //文章
+                        book_reader_content.empty().append(
+                            `<p>${res.data}</p>`
+                        )
+                        //目录下标
+                        now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
+                        mune.css("left", -(mune.width() + 14))
+                        mune.children("div").children().eq(res.book_whichChapter.page_chapter_idx - 1).addClass("color").siblings().removeClass("color")
+                        tools_toTop.click()
+                    })
+                })
+            }
         })
     }
 })
