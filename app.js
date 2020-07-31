@@ -50,10 +50,9 @@ app.use(
 );
 // 除了观看小说，其他操作跳过令牌验证
 app.use(function (req, res, next) {
-  if (!req.url.includes("book_whichChapter")) {
+  if (!req.url.includes("book_whichChapter"||"user_likes")) {
     next(); //放行，执行后面的路由匹配
   } else {
-    next()//------------------------------------------------后面删除-----------------------------------
     if (req.session.userName) {
       next();
     } else {
@@ -461,6 +460,8 @@ app.post("/api/book_yourChapter", (req, res) => {
   }
   );
 });
+
+
 
 // app.post("/api/user_likes", (req, res) => {
 //   if (req.body == '') {
