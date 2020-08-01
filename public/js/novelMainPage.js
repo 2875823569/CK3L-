@@ -108,13 +108,23 @@ $(function () {
         //加入书架
         addToBookShelf.click(function () {
             var book_name = novel_introduce_tittle.html()
-            console.log(book_name);
-            // return new Promise(function (resolve, reject) {
-            //     $.post("/api/user_likes", { book_name }, (res) => {
-            //         console.log(res);
-            //     })
-            // alert()
-            // })
+            new Promise(function (resolve, reject) {
+                $.post("/api/get_user_information", {}, (res) => {
+                    // console.log(res);
+                    resolve();
+                })
+                    .then(function (res) {
+                        new Promise(function (resolve, reject) {
+                            if (res.code != 0) {
+                                alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
+                            }
+                            else {
+                                $.post("/api/user_likes", { email: res.user.email, book_name }, () => { })
+                                alert("已成功加入书架。")
+                            }
+                        })
+                    })
+            })
         })
 
         //跳转分类
