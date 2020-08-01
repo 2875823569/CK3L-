@@ -79,7 +79,10 @@ button {
 .novel_img {
     width: 18rem;
     height: 20rem;
-    transform: translate(5rem, -5rem);
+    position: relative;
+    left: 5rem;
+    top: -5rem;
+    /* transform: translate(5rem, -5rem); */
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
     border-radius: 10px;
 }
@@ -91,9 +94,9 @@ button {
 }
 
 .novel_introduce {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    top: -20rem;
+    left: 30rem;
     width: 70%;
 }
 
@@ -174,6 +177,8 @@ button {
 }
 
 .main_content {
+    position: relative;
+    top: -15rem;
     width: 90%;
     margin-left: 5rem;
     font-size: 28px;
@@ -250,10 +255,9 @@ button {
     background-color: #F6F6F6;
 }
 
-.books_send{
-    width: 30%;
+.books_send {
+    width: 35%;
     position: absolute;
-    bottom: 140px;
     left: 65%;
     height: 720px;
 }
@@ -266,15 +270,60 @@ button {
     border-radius: 10px;
     background-color: #F6F6F6;
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
+.main_content_txt_right div {
+    width: 100%;
+    height: 180px;
+    position: relative;
+}
 
+.main_content_txt_right div img {
+    width: 28%;
+    height: 180px;
+    cursor: pointer;
+}
 
+.main_content_txt_right div div {
+    width: 72%;
+    height: 180px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
+.main_content_txt_right div div li {
+    margin: 5px;
+    color: #3B3B3B;
+}
 
+.main_content_txt_right div div li:nth-of-type(1) {
+    margin-left: -10px;
+    font-size: 26px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
+.main_content_txt_right div div li:nth-of-type(2) {
+    margin-left: 10px;
+    font-size: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.main_content_txt_right div div li:nth-of-type(3) {
+    font-size: 18px;
+    width: 100%;
+    color: #757575;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    /*设置p元素最大4行，父元素需填写宽度才明显*/
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
 
 .main_content_chapter {
     width: 100%;
