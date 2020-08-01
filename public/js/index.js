@@ -23,7 +23,6 @@ var transform_x = 0;
 var get_user_information = function () {
   return new Promise((resolve, reject) => {
     $.post("/api/get_user_information", (res) => {
-      
       if (!res.code) {
         resolve(res.user);
       } else {
@@ -49,10 +48,9 @@ get_user_information().then(
       .attr("src", res.headImage);
 
     $(".user_islogin h2").text(`Hi ${res.userName}`);
-    
   },
   () => {
-    alert({})
+    alert({});
   }
 );
 //获取传递的信息
@@ -66,6 +64,7 @@ var get_send_information = function () {
 
 //传递信息
 var send_information = function (information) {
+  
   return new Promise((resolve, reject) => {
     $.post("/api/send_information", information, (res) => {
       resolve(res);
@@ -126,21 +125,20 @@ function get_top_book() {
 }
 //随机获取书本的函数
 function round_book() {
-  return new Promise((resolve,reject) => {
-    $.post("/api/round_book",(res) => {
-      resolve(res)
-    })
-  })
+  return new Promise((resolve, reject) => {
+    $.post("/api/round_book", (res) => {
+      resolve(res);
+    });
+  });
 }
 //对小说进行模糊搜索
-function search_book(book_name){
-  return new Promise((resolve,reject) => {
-    $.post("/api/search_book",{"book_name":book_name},(res) => {
-      resolve(res)
-    })
-  })
+function search_book(book_name) {
+  return new Promise((resolve, reject) => {
+    $.post("/api/search_book", { book_name: book_name }, (res) => {
+      resolve(res);
+    });
+  });
 }
-
 
 //编写十本推荐小说的类
 class Book {
@@ -175,6 +173,7 @@ class Book {
 
   //节点的点击事件
   click() {
+    console.log(123);
     let name = this.name;
     send_information({ book_name: name }).then((res) => {
       change_number(name).then((res) => {
@@ -188,16 +187,14 @@ class Book {
 
 //调用查找函数并渲染界面
 getInfromation({ type1_name: "玄幻" }).then((res) => {
-
   // 渲染中间轮播图
-  let img = ""
+  let img = "";
   for (let i = 0; i < 10; i++) {
     img += `<div class="item" book_name=${res.arr_name[i]}>
         <img class="img"  style="background-image: url('${arr_img[i]}');">
       </div>`;
   }
   $(".slider-inner").html(img);
-
 
   for (let i = 0; i < 8; i++) {
     $(".activetis").append(
@@ -497,8 +494,8 @@ $(".go_left").on("click", function () {
 
 //给编辑推荐中的书籍添加点击事件
 $(".activetis").on("click", "img", function () {
-  send_information({ book_name: this.name }).then((res) => {
-    change_number(this.name).then(() => {
+  send_information({ book_name: this.getAttribute("name") }).then((res) => {
+    change_number(this.getAttribute("name")).then(() => {
       location.href = "../html/novelMainPage.html";
     });
   });
@@ -527,11 +524,11 @@ $(".user img").on("click", () => {
 $(".user_islogin span").on("click", () => {
   location.href = "../html/homepage.html";
 });
-$(".login_out").on("click",function(){
-  send_information({alreadyLogin:false}).then(() => {
-    location.href = "../login.html"
-  })
-})
+$(".login_out").on("click", function () {
+  send_information({ alreadyLogin: false }).then(() => {
+    location.href = "../login.html";
+  });
+});
 
 //登陆按钮
 $(".user_login_box span:nth-of-type(1)").on("click", function () {
@@ -552,116 +549,116 @@ $(".user_login_box span:nth-of-type(2)").on("click", function () {
 
 //推荐轮播图添加点击事件
 $(".slider-inner").on("click", ".item", function () {
+  let book_name = this.getAttribute("book_name")
   send_information({
-    book_name: this.getAttribute("book_name"),
+    book_name: book_name,
   }).then(() => {
-    location.href = "../html/novelMainPage.html";
+    change_number(book_name).then(() => {
+      location.href = "../html/novelMainPage.html";
+    });
   });
 });
 
 // 点击更新随机切换八本小说推荐
-$(".remommend2_top i").on("click",function(){
+$(".remommend2_top i").on("click", function () {
   round_book().then((res) => {
-    $(".recommend2_container ul").html("")
-    let li = ""
-    for(let i = 0;i<8; i ++){
+    $(".recommend2_container ul").html("");
+    let li = "";
+    for (let i = 0; i < 8; i++) {
       let li_ = ` <li book_name=${res.arr_name[i]}>
       <p class="book_name">${res.arr_name[i]}</p>
       <p class="book_container">
         ${res.introduce[i]}
       </p>
     </li>`;
-      li += li_
+      li += li_;
     }
     $(".recommend2_container ul").html(li);
-  })
-})
+  });
+});
 //点击放大镜显示搜索框
-$(".search i").on("click",function(){
-  $(".top_nav").fadeToggle("fast")
-  $(".search input").slideToggle("fast")
-  $(this).toggleClass("icon-fangdajing").toggleClass("icon-guanbi")
-  $(".sear_container ul").html("")
-  $(".search input").val("")
-})
+$(".search i").on("click", function () {
+  $(".top_nav").fadeToggle("fast");
+  $(".search input").slideToggle("fast");
+  $(this).toggleClass("icon-fangdajing").toggleClass("icon-guanbi");
+  $(".sear_container ul").html("");
+  $(".search input").val("");
+});
 //搜索框事件
-function debounce(func,wait) {
+function debounce(func, wait) {
   let timeout;
   return function () {
-      let context = this;
-      let args = arguments;
+    let context = this;
+    let args = arguments;
 
-      if (timeout) clearTimeout(timeout);
+    if (timeout) clearTimeout(timeout);
 
-      let callNow = !timeout;
-      timeout = setTimeout(() => {
-          timeout = null;
-      }, wait)
+    let callNow = !timeout;
+    timeout = setTimeout(() => {
+      timeout = null;
+    }, wait);
 
-      if (callNow) func.apply(context, args)
-  }
+    if (callNow) func.apply(context, args);
+  };
 }
-function star_search(){
+function star_search() {
   search_book($(this).val()).then((res) => {
-    if(!$(this).val()) return
-    let li = ""
-    for(let i = 0;i<res.date.length;i++){
-      li += `<li name=${res.date[i].book_title}>${res.date[i].book_title}</li>`
+    if (!$(this).val()) return;
+    let li = "";
+    for (let i = 0; i < res.date.length; i++) {
+      li += `<li name=${res.date[i].book_title}>${res.date[i].book_title}</li>`;
     }
-    $(".sear_container ul").html(li)
-
-  })
+    $(".sear_container ul").html(li);
+  });
 }
 
 //搜索部分
-$(".search input").on("input",debounce(star_search,100))
-$(".search input").on("keydown",function (e) {
-  if(!$(this).val()) return
+$(".search input").on("input", debounce(star_search, 100));
+$(".search input").on("keydown", function (e) {
+  if (!$(this).val()) return;
   if (e.keyCode == 13) {
     search_book($(this).val()).then((res) => {
-      let li = ""
-      for(let i = 0;i<res.date.length;i++){
-        li += `<li name=${res.date[i].book_title}>${res.date[i].book_title}</li>`
+      let li = "";
+      for (let i = 0; i < res.date.length; i++) {
+        li += `<li name=${res.date[i].book_title}>${res.date[i].book_title}</li>`;
       }
-      $(".sear_container ul").html(li)
-    })
+      $(".sear_container ul").html(li);
+    });
   }
-})
-$(".sear_container ul").on("click","li",function (){
-  
+});
+$(".sear_container ul").on("click", "li", function () {
   send_information({
     book_name: this.getAttribute("name"),
   }).then(() => {
     location.href = "../html/novelMainPage.html";
   });
-})
-
+});
 
 //分页测试
-function book_pagination(query,onepage_num,page_num) {
+function book_pagination(query, onepage_num, page_num) {
   //传递参数为三个：查询条件query，一页的数量onepage_num,第几页page_num
-  return new Promise((resolve,reject) => {
-    $.post("/api/book_pagination",{query:query,onepage_num:onepage_num,page_num:page_num},(res) => {
-      
-      resolve(res)
-    })
-  })
+  return new Promise((resolve, reject) => {
+    $.post(
+      "/api/book_pagination",
+      { query: query, onepage_num: onepage_num, page_num: page_num },
+      (res) => {
+        resolve(res);
+      }
+    );
+  });
 }
-// book_pagination({"type1_name":"玄幻"},3,3).then((res) => {
-//   console.log(res);
-// })
 
 //弹窗测试
 // let alertName = {}//弹窗名字
 function alert(alertName) {
-  if(alertName.dialog11){
+  if (alertName.dialog11) {
     return alertName.dialog11.show();
   }
   alertName.dialog11 = jqueryAlert({
-    'icon'    : '../assets/images/',
-    'content' : '当前未登录',
-    'closeTime' : 200000,
-  })
+    icon: "",
+    content: "当前未登录",
+    closeTime: 2000,
+  });
 }
 
 //加入这个类改变弹窗样式
@@ -670,3 +667,42 @@ function alert(alertName) {
 // }
 
 // alert()
+
+
+//---------------------------------------------------------评论相关--------------------------------------------------------
+//#region
+//添加评论
+function add_comment(email, book_name, comment) {
+  //邮箱email,书名：book_name,评论内容comment
+  return new Promise((resolve, reject) => {
+    $.post(
+      "/api/add_comment",
+      { email: email, book_name: book_name, comment: comment },
+      (res) => {
+        resolve(res);
+      }
+    );
+  });
+}
+// add_comment("123", "我的徒弟都是大反派", "牛逼").then((res) => {
+//   if (!res.code) {
+//     console.log(res);
+//   }
+// });
+// 获取评论
+function get_comment(book_name) {
+  return new Promise((resolve,reject) => {
+    $.post("/api/get_comment",{book_name:book_name},(res) => {
+      resolve(res)
+    })
+  })
+}
+// get_comment("我的徒弟都是大反派").then((res) => {
+//   console.log(res);
+// })
+// #endregion
+
+
+//---------------------------------------------------------历史记录--------------------------------------------------------
+
+//---------------------------------------------------------历史记录--------------------------------------------------------

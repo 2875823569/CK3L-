@@ -24,15 +24,15 @@ function write(query,onepage_num,page_num){
         box.innerHTML=str;
     })
 }
-write({"type1_name":"玄幻"},10,1)
-for(let i=0;i<PageNumberLi.length;i++){
-    PageNumberLi[0].classList.add('cur');
-    PageNumberLi[i].addEventListener('click',(e)=>{
-        e.target.classList.add('cur');
-        $(e.target).siblings().removeClass('cur')
-        write({"type1_name":"玄幻"},10,i+1)
-    })
-}
+// write({"type1_name":"玄幻"},10,1)
+// for(let i=0;i<PageNumberLi.length;i++){
+//     PageNumberLi[0].classList.add('cur');
+//     PageNumberLi[i].addEventListener('click',(e)=>{
+//         e.target.classList.add('cur');
+//         $(e.target).siblings().removeClass('cur')
+//         write({"type1_name":"玄幻"},10,i+1)
+//     })
+// }
 
 //事件代理，点击书跳转到对应的页面
 $('#box').on('click','p',(e)=>{
@@ -58,3 +58,34 @@ var get_send_information = function () {
       });
     });
   };
+//获取用户信息
+  function get_user_information() {
+    return new Promise((resolve, rejects) => {
+        $.post("/api/get_user_information", (res) => {
+            resolve(res)
+        })
+    })
+}
+var sendUserEmail=function (userEmail) {
+  return new Promise((resolve,rejects)=>{
+  $.post("/api/findUserHistory", { userEmail }, (res) => {
+      resolve(res);
+  })
+  })
+  
+};
+ get_user_information().then((data) => {
+    userEmail = data.user.email;
+    sendUserEmail(userEmail).then((res) => {
+      var str='';
+      for(var i=0;i<res.msg.length;i++){
+        str+=`
+        <div class="history">
+             <div id="historyBook"style="background-image:url(${res.msg[i].book_img});background-size:cover;"></div>
+             <P>${res.msg[i].book_name}</P>
+         </div>
+        `
+    }
+    box.innerHTML=str;
+    })
+})

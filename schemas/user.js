@@ -6,6 +6,7 @@ var UserSchema = mongoose.Schema({
      profilePic:String,
      email:String,
      user_likes:[],
+     history:[]
 })
 
 module.exports = UserSchema

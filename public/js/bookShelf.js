@@ -27,6 +27,14 @@ var send_information = function (information) {
 //         username=data.user.userName;
 //     })
 // }
+var sendUserEmail = function (userEmail) {
+    return new Promise((resolve,rejects)=>{
+    $.post("/api/findUserLike", { userEmail }, (res) => {
+        resolve(res);
+    })
+    })
+    
+}
 function get_user_information() {
     return new Promise((resolve, rejects) => {
         $.post("/api/get_user_information", (res) => {
@@ -36,24 +44,16 @@ function get_user_information() {
 }
 get_user_information().then((data) => {
     userEmail = data.user.email;
-    var sendUserEmail = function () {
-        return new Promise((resolve,rejects)=>{
-        $.post("/api/findUser", { userEmail }, (res) => {
-            resolve(res);
-        })
-        })
-        
-    }
-})
-    sendUserEmail().then((res) => {
-        console.log(res.msg);
+    sendUserEmail(userEmail).then((res) => {
         var str='';
+        console.log(res);
         for(var i=0;i<res.msg.length;i++){
             str+= `<div class="history">
-            <div id="historyBook" style="background-Image:url(${res.msg.novel_img});background-size:cover;"></div>
-            <P>${res.msg.book_name}</P>
+            <div id="historyBook" style="background-Image:url(${res.msg[i].novel_img});background-size:cover;"></div>
+            <P>${res.msg[i].book_name}</P>
         </div>
         `
         }
         box.innerHTML=str;
     })
+})
