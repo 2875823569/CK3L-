@@ -35,7 +35,7 @@ app.use(
   session({
     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-    rolling: false, //每次请求都重置 cookie的设置
+    rolling: true, //每次请求都重置 cookie的设置
     cookie: {
       maxAge: 1000 * 60 * 60,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
