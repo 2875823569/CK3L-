@@ -31,8 +31,9 @@ var get_user_information = function () {
     });
   });
 };
+var is_login = false;
 
-//接受前台发送的信息，判断是否是登陆状态
+//接受后台发送的信息，判断是否是登陆状态
 get_user_information().then(
   (res) => {
     $(".login_btn").css({ display: "none" });
@@ -48,9 +49,10 @@ get_user_information().then(
       .attr("src", res.headImage);
 
     $(".user_islogin h2").text(`Hi ${res.userName}`);
+    is_login = true;
   },
   () => {
-    alert({});
+    alert({},"当前未登陆");
   }
 );
 //获取传递的信息
@@ -634,6 +636,15 @@ $(".sear_container ul").on("click", "li", function () {
   });
 });
 
+//书架
+$(".bookshelf").on("click",function(){
+  if(is_login){
+    // location.href = "../html/"
+  }else{
+    alert({},"你当前未登陆哦，获取不到你的书架")
+  }
+})
+
 //分页测试
 function book_pagination(query, onepage_num, page_num) {
   //传递参数为三个：查询条件query，一页的数量onepage_num,第几页page_num
@@ -650,13 +661,13 @@ function book_pagination(query, onepage_num, page_num) {
 
 //弹窗测试
 // let alertName = {}//弹窗名字
-function alert(alertName) {
+function alert(alertName,content) {
   if (alertName.dialog11) {
     return alertName.dialog11.show();
   }
   alertName.dialog11 = jqueryAlert({
     icon: "",
-    content: "当前未登录",
+    content: content,
     closeTime: 2000,
   });
 }
@@ -701,8 +712,3 @@ function get_comment(book_name) {
 //   console.log(res);
 // })
 // #endregion
-
-
-//---------------------------------------------------------历史记录--------------------------------------------------------
-
-//---------------------------------------------------------历史记录--------------------------------------------------------
