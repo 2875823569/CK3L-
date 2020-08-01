@@ -5,7 +5,7 @@ var UserSchema = mongoose.Schema({
      pwd:String,
      profilePic:String,
      email:String,
-     users_likes:[],
+     user_likes:[],
      history:[]
 })
 

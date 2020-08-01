@@ -62,7 +62,7 @@ function getbooktype() {
             // btitle.append(`${res.booktype[0]}小说`) //设置默认显示
 
             classpage({ type1_name: res.booktype[0] }, {}, 1)
-            
+
 
             for (let i = 0; i < res.booktype.length; i++) {
                 new classNav({ bookname: res.booktype[i] })
@@ -89,7 +89,7 @@ function getInfromation(query, onepage_num, page_num) {
         $.post("/api/book_pagination", { query: query, onepage_num: onepage_num, page_num: page_num }, (res) => {
             bookbox.empty()
 
-            for(let i = 0;i<res.date.length;i++){
+            for (let i = 0; i < res.date.length; i++) {
                 new Book({ src: res.date[i].book_img, name: res.date[i].book_title })
             }
             resolve(res);
@@ -103,9 +103,9 @@ function classpage(query, onepage_num, page_num) {
     return new Promise(function (resolve, reject) {
         $.post("/api/book_pagination", { query: query, onepage_num: onepage_num, page_num: page_num }, (res) => {
             result.empty()
-            
+
             result.append(res.date.length) //搜索结果
-            
+
             total = res.date.length
             let pagenumber = Math.ceil(total / pageSize)
             // console.log(pagenumber);
@@ -130,18 +130,18 @@ function classpage(query, onepage_num, page_num) {
 //-----------------分页渲染-------------------------
 
 
-$('.pagination').on('click','a',function(){
+$('.pagination').on('click', 'a', function () {
     let pageNum2 = $(this).attr("data-num");
 
     clas2 = $(this).attr("clas");
     console.log($(this).parent()[0]);
     // $(this).parent()[0].classList.add('active')
-    
+
 
     // console.log(clas2,pageSize,pageNum2-0+1);
     // classpage({ type1_name:clas2}, pageSize, pageNum2-0+1)
 
-    getInfromation({type1_name:clas2},pageSize,pageNum2-0+1)
+    getInfromation({ type1_name: clas2 }, pageSize, pageNum2 - 0 + 1)
 })
 
 //-------------------分类-----------------------------
@@ -159,7 +159,6 @@ $(".allclass").on("click", "li", function () {
     // console.log(clarr);
     creatbooks()                //创建书本
     classpage({ type1_name: clarr[0] }, {}, 1)
-
 
     clarr = []
     // console.log(clarr);
@@ -186,35 +185,40 @@ $(".allbook").on("click", 'li', function () {
     // console.log($(this).children().children().eq(1).html();
     clarr2.push($(this).children().children().eq(1).html());
     console.log(clarr2[0]);
-
+    
     var clarr3 = clarr2[0]
     $.post("/api/send_information", { "book_name": clarr3 }, (res) => {
         // console.log(res.booktype);
         console.log(res);
         clarr2 = []
-        location.href = '../html/novelMainPage.html'
+        // location.href = '../html/novelMainPage.html'
     })
+    console.log(clarr3);    
+    $.post('/api/update_num',{book_title:clarr3}, (res) => {
+        console.log(res);
+    })   
+
 })
 
 //--------------------获取分类信息-------------------------
-function getclassmessage(){
-    return new Promise(function(resolve,reject){
+function getclassmessage() {
+    return new Promise(function (resolve, reject) {
 
 
-        $.post('/api/get_send_information',(res)=>{
+        $.post('/api/get_send_information', (res) => {
 
             // console.log(res);
             btitle.append(`${res.send_information.book_type}小说`) //设置显示
 
             classpage({ type1_name: res.send_information.book_type }, 20, 1).then((res) => {
                 result.append(res.date.length)
-                console.log(res.date.length);
+                // console.log(res.date.length);
 
                 for (let i = 0; i < res.date.length; i++) {
                     new Book({ src: res.date[i].book_img, name: res.date[i].book_title })
                 }
-            }) 
-        resolve(res)
+            })
+            resolve(res)
 
         })
     })
@@ -222,7 +226,25 @@ function getclassmessage(){
 getclassmessage()
 
 
-$('.icon-fangdajing').on('click',function(){
+
+
+
+
+// function num(booknames) {
+//     return new Promise(function(resolve, reject){
+        // $.post('/app/update_num'),{booknames}, (res) => {
+
+
+        //     resolve(res)
+        // }
+//     })
+
+// }
+// num()
+
+
+
+$('.icon-fangdajing').on('click', function () {
     // $('.seatch_btn')
     $('.sbtn>input')[0].classList.toggle('seatch_btn2')
 })
@@ -239,7 +261,7 @@ $('.reg_btn').on('click', () => {
     location.href = '../../login.html'
 })
 
-booklike.on('click',()=>{
+booklike.on('click', () => {
     location.href = '../html/novelStartRead.html'
 
 })
