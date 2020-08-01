@@ -89,10 +89,21 @@ var sendUserEmail=function (userEmail) {
     //      </div>
     //     `
     // }
+    res.msg=res.msg.reverse()
+    var count=Math.ceil(res.msg.length/10);
+    var strLi='';
+    for(var i=0;i<count;i++){
+      if(i==0){
+        strLi+=`<li class="PageNumberLi now">${i+1}</li>`;
+      }else{
+        strLi+=`<li class="PageNumberLi">${i+1}</li>`;
+      }
+  }
+  PageNumber.innerHTML=strLi;
     writePaging(box,PageNumber,res.msg,0,10,res);
-    $("#PageNumber").on('click','li',(e) => {
-        $(e.target).siblings().removeClass('now');
-        e.target.classList.add('now');
+    $("#PageNumber").on('click','li',function(e) {
+        $(this).siblings().removeClass('now');
+        $(this).addClass("now")
         var curIndex=$(e.target).text()-1;
         writePaging(box,PageNumber,res.msg,curIndex,10,res)
     })
@@ -100,20 +111,16 @@ var sendUserEmail=function (userEmail) {
 })
 
 //分页函数
+is_first = true;
 var writePaging=(element1,element2,arr,page,pagenum,res) => {
   var allpage=Math.ceil(arr.length/pagenum);
-  var strLi='';
   var strDiv='';
   var arrSlice=[];
-  for(var i=0;i<allpage;i++){
-      strLi+=`<li class="PageNumberLi">${i+1}</li>`;
-  }
-  element2.innerHTML=strLi;
   if(page==0){
       arrSlice=arr.slice(0,pagenum)
   }
   else if(page<allpage){
-       arrSlice=arr.slice(page*pagenum,(page+1)*pagenum);
+       arrSlice=arr.slice(page*pagenum,(page+1)*pagenum)
   }else if(page>allpage){
       arrSlice=arr.slice(page*pagenum,arr.length-1)
   }
@@ -122,6 +129,7 @@ var writePaging=(element1,element2,arr,page,pagenum,res) => {
       <div class="history">
       <div id="historyBook" style="background-Image:url(${arrSlice[i].book_img});background-size:cover;"></div>
       <P>${arrSlice[i].book_name}</P>
+      <span>${arrSlice[i].time}</span>
      </div>
       `
   }
