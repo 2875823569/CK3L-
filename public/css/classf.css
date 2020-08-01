@@ -50,7 +50,7 @@ body{
 
 }
 .classfboxleft{
-    width: 20vw;
+    width: 307px;
     margin-top: 20px;
     border: 1px solid rgb(201, 199, 198);
     border-radius: 10px;
@@ -60,7 +60,7 @@ body{
 
 }
 .meanbox{
-    width: 95vw;
+    width: 1470px;
     margin: 0 auto;
     /* display: flex; */
     overflow: hidden;
@@ -81,7 +81,7 @@ body{
 .classfboxright{
     float: right;
     margin-left: 40px;
-    width: 70vw;
+    width: 1075px;
     height: 1200px;
     margin-top: 20px;
     border: 1px solid rgb(201, 199, 198);
@@ -148,7 +148,14 @@ body{
     text-align: center;
 }
 .pagination{
-    position: absolute;
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
+    /* position: absolute; */
+    /* left: 50%;
+    transform: translateX(-50%); */
+    
+}
+.nav_page{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
 }

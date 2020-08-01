@@ -385,6 +385,7 @@ ul {
   text-align: center;
   grid-gap: 10px 68px;
   align-items: stretch;
+  cursor: pointer;
 }
 .titles li {
   border-radius: 10px;
@@ -455,7 +456,7 @@ ul {
 .login_box_bottom ul {
   display: flex;
   justify-content: space-between;
-  margin: 0 26px;
+  margin: 20px 26px;
 }
 .login_box_bottom ul li i {
   font-size: 25px;
@@ -488,6 +489,7 @@ h2 {
   height: 326px;
   padding: 10px 30px;
   box-sizing: border-box;
+  cursor: pointer;
   /* outline: 1px solid; */
 }
 .recommend2_container ul {
