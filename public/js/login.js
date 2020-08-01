@@ -123,7 +123,7 @@ var submit = function () {
         var psw2 = $("#psw2").val();
         
         console.log(email);
-        if(/^[a-zA-Z0-9_-]{4,16}$/.test(userName)){
+        if(/^[a-zA-Z0-9_\u4e00-\u9fa5]{3,10}$/.test(userName)){
             if(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
                 if (psw1 != psw2) {
                     $("#psw1").val("");
@@ -163,7 +163,7 @@ var submit = function () {
                 _alert("red","请检查邮箱是否符合规范")
             }
         }else{
-            _alert("red","用户名不符合规范，请输入4到16位（字母，数字，下划线，减号）")
+            _alert("red","用户名不符合规范，请输入3到10位（字母，数字，下划线，减号,汉字）")
         }
        
     }

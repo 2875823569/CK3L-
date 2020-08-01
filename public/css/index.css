@@ -456,7 +456,7 @@ ul {
 .login_box_bottom ul {
   display: flex;
   justify-content: space-between;
-  margin: 20px 26px;
+  margin: 6px 26px;
 }
 .login_box_bottom ul li i {
   font-size: 25px;
