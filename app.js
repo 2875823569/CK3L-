@@ -171,7 +171,8 @@ app.post("/api/add_comment", (req, res) => {
           book_name: req.body.book_name,
           email: req.body.email,
           headImage: user_date.profilePic,
-          username: user_date.username
+          username: user_date.username,
+          comment:req.body.comment
         }
         let new_comment = old_comment.concat([add_comment]);
         novelDate.findOneAndUpdate(

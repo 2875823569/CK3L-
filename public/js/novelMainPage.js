@@ -1,5 +1,6 @@
 $(function () {
     //获取节点
+    // #region
     let start_read = $(".novel_introduce_btns").children().eq(0)
     let header_logo = $(".header_logo")
     let addToBookShelf = $(".novel_introduce_btns").children().eq(1)
@@ -14,8 +15,10 @@ $(function () {
     let main_content_page = $(".main_content_page")
     let main_content_chapter = $(".main_content_chapter")
     let main_content_txt = $(".main_content_txt")
-    let readerSay = $(".readerSay")
+    let saysTop = $(".saysTop")
     let books_send = $(".books_send")
+    let sendSays = $(".sendSays")
+    let send_says = $(".send_says")
     let main_content_txt_right = $(".main_content_txt_right")
     let main_content_chapter_page = $(".main_content_chapter_page")
     let chapter_pages = $(".chapter_pages")
@@ -24,6 +27,7 @@ $(function () {
     let main_content_txt_desc = $(".main_content_txt").children().eq(1)
     let novel_img = $(".novel_img").children()
     let novel_type = $(".novel_introduce_right").children().eq(1).children().eq(1)
+    // #endregion
 
     //全局变量
     var pages = new Array();
@@ -40,6 +44,38 @@ $(function () {
     }
     getBookName().then((res) => {
         novel_introduce_tittle.empty().append(res.send_information.book_name)
+        //渲染评论区
+        function get_comment(book_name) {
+            return new Promise((resolve, reject) => {
+                $.post("/api/get_comment", { book_name: book_name }, (res) => {
+                    resolve(res)
+                })
+            })
+        }
+        get_comment(res.send_information.book_name).then((res) => {
+            // console.log(res);
+            if (res.comment.length == 0) {
+                return false
+            }
+            else {
+                saysTop.empty()
+                for (let i = res.comment.length - 1, j = 0; i > 0, j < 10; i--, j++) {
+                    saysTop.append(
+                        `
+                    <div class="readers">
+                        <div>
+                            <img src="${res.comment[i].headImage}">
+                            <span>${res.comment[i].username}<li>8月1日 13:40</li></span>
+                        </div>
+                        <div>
+                            <p>${res.comment[i].comment}</p>
+                        </div>
+                    </div>
+                `
+                    )
+                }
+            }
+        })
     })
 
     //渲染章节
@@ -90,7 +126,7 @@ $(function () {
     function setIntro() {
         return new Promise(function (resolve, reject) {
             $.post("/api/round_book", {}, (res) => {
-                console.log(res);
+                // console.log(res);
                 resolve(res)
             })
                 .then(function (res) {
@@ -98,7 +134,7 @@ $(function () {
                         main_content_txt_right.append(
                             `
                             <div>
-                                <img src="${res.arr_img[i]}">
+                                <div><img src="${res.arr_img[i]}"></div>
                                 <div>
                                     <li>《<span>${res.arr_name[i]}</span>》</li>
                                     <li>${res.writer[i]} 著</li>
@@ -117,7 +153,7 @@ $(function () {
     function init() {
         //初始化页面样式
         $(".box").css("min-width", window.innerWidth - 30)
-        books_send.css("bottom", main_content_txt.height() + 60 + "px")
+        books_send.css("top", main_content_txt.height() + 22)
 
         //开始阅读
         start_read.click(function () {
@@ -205,11 +241,13 @@ $(function () {
             $(this).addClass("border_bottom")
             if ($(this).index() == 0) {
                 main_content_page.removeClass("hide")
-                main_content_page.next().addClass("hide")
+                books_send.removeClass("hide")
+                main_content_chapter.addClass("hide")
             }
             else {
                 main_content_chapter.removeClass("hide")
-                main_content_chapter.prev().addClass("hide")
+                books_send.addClass("hide")
+                main_content_page.addClass("hide")
             }
         })
 
@@ -235,18 +273,108 @@ $(function () {
         //相关推荐跳转
         main_content_txt_right.click(function (e) {
             if (e.target.tagName == "IMG") {
-                var book_name = $(e.target).next().children().eq(0).children().html()
+                var book_name = $(e.target).parent().next().children().eq(0).children().html()
                 new Promise(function (resolve, reject) {
                     $.post("/api/send_information", { book_name }, (res) => {
                         window.open("./novelMainPage.html")
                         document.body.scrollTop = document.documentElement.scrollTop = 0;
                         resolve()
                     })
-                    .then(function(){
-                        return new Promise(function (resolve, reject) {
-                            $.post("/api/update_num", { book_title: book_name }, (res) => {})
+                        .then(function () {
+                            return new Promise(function (resolve, reject) {
+                                $.post("/api/update_num", { book_name: book_name }, (res) => { })
+                            })
                         })
+                })
+            }
+        })
+
+        //展开评论框
+        sendSays.click(function () {
+            send_says.removeClass("hide")
+            $(this).css("height", 100)
+        })
+
+        //发表评论
+        send_says.click(function () {
+            var comment = sendSays.children("textarea").val()
+            var book_name = novel_introduce_tittle.html()
+            if (comment == '') {
+                alert("亲什么都没写呢!")
+            }
+            else {
+                new Promise((resolve, reject) => {
+                    $.post("/api/get_user_information", {}, (res) => {
+                        console.log(res);
+                        resolve(res)
                     })
+                        .then((res) => {
+                            if (res.code != 0) {
+                                alert("亲，还没登录哦!")
+                            }
+                            else {
+                                var email = res.user.email
+                                return new Promise((resolve, reject) => {
+                                    $.post(
+                                        "/api/add_comment",
+                                        { email: email, book_name: book_name, comment: comment },
+                                        (res) => {
+                                            resolve(res);
+                                        }
+                                    )
+                                        .then((res) => {
+                                            if (!res.code) {
+                                                console.log(res);
+                                                sendSays.children("textarea").val('')
+                                                getBookName().then((res) => {
+                                                    novel_introduce_tittle.empty().append(res.send_information.book_name)
+                                                    //渲染评论区
+                                                    function get_comment(book_name) {
+                                                        return new Promise((resolve, reject) => {
+                                                            $.post("/api/get_comment", { book_name: book_name }, (res) => {
+                                                                resolve(res)
+                                                            })
+                                                        })
+                                                    }
+                                                    get_comment(res.send_information.book_name).then((res) => {
+                                                        // console.log(res);
+                                                        if (res.comment.length == 0) {
+                                                            return false
+                                                        }
+                                                        else {
+                                                            saysTop.empty()
+                                                            for (let i = res.comment.length - 1, j = 0; i > 0, j < 10; i--, j++) {
+                                                                saysTop.append(
+                                                                    `
+                                                                <div class="readers">
+                                                                    <div>
+                                                                        <img src="${res.comment[i].headImage}">
+                                                                        <span>${res.comment[i].username}<li>8月1日 13:40</li></span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p>${res.comment[i].comment}</p>
+                                                                    </div>
+                                                                </div>
+                                                            `
+                                                                )
+                                                            }
+                                                            var timer = null
+                                                            timer = setInterval(function () {
+                                                                let pos = saysTop.scrollTop();
+                                                                if (pos > 0) {
+                                                                    saysTop.scrollTop(pos - 20)
+                                                                } else {
+                                                                    window.clearInterval(timer)
+                                                                }
+                                                            }, 2)
+                                                        }
+                                                    })
+                                                })
+                                            }
+                                        })
+                                })
+                            }
+                        })
                 })
             }
         })
