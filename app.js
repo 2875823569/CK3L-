@@ -157,8 +157,8 @@ app.post("/api/book_pagination", (req, res) => {
 
 //添加评论
 app.post("/api/add_comment", (req, res) => {
-  new Promise((resolve,reject) => {
-    user.find({email:req.body.email},{},(err,user_date)=>{
+  new Promise((resolve, reject) => {
+    user.find({ email: req.body.email }, {}, (err, user_date) => {
       resolve(user_date[0])
     })
   }).then((user_date) => {
@@ -168,10 +168,10 @@ app.post("/api/add_comment", (req, res) => {
       (err, date) => {
         let old_comment = date[0].comment;
         let add_comment = {
-          book_name:req.body.book_name,
-          email:req.body.email,
-          headImage:user_date.profilePic,
-          username:user_date.username
+          book_name: req.body.book_name,
+          email: req.body.email,
+          headImage: user_date.profilePic,
+          username: user_date.username
         }
         let new_comment = old_comment.concat([add_comment]);
         novelDate.findOneAndUpdate(
@@ -194,15 +194,15 @@ app.post("/api/add_comment", (req, res) => {
 });
 //获取书籍评论
 app.post("/api/get_comment", (req, res) => {
-    novelDate.find(
-      { book_title: req.body.book_name },
-      { comment: 1 },
-      (err, date) => {
-        res.send({
-          comment:date[0].comment
-        })
-      }
-    );
+  novelDate.find(
+    { book_title: req.body.book_name },
+    { comment: 1 },
+    (err, date) => {
+      res.send({
+        comment: date[0].comment
+      })
+    }
+  );
 });
 
 //用户浏览记录
@@ -244,17 +244,17 @@ app.post("/api/get_send_information", (req, res) => {
 
 Date.prototype.Format = function (fmt) {
   var o = {
-      "M+": this.getMonth() + 1, //月份 
-      "d+": this.getDate(), //日 
-      "H+": this.getHours(), //小时 
-      "m+": this.getMinutes(), //分 
-      "s+": this.getSeconds(), //秒 
-      "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-      "S": this.getMilliseconds() //毫秒 
+    "M+": this.getMonth() + 1, //月份 
+    "d+": this.getDate(), //日 
+    "H+": this.getHours(), //小时 
+    "m+": this.getMinutes(), //分 
+    "s+": this.getSeconds(), //秒 
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+    "S": this.getMilliseconds() //毫秒 
   };
   if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
   for (var k in o)
-  if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
 }
 
@@ -262,7 +262,7 @@ Date.prototype.Format = function (fmt) {
 //点击小说后观看次数加一
 app.post("/api/update_num", (req, res) => {
   //获取小说浏览次数
-  new Promise((resolve,reject) => {
+  new Promise((resolve, reject) => {
     novelDate.find(
       { book_title: req.body.book_title },
       (err, date) => {
@@ -278,44 +278,44 @@ app.post("/api/update_num", (req, res) => {
               resolve(date[0])
             }
           }
-        );       
+        );
       }
     );
   }).then((book_date) => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       // 判读用户是否登陆,登陆则将书本信息加入到历史记录中
-      if(req.session.userName){
+      if (req.session.userName) {
         console.log("开始执行添加历史记录");
-        user.find({email:req.session.email},{history:1},(err,user_date)=>{
+        user.find({ email: req.session.email }, { history: 1 }, (err, user_date) => {
           let old_history = user_date[0].history;
           let add_history = {
-            book_name:book_date.book_title,
-            book_img:book_date.book_img,
-            introduce:book_date.book_desc,
+            book_name: book_date.book_title,
+            book_img: book_date.book_img,
+            introduce: book_date.book_desc,
             time: new Date().Format("yyyy-MM-dd HH:mm:ss")
           }
           let new_history = old_history.concat([add_history])
           resolve(new_history)
         })
-      }else{
+      } else {
         reject()
       }
     })
   }).then((new_history) => {
-    user.findOneAndUpdate({email:req.session.email},{$set:{history:new_history}},(err,update_date) =>{
-      if(err){
+    user.findOneAndUpdate({ email: req.session.email }, { $set: { history: new_history } }, (err, update_date) => {
+      if (err) {
         console.log(err);
-      }else{
+      } else {
         res.send({
           code: 0,
           msg: "更新成功",
         });
       }
     })
-  },() => {
+  }, () => {
     res.send({
-      code:2,
-      msg:"用户未登录"
+      code: 2,
+      msg: "用户未登录"
     })
   })
 });
@@ -543,7 +543,7 @@ app.post("/api/book_desc", (req, res) => {
 app.post("/api/book_whichChapter", (req, res) => {
   book_whichChapter = req.body;
   res.send({
-    code:0
+    code: 0
   })
 });
 
@@ -564,7 +564,7 @@ app.post("/api/user_likes", (req, res) => {
   var email = req.body.email
   var book_name = req.body.book_name
   var novel_img = req.body.novel_img
-  var obj = {book_name,novel_img}
+  var obj = { book_name, novel_img }
   // console.log(novel_img);
   if (email != undefined && obj.book_name != undefined) {
     user.find({ email: email }, (err, docs) => {
@@ -572,7 +572,7 @@ app.post("/api/user_likes", (req, res) => {
         var arr = docs[0].user_likes
         if (arr.length <= 0) {
           arr.push(obj)
-          user.updateOne({ email }, { $set: { user_likes: arr } }, (err,date) => {})
+          user.updateOne({ email }, { $set: { user_likes: arr } }, (err, date) => { })
           // res.send({ code: 0, success: "成功加入书架" })
         }
         else {
@@ -582,9 +582,9 @@ app.post("/api/user_likes", (req, res) => {
               // res.send({ code: 1, err: "已在书架" })
               break
             }
-            if(i == arr.length-1){
+            if (i == arr.length - 1) {
               arr.push(obj)
-              console.log(arr);
+              // console.log(arr);
               user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
               break
               // res.send({ code: 0, success: "成功加入书架" })
