@@ -170,7 +170,8 @@ app.post("/api/add_comment", (req, res) => {
           email: req.body.email,
           headImage: user_date.profilePic,
           username: user_date.username,
-        };
+          comment:req.body.comment
+        }
         let new_comment = old_comment.concat([add_comment]);
         novelDate.findOneAndUpdate(
           { book_title: req.body.book_name },

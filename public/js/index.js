@@ -1,4 +1,5 @@
 //--------------------------------------------------------获取数据库信息---------------------------------------------
+
 var arr_img = [
   "../assets/轮播图images/我的徒弟都是大反派.jpg",
   "../assets/轮播图images/白骨大圣.jpeg",
@@ -639,7 +640,7 @@ $(".sear_container ul").on("click", "li", function () {
 //书架
 $(".bookshelf").on("click",function(){
   if(is_login){
-    // location.href = "../html/"
+    location.href = "../html/bookShelf.html"
   }else{
     alert({},"你当前未登陆哦，获取不到你的书架")
   }

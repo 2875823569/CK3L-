@@ -2,6 +2,7 @@ body {
     background-color: #F2F1EB;
 }
 
+
 .read_box {
     width: 90%;
     position: relative;
@@ -90,6 +91,10 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+/* .mune div::-webkit-scrollbar {
+    display: none
+} */
 
 .mune p {
     margin-bottom: -10px;

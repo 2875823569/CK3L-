@@ -90,13 +90,11 @@ $(function () {
     function tools() {
         //初始化
         var windowlHeight = window.innerHeight;
-        mune.css("left", -(mune.width() + 30))
-        mune.height(windowlHeight - book_navigation.offset().top)
-        setting.css("left", -setting.width())
+        mune.css("left", -(mune.width() + 2))
         mune.height(windowlHeight - book_navigation.offset().top - 30)
         mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
-        setting.css("left", -(setting.width() + 14))
-        $(".box").css("min-width",window.innerWidth-30)
+        setting.css("left", -(setting.width() + 44))
+        $(".box").css("min-width", window.innerWidth - 30)
 
         //返回首页
         header_logo.click(function () {
@@ -141,7 +139,7 @@ $(function () {
                             )
                             //目录下标
                             now_chapter.children().empty().append(res.book_whichChapter.page_chapter_content)
-                            mune.css("left", -(mune.width() + 14))
+                            mune.css("left", -(mune.width() + 2))
                             idx.length = 0
                             idx.push(res.book_whichChapter.page_chapter_idx)
                         })
@@ -232,8 +230,27 @@ $(function () {
 
         //加入书架
         tools_bookshelf.click(function () {
-
-            alert("书本已加入书架!")
+            // var book_name = book_tittle.html()
+            // var novel_img = $(".novel_img").children().attr("src")
+            // // console.log(novel_img);
+            // new Promise(function (resolve, reject) {
+            //     $.post("/api/get_user_information", {}, (res) => {
+            //         // console.log(res);
+            //         resolve();
+            //     })
+            //         .then(function (res) {
+            //             new Promise(function (resolve, reject) {
+            //                 if (res.code != 0) {
+            //                     alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
+            //                 }
+            //                 else {
+            //                     $.post("/api/user_likes", { email: res.user.email, book_name, novel_img }, () => { })
+            //                     alert("已成功加入书架。")
+            //                 }
+            //             })
+            //         })
+            // })
+            alert("已成功加入书架。")
         })
 
         //充值提示
