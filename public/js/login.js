@@ -99,8 +99,6 @@ get_user_information().then((data) => {
 
 })
 
-
-
 var submit = function () {
     if (isLogin == true) {
         var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
@@ -123,40 +121,51 @@ var submit = function () {
         var email = $("#email").val();
         var psw1 = $("#psw1").val();
         var psw2 = $("#psw2").val();
-        if (psw1 != psw2) {
-            $("#psw1").val("");
-            $("#psw2").val("");
-            _alert("red","两次密码输入不一致")
-            return
-        }
-        if (!userName) {
-            $("#psw1").val("");
-            $("#psw2").val("");
-            _alert("red","请输入昵称")
-            return
-        }
-        if (!email) {
-            $("#psw1").val("");
-            $("#psw2").val("");
-            _alert("red","请输入邮箱地址")
-            return
-        }
-        if (!profilePic) {
-            $("#psw1").val("");
-            $("#psw2").val("");
-            _alert("red","请上传头像")
-            return
-        }
-        $.post("api/signIn", { userName, email, psw1, profilePic }, function (res) {
-            if (res.code == 0) {
-                isLogin = true;
-                _alert("green","注册成功")
-                logInSwitch()
-            } else if (res.code == 3) {
-                _alert("red","此邮箱已被注册！")
-                return
+        
+        console.log(email);
+        if(/^[a-zA-Z0-9_-]{4,16}$/.test(userName)){
+            if(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+                if (psw1 != psw2) {
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("red","两次密码输入不一致")
+                    return
+                }
+                if (!userName) {
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("red","请输入昵称")
+                    return
+                }
+                if (!email) {
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("red","请输入邮箱地址")
+                    return
+                }
+                if (!profilePic) {
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("red","请上传头像")
+                    return
+                }
+                $.post("api/signIn", { userName, email, psw1, profilePic }, function (res) {
+                    if (res.code == 0) {
+                        isLogin = true;
+                        _alert("green","注册成功")
+                        logInSwitch()
+                    } else if (res.code == 3) {
+                        _alert("red","此邮箱已被注册！")
+                        return
+                    }
+                })
+            }else{
+                _alert("red","请检查邮箱是否符合规范")
             }
-        })
+        }else{
+            _alert("red","用户名不符合规范，请输入4到16位（字母，数字，下划线，减号）")
+        }
+       
     }
 }
 $(".close").on("click", function () {

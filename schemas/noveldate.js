@@ -10,7 +10,8 @@ var BookSchema=monoose.Schema({
     book_url:String,
     book_author:String,
     book_desc:String,
-    number:String
+    number:String,
+    comment:[],
 });
 
 module.exports = BookSchema;

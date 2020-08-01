@@ -1,3 +1,4 @@
+// const { resolve } = require("path");
 
 var bookbox = $(".allbook");  //书架
 var bookmes = $(".allbook>li")  //获取书本框
@@ -5,7 +6,9 @@ var result = $(".righttopbox>p>span")  //搜索结果
 var allclassbtn = $('.allclass')  //获取分类框
 var btitle = $(".righttopbox>span") //获取当面分类标题
 var headlogo = $('.headlogo')   //获取头部logo
-
+var booktitle = $('.classf_nav li') //获取菜单
+var booklike = booktitle.eq(1) //获取菜单中的书架按钮
+// var booklike = $('.booktitle li').eq(2)
 
 //------------------创建书对象---------------------
 class Book {
@@ -56,14 +59,10 @@ function getbooktype() {
     return new Promise((resolve, reject) => {
         $.post("/api/booktype", (res) => {
             // console.log(res.booktype[0]);
-            btitle.append(`${res.booktype[0]}小说`) //设置默认显示
+            // btitle.append(`${res.booktype[0]}小说`) //设置默认显示
+
             classpage({ type1_name: res.booktype[0] }, {}, 1)
-            getInfromation({ type1_name: res.booktype[0] }, 20, 1).then((res) => {
-                result.append(res.date.length)
-                for (let i = 0; i < res.date.length; i++) {
-                    new Book({ src: res.date[i].book_img, name: res.date[i].book_title })
-                }
-            }) //默认首页显示
+            
 
             for (let i = 0; i < res.booktype.length; i++) {
                 new classNav({ bookname: res.booktype[i] })
@@ -104,15 +103,18 @@ function classpage(query, onepage_num, page_num) {
     return new Promise(function (resolve, reject) {
         $.post("/api/book_pagination", { query: query, onepage_num: onepage_num, page_num: page_num }, (res) => {
             result.empty()
+            
             result.append(res.date.length) //搜索结果
+            
             total = res.date.length
             let pagenumber = Math.ceil(total / pageSize)
             // console.log(pagenumber);
             // console.log(res.date[0].type1_name);
-
             let lis = document.createDocumentFragment()
             for (let index = 0; index < pagenumber; index++) {
+
                 var li = $(`<li><a href="#" clas=${res.date[0].type1_name} data-num=${index}>${index + 1}</a></li>`);
+                // console.log(index);
                 // if (index == pageNum) {
 
                 //     li.addClass("active")
@@ -128,10 +130,16 @@ function classpage(query, onepage_num, page_num) {
 }
 
 //-----------------分页渲染-------------------------
+
+
 $('.pagination').on('click','a',function(){
     let pageNum2 = $(this).attr("data-num");
 
     clas2 = $(this).attr("clas");
+    console.log($(this).parent()[0]);
+    // $(this).parent()[0].classList.add('active')
+    
+
     // console.log(clas2,pageSize,pageNum2-0+1);
     // classpage({ type1_name:clas2}, pageSize, pageNum2-0+1)
 
@@ -146,8 +154,6 @@ $(".allclass").on("click", "li", function () {
     $('.pagination').empty();
     // console.log($(this).children().html();
     let classfy = $(this).children().html();
-
-
 
     btitle.empty();
     btitle.append(`${classfy}小说`)
@@ -192,6 +198,30 @@ $(".allbook").on("click", 'li', function () {
     })
 })
 
+//--------------------获取分类信息-------------------------
+function getclassmessage(){
+    return new Promise(function(resolve,reject){
+
+
+        $.post('/api/get_send_information',(res)=>{
+
+            console.log(res);
+            btitle.append(`${res.send_information.book_type}小说`) //设置显示
+
+            classpage({ type1_name: res.send_information.book_type }, 20, 1).then((res) => {
+                result.append(res.date.length)
+                console.log(res.date.length);
+
+                for (let i = 0; i < res.date.length; i++) {
+                    new Book({ src: res.date[i].book_img, name: res.date[i].book_title })
+                }
+            }) 
+        resolve(res)
+
+        })
+    })
+}
+getclassmessage()
 
 
 
@@ -206,3 +236,7 @@ $('.reg_btn').on('click', () => {
     location.href = '../../login.html'
 })
 
+booklike.on('click',()=>{
+    location.href = '../html/novelStartRead.html'
+
+})
