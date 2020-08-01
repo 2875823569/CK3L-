@@ -15,6 +15,7 @@ $(function () {
     let main_content_chapter = $(".main_content_chapter")
     let main_content_txt = $(".main_content_txt")
     let readerSay = $(".readerSay")
+    let books_send = $(".books_send")
     let main_content_txt_right = $(".main_content_txt_right")
     let main_content_chapter_page = $(".main_content_chapter_page")
     let chapter_pages = $(".chapter_pages")
@@ -86,11 +87,28 @@ $(function () {
     })
 
     //渲染相关推荐
-    function setIntro(){
+    function setIntro() {
         return new Promise(function (resolve, reject) {
             $.post("/api/round_book", {}, (res) => {
                 console.log(res);
+                resolve(res)
             })
+                .then(function (res) {
+                    for (let i = 0; i < 4; i++) {
+                        main_content_txt_right.append(
+                            `
+                            <div>
+                                <img src="${res.arr_img[i]}">
+                                <div>
+                                    <li>《<span>${res.arr_name[i]}</span>》</li>
+                                    <li>${res.writer[i]} 著</li>
+                                    <li>${res.introduce[i]}</li>
+                                </div>
+                            </div>
+                        `
+                        )
+                    }
+                })
         })
     }
     setIntro()
@@ -98,8 +116,8 @@ $(function () {
     //初始化页面效果
     function init() {
         //初始化页面样式
-        $(".box").css("min-width",window.innerWidth-30)
-        // main_content_txt.css("height", main_content_txt_right.height() + 40 + "px")
+        $(".box").css("min-width", window.innerWidth - 30)
+        books_send.css("bottom", main_content_txt.height() + 60 + "px")
 
         //开始阅读
         start_read.click(function () {
@@ -214,6 +232,24 @@ $(function () {
             }
         })
 
+        //相关推荐跳转
+        main_content_txt_right.click(function (e) {
+            if (e.target.tagName == "IMG") {
+                var book_name = $(e.target).next().children().eq(0).children().html()
+                new Promise(function (resolve, reject) {
+                    $.post("/api/send_information", { book_name }, (res) => {
+                        window.open("./novelMainPage.html")
+                        document.body.scrollTop = document.documentElement.scrollTop = 0;
+                        resolve()
+                    })
+                    .then(function(){
+                        return new Promise(function (resolve, reject) {
+                            $.post("/api/update_num", { book_title: book_name }, (res) => {})
+                        })
+                    })
+                })
+            }
+        })
     }
     init()
 })
