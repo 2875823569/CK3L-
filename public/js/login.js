@@ -101,7 +101,8 @@ get_user_information().then((data) => {
 
 var submit = function () {
     if (isLogin == true) {
-        var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
+        if($(".checkbox").is(":checked")){
+            var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
         $.post("/api/login", { mail, psw }, function (res) {
             if (!res.code) {
                 _alert("green","登录成功嘤嘤嘤")
@@ -112,16 +113,18 @@ var submit = function () {
                 //     console.log(res);
                 // });
             } else {
-                _alert("red","登录失败，原因不详")
+                _alert("red","登录失败，应该是你号没了")
             }
 
         })
+        }else{
+            _alert("red","你还没有勾选协议哦，笨猪")
+        }
     } else {
         var userName = $("#name").val();
         var email = $("#email").val();
         var psw1 = $("#psw1").val();
         var psw2 = $("#psw2").val();
-        
         console.log(email);
         if(/^[a-zA-Z0-9_-]{4,16}$/.test(userName)){
             if(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
@@ -129,6 +132,12 @@ var submit = function () {
                     $("#psw1").val("");
                     $("#psw2").val("");
                     _alert("red","两次密码输入不一致")
+                    return
+                }
+                if(psw1 == "" || psw2 == ""){
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("请输入密码")
                     return
                 }
                 if (!userName) {
@@ -168,6 +177,9 @@ var submit = function () {
        
     }
 }
+$("#note").on("click",function(){
+    _alert("red","蠢")
+})
 $(".close").on("click", function () {
     isLogin = true;
     logInSwitch()
@@ -205,7 +217,9 @@ get_send_information().then((res) => {
     }
 })
  function _alert(color,content){
-    $(`<div class="alert" style="position: absolute;width: 15%;height: 50px;border-radius: 15px;font-weight: bold;text-align: center;line-height: 50px;left: 42.5%;top: -10%;z-index: 9999;box-shadow: 1px 1px 12px 1px #bfbfbf;" >${content}</div>`).appendTo("body");
+    $(`<div class="alert" style="position: absolute;border-radius: 15px;font-weight: bold;text-align: center;line-height: 43px;padding: 0px 20px;top: -10%;z-index: 9999;box-shadow: 1px 1px 12px 1px #bfbfbf;" >${content}</div>`).appendTo("body");
+    let _left =($(window).width()/2 -  ($(".alert").width()+20)/2) + "px"
+    document.getElementsByClassName("alert")[0].style.left = _left
     $(".alert").animate({top:"+6%",opacity:"1"},1000 ,"swing")
     setTimeout(() => {
         $(".alert").animate({top:"-6%",opacity:"0"},800,"swing")

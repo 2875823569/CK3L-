@@ -66,6 +66,9 @@ body{
 	perspective: 800px;
 	z-index: 999;
 }
+#note{
+	cursor: pointer;
+}
 .LOGO{
 	height: 100px;
 }
@@ -103,11 +106,13 @@ input{
 
 .bottom{
 	height: 60px;
-	width: 234px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	font-size: 10px;
 	line-height: 60px;
+	display: flex;
+    justify-content: space-around;
 }
 .notLogIn{
 	transition: 1s;
