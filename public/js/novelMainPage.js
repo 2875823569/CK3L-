@@ -14,6 +14,7 @@ $(function () {
     let main_content_page = $(".main_content_page")
     let main_content_chapter = $(".main_content_chapter")
     let main_content_txt = $(".main_content_txt")
+    let readerSay = $(".readerSay")
     let main_content_txt_right = $(".main_content_txt_right")
     let main_content_chapter_page = $(".main_content_chapter_page")
     let chapter_pages = $(".chapter_pages")
@@ -73,9 +74,9 @@ $(function () {
         })
     }
     getDesc().then((res) => {
-        console.log(res);
+        // console.log(res);
         main_content_txt_desc.empty().append(`\xa0\xa0\xa0\xa0${res.book_desc}...`)
-        main_content_txt_right.css("top", -main_content_txt_desc.height())
+        // main_content_txt_right.css("top", readerSay.children().eq(0).height())
         //渲染book_author
         novel_introduce_author.empty().append(res.book_author)
         //渲染小说图片
@@ -84,10 +85,21 @@ $(function () {
         novel_type.empty().append(res.type2_name)
     })
 
+    //渲染相关推荐
+    function setIntro(){
+        return new Promise(function (resolve, reject) {
+            $.post("/api/round_book", {}, (res) => {
+                console.log(res);
+            })
+        })
+    }
+    setIntro()
+
     //初始化页面效果
     function init() {
         //初始化页面样式
-        main_content_txt.css("height", main_content_txt_right.height() + 40 + "px")
+        $(".box").css("min-width",window.innerWidth-30)
+        // main_content_txt.css("height", main_content_txt_right.height() + 40 + "px")
 
         //开始阅读
         start_read.click(function () {
@@ -108,6 +120,8 @@ $(function () {
         //加入书架
         addToBookShelf.click(function () {
             var book_name = novel_introduce_tittle.html()
+            var novel_img = $(".novel_img").children().attr("src")
+            // console.log(novel_img);
             new Promise(function (resolve, reject) {
                 $.post("/api/get_user_information", {}, (res) => {
                     // console.log(res);
@@ -119,7 +133,7 @@ $(function () {
                                 alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
                             }
                             else {
-                                $.post("/api/user_likes", { email: res.user.email, book_name }, () => { })
+                                $.post("/api/user_likes", { email: res.user.email, book_name, novel_img }, () => { })
                                 alert("已成功加入书架。")
                             }
                         })
@@ -129,22 +143,22 @@ $(function () {
 
         //跳转分类
         goTOItemsList.click(function () {
-            location.href = "#"
+            location.href = "./classf.html"
         })
 
         //跳转书架
         goTOBookShelf.click(function () {
-            location.href = "#"
+            location.href = "./homepage.html"
         })
 
         //跳转VIP
         goTOVipCenter.click(function () {
-            location.href = "#"
+            alert("想什么呢，赶紧加寇靖QQ:2875823569充值")
         })
 
         //跳转App
         goTOApp.click(function () {
-            location.href = "#"
+            alert("加寇靖QQ:2875823569下载APP")
         })
 
         //跳转搜索
@@ -154,12 +168,12 @@ $(function () {
 
         //跳转登录
         goTOLogin.click(function () {
-            location.href = "#"
+            location.href = "../login.html"
         })
 
         //跳转注册
         goTORegister.click(function () {
-            location.href = "#"
+            location.href = "../login.html"
         })
 
         //返回首页
