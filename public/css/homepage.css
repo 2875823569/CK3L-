@@ -219,6 +219,7 @@ li{
     height: 80%;
     border-radius: 30px;
     background-color: black;
+    background-size: cover;
 }
 #header #bookshelf .firstFloor .book p{
     margin-top: 20px;

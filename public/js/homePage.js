@@ -5,58 +5,59 @@ var modifyI = document.querySelector("#headPortrait i")//第一个修改图标
 var box = document.querySelector("#box")
 var modifyPage = document.querySelector('#modifyPage')
 var wrap = document.querySelector(".wrap")
-var nickname=document.querySelector("#nickname")
-var nicknameIpt=document.querySelector("#nicknameIpt")
-var fisrstPsdInp=document.querySelector("#fisrstPsdInp")
-var secondPsdInp=document.querySelector("#secondPsdInp")
-var cancelBtn=document.querySelector(".cancel")
-var saveBtn=document.querySelector(".save")
-var historyBook=document.querySelectorAll(".historyBook")
-var historyBack=document.querySelectorAll(".historyBack")
-var historyBackP=document.querySelectorAll(".historyBack p")
-var headPortrait=document.querySelector("#headPortrait")
-var modifyPageI=document.querySelector("#modifyHeadportrait i")
-var modifyHeadportrait=document.querySelector("#modifyHeadportrait")
-var closePrompt=document.querySelector(".icon-guanbi7-01copy")
-var promptBox=document.querySelector("#promptBox")
-var pptStrong=document.querySelector("#promptBox strong")
-var pptP=document.querySelector("#promptBox p")
-var loginBtn=document.querySelector("#loginBtn")
-var backToHome=document.querySelector("#backToHome")
-var footerBox=document.querySelector("#footerBox")
-var historyMore=document.querySelector("#history .icon-danseshixintubiao-")
-var bookShelfMore=document.querySelector('#bookshelf .icon-danseshixintubiao-')
-var beforeName=null;//为修改之前，登录账户的昵称
-
+var nickname = document.querySelector("#nickname")
+var nicknameIpt = document.querySelector("#nicknameIpt")
+var fisrstPsdInp = document.querySelector("#fisrstPsdInp")
+var secondPsdInp = document.querySelector("#secondPsdInp")
+var cancelBtn = document.querySelector(".cancel")
+var saveBtn = document.querySelector(".save")
+var historyBook = document.querySelectorAll(".historyBook")
+var historyBack = document.querySelectorAll(".historyBack")
+var historyBackP = document.querySelectorAll(".historyBack p")
+var headPortrait = document.querySelector("#headPortrait")
+var modifyPageI = document.querySelector("#modifyHeadportrait i")
+var modifyHeadportrait = document.querySelector("#modifyHeadportrait")
+var closePrompt = document.querySelector(".icon-guanbi7-01copy")
+var promptBox = document.querySelector("#promptBox")
+var pptStrong = document.querySelector("#promptBox strong")
+var pptP = document.querySelector("#promptBox p")
+var loginBtn = document.querySelector("#loginBtn")
+var backToHome = document.querySelector("#backToHome")
+var footerBox = document.querySelector("#footerBox")
+var historyMore = document.querySelector("#history .icon-danseshixintubiao-")
+var bookShelfMore = document.querySelector('#bookshelf .icon-danseshixintubiao-')
+var beforeName = null;//为修改之前，登录账户的昵称
+var bookContent=document.querySelectorAll(".bookContent")
+var bookContentP=document.querySelectorAll(".book p")
 //返回主页
-backToHome.addEventListener("click",()=>{
-    location.href='../index.html'
+backToHome.addEventListener("click", () => {
+    location.href = '../index.html'
 })
 
 //点击该修改图标跳出修改页面
 modifyI.addEventListener('click', () => {
     box.style.display = "none";
     modifyPage.style.display = "block";
-    footerBox.style.display="none";
+    footerBox.style.display = "none";
 })
 //点击登录与注册跳转页面
-loginBtn.addEventListener('click',()=>{
-    location.href='../login.html'
+loginBtn.addEventListener('click', () => {
+    location.href = '../login.html'
 })
 //提示框事件
-closePrompt.addEventListener('click',(e)=>{
-    e.target.parentNode.style.display="none"
+closePrompt.addEventListener('click', (e) => {
+    e.target.parentNode.style.display = "none"
 })
-function Prompt(type,content){
-    pptStrong.innerText=type;
-    pptP.innerText=content;
-    promptBox.style.display="block";
+function Prompt(type, content) {
+    pptStrong.innerText = type;
+    pptP.innerText = content;
+    promptBox.style.display = "block";
 }
 //修改页面
 
 //点击头像旁边的修改进行选择文件
-var afterUrl=null;
-modifyPageI.addEventListener('click',()=>{
+var afterUrl = null;
+modifyPageI.addEventListener('click', () => {
     selectHeader.click();
 })
 $("#selectHeader").on("change", function (e) {
@@ -72,19 +73,19 @@ $("#selectHeader").on("change", function (e) {
             processData: false,
             contentType: false
         }).done((res) => {
-            modifyHeadportrait.style.backgroundImage=`url(${res.img})`;
-            headPortrait.style.backgroundImage=`url(${res.img})`;
+            modifyHeadportrait.style.backgroundImage = `url(${res.img})`;
+            headPortrait.style.backgroundImage = `url(${res.img})`;
             // $pic.attr("src", res.img);
             // $pic.css("display", "block");
             // profilePic = res.img
-            afterUrl=res.img;
+            afterUrl = res.img;
         })
     } else {
         alert("请上传JPEG/PNG格式的图片")
     }
 })
 //点击取消按钮
-cancelBtn.addEventListener('click',()=>{
+cancelBtn.addEventListener('click', () => {
     box.style.display = "block";
     modifyPage.style.display = "none";
 })
@@ -96,54 +97,54 @@ wrap.addEventListener('mouseenter', () => {
 wrap.addEventListener('mouseleave', () => {
     wrap.style.animationPlayState = "running";
 })
-wrap.addEventListener("click",()=>{
-    location.href="../index.html"
+wrap.addEventListener("click", () => {
+    location.href = "../index.html"
 })
 
 //获取小说信息
-var getBook=function(){
-    return new Promise((resolve,reject)=>{
-        $.post('/api/getBook',(data,status)=>{
-            if(status=="success"){
-                resolve(data)
-            }
-        })
-    })
-}
-getBook().then((data)=>{
-    for(var i=0;i<historyBook.length;i++){
-        historyBook[i].style.backgroundImage=`url(${data.msg[i].book_img})`;
-        historyBack[i].setAttribute('data-bookName',data.msg[i].book_title);
-        historyBook[i].addEventListener("mouseenter",(e)=>{
-            e.target.children[0].classList.add("show");
-        })
-        historyBook[i].addEventListener("mouseleave",(e)=>{
-            e.target.children[0].classList.remove("show")
-        })
-        historyBackP[i].innerText=data.msg[i].book_desc;
+// var getBook=function(){
+//     return new Promise((resolve,reject)=>{
+//         $.post('/api/getBook',(data,status)=>{
+//             if(status=="success"){
+//                 resolve(data)
+//             }
+//         })
+//     })
+// }
+// getBook().then((data)=>{
+//     for(var i=0;i<historyBook.length;i++){
+//         historyBook[i].style.backgroundImage=`url(${data.msg[i].book_img})`;
+//         historyBack[i].setAttribute('data-bookName',data.msg[i].book_title);
+//         historyBook[i].addEventListener("mouseenter",(e)=>{
+//             e.target.children[0].classList.add("show");
+//         })
+//         historyBook[i].addEventListener("mouseleave",(e)=>{
+//             e.target.children[0].classList.remove("show")
+//         })
+//         historyBackP[i].innerText=data.msg[i].book_desc;
 
-    }
-})
+//     }
+// })
 
 //书架
 //点击显示更多图书
-bookShelfMore.addEventListener('click',()=>{
-    
-    location.href='../html/bookShelf.html'
+bookShelfMore.addEventListener('click', () => {
+
+    location.href = '../html/bookShelf.html'
 })
 
 //历史记录：
 //点击之后跳转到小说阅读
-for(let i=0;i<historyBack.length;i++){
-    historyBack[i].addEventListener("click",()=>{
-    send_information({book_name:historyBack[i].getAttribute("data-bookName")})
-    location.href = "../html/novelMainPage.html"
-})
+for (let i = 0; i < historyBack.length; i++) {
+    historyBack[i].addEventListener("click", () => {
+        send_information({ book_name: historyBack[i].getAttribute("data-bookName") })
+        location.href = "../html/novelMainPage.html"
+    })
 }
 
 //点击显示更多历史记录
-historyMore.addEventListener('click',()=>{
-    location.href="../html/history.html"
+historyMore.addEventListener('click', () => {
+    location.href = "../html/history.html"
 })
 
 
@@ -151,66 +152,114 @@ historyMore.addEventListener('click',()=>{
 //获取传递的信息
 var get_send_information = function () {
     return new Promise((resolve, reject) => {
-      $.post("/api/get_send_information", (res) => {
-        resolve(res);
-      });
+        $.post("/api/get_send_information", (res) => {
+            resolve(res);
+        });
     });
-  };
-  
-  //传递信息
-  var send_information = function (information) {
-    return new Promise((resolve, reject) => {
-      $.post("/api/send_information", information, (res) => {
-        resolve(res);
-      });
-    });
-  };
+};
 
-  //获取当前登录账户
-  var get_user_information = function(){
-    return new Promise((resolve,reject) => {
-      $.post("/api/get_user_information",(res) => {
-        resolve(res)
-      })
+//传递信息
+var send_information = function (information) {
+    return new Promise((resolve, reject) => {
+        $.post("/api/send_information", information, (res) => {
+            resolve(res);
+        });
+    });
+};
+
+//获取当前登录账户
+var get_user_information = function () {
+    return new Promise((resolve, reject) => {
+        $.post("/api/get_user_information", (res) => {
+            resolve(res)
+        })
     })
-  }
-  get_user_information().then((data)=>{
-        beforeName=data.user.userName;
-        modifyHeadportrait.style.backgroundImage=`url(${data.user.headImage})`;
-        nickname.innerText=data.user.userName;
-        nicknameIpt.value=data.user.userName;
-        fisrstPsdInp.value=data.user.pwd;
-        secondPsdInp.value=data.user.pwd;
-        headPortrait.style.backgroundImage=`url(${data.user.headImage})`
-  })
+}
+get_user_information().then((data) => {
+    userEmail = data.user.email;
+    //主页的历史记录
+    sendUserEmailHistory(userEmail).then((res) => {
+        for(var i=0;i<historyBook.length;i++){
+                    historyBook[i].style.backgroundImage=`url(${res.msg[i].book_img})`;
+                    historyBack[i].setAttribute('data-bookName',res.msg[i].book_name);
+                    historyBook[i].addEventListener("mouseenter",(e)=>{
+                        e.target.children[0].classList.add("show");
+                    })
+                    historyBook[i].addEventListener("mouseleave",(e)=>{
+                        e.target.children[0].classList.remove("show")
+                    })
+                    historyBackP[i].innerText=res.msg[i].introduce;
+                }
+    })
+
+    //主页收藏的书籍
+    sendUserEmailLike(userEmail).then((res) => {
+        console.log(res);
+        var str='';
+        for(var i=0;i<bookContent.length;i++){
+           bookContent[i].style.backgroundImage=`url(${res.msg[i].novel_img})`;
+           bookContentP[i].innerText=res.msg[i].book_name;
+        }
+    })
+    beforeName = data.user.userName;
+    modifyHeadportrait.style.backgroundImage = `url(${data.user.headImage})`;
+    nickname.innerText = data.user.userName;
+    nicknameIpt.value = data.user.userName;
+    fisrstPsdInp.value = data.user.pwd;
+    secondPsdInp.value = data.user.pwd;
+    headPortrait.style.backgroundImage = `url(${data.user.headImage})`
+})
 
 
 //点击保存按钮
-saveBtn.addEventListener('click',()=>{
-    var afterNickname=nicknameIpt.value;
-    var afterFirstPsw=fisrstPsdInp.value;
-    var afterSecondPsw=secondPsdInp.value;
-    nickname.innerText=afterNickname;
-    if(afterFirstPsw!=afterSecondPsw){
-        Prompt('警告！','两次密码不一致')
+saveBtn.addEventListener('click', () => {
+    var afterNickname = nicknameIpt.value;
+    var afterFirstPsw = fisrstPsdInp.value;
+    var afterSecondPsw = secondPsdInp.value;
+    nickname.innerText = afterNickname;
+    if (afterFirstPsw != afterSecondPsw) {
+        Prompt('警告！', '两次密码不一致')
         return
     }
-    var setUser=function(){
-        return new Promise((resolve,reject)=>{
-            $.post("/api/setUser",{beforeName,afterUrl,afterNickname,afterFirstPsw,afterSecondPsw},(data,status)=>{
+    var setUser = function () {
+        return new Promise((resolve, reject) => {
+            $.post("/api/setUser", { beforeName, afterUrl, afterNickname, afterFirstPsw, afterSecondPsw }, (data, status) => {
                 if (status == "success") {
                     resolve(data)
                 }
             })
         })
     }
-    setUser().then((data)=>{
-        if(!data.code){
-            Prompt('提示！',data.msg)
+    setUser().then((data) => {
+        if (!data.code) {
+            Prompt('提示！', data.msg)
             box.style.display = "block";
             modifyPage.style.display = "none";
-            footerBox.style.display="block";
+            footerBox.style.display = "block";
         }
     })
 })
+//获取收藏的书
+var sendUserEmailLike = function (userEmail) {
+    return new Promise((resolve, rejects) => {
+        $.post("/api/findUserLike", { userEmail }, (res) => {
+            resolve(res);
+        })
+    })
 
+}
+//获取历史书籍
+var sendUserEmailHistory = function (userEmail) {
+    return new Promise((resolve, rejects) => {
+        $.post("/api/findUserHistory", { userEmail }, (res) => {
+            resolve(res);
+        })
+    })
+
+};
+
+$('.book').on('click','p',(e) => {
+    var name=$(e.target).text();
+    send_information({book_name:name})
+    location.href="../html/novelMainPage.html"
+})

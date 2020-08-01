@@ -517,26 +517,7 @@ app.post("/api/getBook", (req, res) => {
 })
 
 //用户表中历史记录分页
-app.post("/api/historyBook_pagination", (req, res) => {
-  //传递参数为三个：查询条件query，一页的数量onepage_num,第几页page_num
-  let query = req.body.query;
-  let onepage_num = (req.body.onepage_num - 0) * (req.body.page_num - 1);
-  let page_num = req.body.onepage_num - 0;
 
-  user
-    .find(req.body.query)
-    .skip((req.body.onepage_num - 0) * (req.body.page_num - 1))
-    .limit(req.body.onepage_num - 0)
-    .exec((err, date) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({
-          date,
-        });
-      }
-    });
-});
 //查询用户的收藏并返回
 app.post("/api/findUserLike", (req, res) => {
   user.find({email:req.body.userEmail}, (err, docs) => {
@@ -551,7 +532,6 @@ app.post("/api/findUserLike", (req, res) => {
 })
 //查询用户的历史记录并返回
 app.post("/api/findUserHistory", (req, res) => {
-  console.log(req.body.userEmail);
   user.find({email:req.body.userEmail}, (err, docs) => {
     // "查询的收藏"+docs[0].history
     if (!err) {

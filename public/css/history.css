@@ -88,3 +88,6 @@ html,body{
 #paging #PageNumber .cur{
     background-color: #D56A36;
 }
+.now{
+    background-color: #D56A36!important;
+}
