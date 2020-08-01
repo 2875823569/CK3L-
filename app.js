@@ -519,8 +519,45 @@ app.post("/api/getBook", (req, res) => {
     if (!err) {
       res.send({
         code: 0,
-        msg: docs,
-      });
+        msg: docs
+      })
+    }
+  })
+})
+
+//用户表中历史记录分页
+
+//查询用户的收藏并返回
+app.post("/api/findUserLike", (req, res) => {
+  user.find({email:req.body.userEmail}, (err, docs) => {
+    // "查询的收藏"+docs[0].user_likes
+    if (!err) {
+      res.send({
+        code: 0,
+        msg: docs[0].user_likes
+      })
+    }
+  })
+})
+//查询用户的历史记录并返回
+app.post("/api/findUserHistory", (req, res) => {
+  user.find({email:req.body.userEmail}, (err, docs) => {
+    // "查询的收藏"+docs[0].history
+    if (!err) {
+      res.send({
+        code: 0,
+        msg: docs[0].history
+      })
+    }
+  })
+})
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post("/api/book_chapter", (req, res) => {
+  novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+
     }
   });
 }); //俊林写的,寇靖别动
