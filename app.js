@@ -433,6 +433,19 @@ app.post("/api/getBook", (req, res) => {
     }
   })
 })
+
+//查询用户的收藏并返回
+app.post("/api/findUser", (req, res) => {
+  user.find({email:req.body.userEmail}, (err, docs) => {
+    // "查询的收藏"+docs[0].user_likes
+    if (!err) {
+      res.send({
+        code: 0,
+        msg: docs[0].user_likes[0]
+      })
+    }
+  })
+})
 /************************查询章节****************************///俊林写的,寇靖别动
 app.post("/api/book_chapter", (req, res) => {
   novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {

@@ -24,8 +24,8 @@ var pptP=document.querySelector("#promptBox p")
 var loginBtn=document.querySelector("#loginBtn")
 var backToHome=document.querySelector("#backToHome")
 var footerBox=document.querySelector("#footerBox")
-var historyMore=document.querySelector("#icon-danseshixintubiao-")
-
+var historyMore=document.querySelector("#history .icon-danseshixintubiao-")
+var bookShelfMore=document.querySelector('#bookshelf .icon-danseshixintubiao-')
 var beforeName=null;//为修改之前，登录账户的昵称
 
 //返回主页
@@ -124,6 +124,14 @@ getBook().then((data)=>{
 
     }
 })
+
+//书架
+//点击显示更多图书
+bookShelfMore.addEventListener('click',()=>{
+    
+    location.href='../html/bookShelf.html'
+})
+
 //历史记录：
 //点击之后跳转到小说阅读
 for(let i=0;i<historyBack.length;i++){
@@ -135,7 +143,7 @@ for(let i=0;i<historyBack.length;i++){
 
 //点击显示更多历史记录
 historyMore.addEventListener('click',()=>{
-    
+    location.href="../html/history.html"
 })
 
 

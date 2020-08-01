@@ -5,14 +5,16 @@
 html,body{
     width:100%;
     height:100%;
-    background-color: #FBFFED;
+    background-color: #F1F1F1;
     background-size: cover;
+    
 }
 #historyP{
     width: 5%;
     height:100%;
     font-size: 300%;
-    background-color: #FBFFED;
+    color: #D8932C;
+    /* background-color: #F6F6F6; */
     text-align: center;
     /* display:inline-block; */
     display: flex;
@@ -33,7 +35,7 @@ html,body{
 #box>div{
     width: 200px;
     height: 250px;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
     border-radius: 20px;
     float: left;
     margin-top: 20px;
@@ -54,6 +56,10 @@ html,body{
     display: inline-block;
     position: absolute;
     bottom: 0;
+    cursor: pointer;
+}
+#box .history>p:hover{
+    color: #D8932C;
 }
 #paging{
     width: 100%;
@@ -77,4 +83,8 @@ html,body{
     background-color: white;
     border: 1px solid black;
     float: left;
+    cursor: pointer;
+}
+#paging #PageNumber .cur{
+    background-color: #D56A36;
 }
