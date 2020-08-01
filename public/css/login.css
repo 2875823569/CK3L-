@@ -66,6 +66,9 @@ body{
 	perspective: 800px;
 	z-index: 999;
 }
+#note{
+	cursor: pointer;
+}
 .LOGO{
 	height: 100px;
 }

@@ -101,7 +101,8 @@ get_user_information().then((data) => {
 
 var submit = function () {
     if (isLogin == true) {
-        var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
+        if($(".checkbox").is(":checked")){
+            var mail = $("#LogEmail").val(), psw = $("#LogPsw").val();
         $.post("/api/login", { mail, psw }, function (res) {
             if (!res.code) {
                 _alert("green","登录成功嘤嘤嘤")
@@ -112,16 +113,18 @@ var submit = function () {
                 //     console.log(res);
                 // });
             } else {
-                _alert("red","登录失败，原因不详")
+                _alert("red","登录失败，应该是你号没了")
             }
 
         })
+        }else{
+            _alert("red","你还没有勾选协议哦，笨猪")
+        }
     } else {
         var userName = $("#name").val();
         var email = $("#email").val();
         var psw1 = $("#psw1").val();
         var psw2 = $("#psw2").val();
-        
         console.log(email);
         if(/^[a-zA-Z0-9_\u4e00-\u9fa5]{3,10}$/.test(userName)){
             if(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
@@ -129,6 +132,12 @@ var submit = function () {
                     $("#psw1").val("");
                     $("#psw2").val("");
                     _alert("red","两次密码输入不一致")
+                    return
+                }
+                if(psw1 == "" || psw2 == ""){
+                    $("#psw1").val("");
+                    $("#psw2").val("");
+                    _alert("请输入密码")
                     return
                 }
                 if (!userName) {
@@ -168,6 +177,9 @@ var submit = function () {
        
     }
 }
+$("#note").on("click",function(){
+    _alert("red","蠢")
+})
 $(".close").on("click", function () {
     isLogin = true;
     logInSwitch()
