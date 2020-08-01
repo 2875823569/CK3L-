@@ -102,7 +102,7 @@ $(function () {
     function getDesc() {
         return new Promise(function (resolve, reject) {
             $.post("/api/book_desc", {}, (res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.length == 0) {
                     $("body").empty().append("404错误,服务器资源丢失!")
                 }
@@ -305,7 +305,7 @@ $(function () {
             else {
                 new Promise((resolve, reject) => {
                     $.post("/api/get_user_information", {}, (res) => {
-                        console.log(res);
+                        // console.log(res);
                         resolve(res)
                     })
                         .then((res) => {
@@ -324,7 +324,7 @@ $(function () {
                                     )
                                         .then((res) => {
                                             if (!res.code) {
-                                                console.log(res);
+                                                // console.log(res);
                                                 sendSays.children("textarea").val('')
                                                 getBookName().then((res) => {
                                                     novel_introduce_tittle.empty().append(res.send_information.book_name)
