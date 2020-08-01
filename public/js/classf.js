@@ -111,12 +111,10 @@ function classpage(query, onepage_num, page_num) {
             // console.log(pagenumber);
             // console.log(res.date[0].type1_name);
             let lis = document.createDocumentFragment()
+
             for (let index = 0; index < pagenumber; index++) {
-
                 var li = $(`<li><a href="#" clas=${res.date[0].type1_name} data-num=${index}>${index + 1}</a></li>`);
-                // console.log(index);
                 // if (index == pageNum) {
-
                 //     li.addClass("active")
                 // }
                 lis.append(li[0]);
@@ -205,7 +203,7 @@ function getclassmessage(){
 
         $.post('/api/get_send_information',(res)=>{
 
-            console.log(res);
+            // console.log(res);
             btitle.append(`${res.send_information.book_type}小说`) //设置显示
 
             classpage({ type1_name: res.send_information.book_type }, 20, 1).then((res) => {
@@ -223,6 +221,11 @@ function getclassmessage(){
 }
 getclassmessage()
 
+
+$('.icon-fangdajing').on('click',function(){
+    // $('.seatch_btn')
+    $('.sbtn>input')[0].classList.toggle('seatch_btn2')
+})
 
 
 headlogo.on('click', () => {

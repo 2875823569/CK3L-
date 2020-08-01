@@ -96,6 +96,7 @@ $(function () {
         mune.height(windowlHeight - book_navigation.offset().top - 30)
         mune.children("div").css("height", mune.height() - mune.children("p").height() - 30)
         setting.css("left", -(setting.width() + 14))
+        $(".box").css("min-width",window.innerWidth-30)
 
         //返回首页
         header_logo.click(function () {

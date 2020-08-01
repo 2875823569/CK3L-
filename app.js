@@ -620,28 +620,30 @@ app.post("/api/book_yourChapter", (req, res) => {
 app.post("/api/user_likes", (req, res) => {
   var email = req.body.email
   var book_name = req.body.book_name
-  if (email != undefined && book_name != undefined) {
+  var novel_img = req.body.novel_img
+  var obj = {book_name,novel_img}
+  // console.log(novel_img);
+  if (email != undefined && obj.book_name != undefined) {
     user.find({ email: email }, (err, docs) => {
       if (!err) {
         var arr = docs[0].user_likes
         if (arr.length <= 0) {
-          console.log(3);
-          arr.push(book_name)
-          user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
+          arr.push(obj)
+          user.updateOne({ email }, { $set: { user_likes: arr } }, (err,date) => {})
           // res.send({ code: 0, success: "成功加入书架" })
         }
         else {
           for (var i = 0; i < arr.length; i++) {
-            console.log(arr[i], book_name);
-            if (arr[i] == book_name) {
-              console.log(1);
+            // console.log(arr[i], book_name);
+            if (arr[i].book_name == obj.book_name) {
               // res.send({ code: 1, err: "已在书架" })
               break
             }
             if(i == arr.length-1){
-              arr.push(book_name)
-              console.log(2, arr);
+              arr.push(obj)
+              console.log(arr);
               user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
+              break
               // res.send({ code: 0, success: "成功加入书架" })
             }
           }

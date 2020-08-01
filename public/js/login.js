@@ -205,7 +205,9 @@ get_send_information().then((res) => {
     }
 })
  function _alert(color,content){
-    $(`<div class="alert" style="position: absolute;width: 15%;height: 50px;border-radius: 15px;font-weight: bold;text-align: center;line-height: 50px;left: 42.5%;top: -10%;z-index: 9999;box-shadow: 1px 1px 12px 1px #bfbfbf;" >${content}</div>`).appendTo("body");
+    $(`<div class="alert" style="position: absolute;border-radius: 15px;font-weight: bold;text-align: center;line-height: 43px;padding: 0px 20px;top: -10%;z-index: 9999;box-shadow: 1px 1px 12px 1px #bfbfbf;" >${content}</div>`).appendTo("body");
+    let _left =($(window).width()/2 -  ($(".alert").width()+20)/2) + "px"
+    document.getElementsByClassName("alert")[0].style.left = _left
     $(".alert").animate({top:"+6%",opacity:"1"},1000 ,"swing")
     setTimeout(() => {
         $(".alert").animate({top:"-6%",opacity:"0"},800,"swing")

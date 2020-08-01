@@ -27,7 +27,6 @@ button {
 
 .box {
     position: relative;
-    width: 100%;
 }
 
 .header {
@@ -102,6 +101,7 @@ button {
     margin-top: 2rem;
     position: relative;
     color: #3B3B3B;
+    left: -5rem;
     font-size: 35px;
     font-weight: 1000;
     width: 20rem;
@@ -151,6 +151,7 @@ button {
 
 .novel_introduce_btns {
     margin-top: 3.5rem;
+    margin-left: -5rem;
 }
 
 .novel_introduce_btns button {
@@ -225,20 +226,11 @@ button {
     display: none;
 }
 
-.main_content_txt_right {
-    position: relative;
-    left: 63%;
-    width: 35%;
-    height: 300px;
-    border-radius: 10px;
-    background-color: #F6F6F6;
-    box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
-}
-
 .readerSay {
     width: 100%;
     position: relative;
-    padding-bottom: 100px;
+    top: 100px;
+    padding-bottom: 200px;
     box-sizing: border-box;
 }
 
@@ -251,26 +243,38 @@ button {
     box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
 }
 
-.div1 {
+.readerSays {
+    margin-top: 10px;
     width: 60%;
-    height: 200px;
+    height: 500px;
     background-color: #F6F6F6;
 }
 
-.div2 {
-    width: 35%;
-    height: 620px;
-    float: right;
-    margin-right: 2%;
-    background-color: #F6F6F6;
+.books_send{
+    width: 30%;
+    position: absolute;
+    bottom: 140px;
+    left: 65%;
+    height: 720px;
 }
 
-.div3 {
-    width: 60%;
-    height: 400px;
+.main_content_txt_right {
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
     background-color: #F6F6F6;
-    margin-top: 2rem;
+    box-shadow: 0 9px 50px -6px rgba(0, 0, 0, .2);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+
+
+
+
+
 
 .main_content_chapter {
     width: 100%;
