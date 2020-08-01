@@ -191,7 +191,7 @@ $(".allbook").on("click", 'li', function () {
         // console.log(res.booktype);
         console.log(res);
         clarr2 = []
-        // location.href = '../html/novelMainPage.html'
+        location.href = '../html/novelMainPage.html'
     })
     console.log(clarr3);    
     $.post('/api/update_num',{book_title:clarr3}, (res) => {

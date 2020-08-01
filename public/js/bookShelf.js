@@ -45,6 +45,17 @@ function get_user_information() {
 get_user_information().then((data) => {
     userEmail = data.user.email;
     sendUserEmail(userEmail).then((res) => {
+        var count=Math.ceil(res.msg.length/10);
+        var strLi='';
+        for(var i=0;i<count;i++){
+            if(i==0){
+                strLi+=`<li class="PageNumberLi now">${i+1}</li>`;
+            }else{
+                strLi+=`<li class="PageNumberLi">${i+1}</li>`;
+}
+            }
+          
+      PageNumber.innerHTML=strLi;
         writePaging(box,PageNumber,res.msg,0,10,res);
         $("#PageNumber").on('click','li',(e) => {
             $(e.target).siblings().removeClass('now');
@@ -57,13 +68,8 @@ get_user_information().then((data) => {
 
  var writePaging=(element1,element2,arr,page,pagenum,res) => {
      var allpage=Math.ceil(arr.length/pagenum);
-     var strLi='';
      var strDiv='';
      var arrSlice=[];
-     for(var i=0;i<allpage;i++){
-         strLi+=`<li class="PageNumberLi">${i+1}</li>`;
-     }
-     element2.innerHTML=strLi;
      if(page==0){
          arrSlice=arr.slice(0,pagenum)
      }
