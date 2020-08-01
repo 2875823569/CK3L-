@@ -261,6 +261,7 @@ Date.prototype.Format = function (fmt) {
 //-----------------------------------------------------------排行榜相关-----------------------------------------------------
 //点击小说后观看次数加一
 app.post("/api/update_num", (req, res) => {
+  console.log(req.body);
   //获取小说浏览次数
   new Promise((resolve,reject) => {
     novelDate.find(
