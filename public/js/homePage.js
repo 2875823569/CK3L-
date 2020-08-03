@@ -218,7 +218,8 @@ saveBtn.addEventListener('click', () => {
     var afterSecondPsw = secondPsdInp.value;
     nickname.innerText = afterNickname;
     if (afterFirstPsw != afterSecondPsw) {
-        Prompt('警告！', '两次密码不一致')
+        // Prompt('警告！', '两次密码不一致')
+        alert("警告！","两次密码不一致！")
         return
     }
     var setUser = function () {
@@ -232,7 +233,8 @@ saveBtn.addEventListener('click', () => {
     }
     setUser().then((data) => {
         if (!data.code) {
-            Prompt('提示！', data.msg)
+            // Prompt('提示！', data.msg)
+            alert("提示",data.msg)
             box.style.display = "block";
             modifyPage.style.display = "none";
             footerBox.style.display = "block";
@@ -263,3 +265,15 @@ $('.book').on('click','p',(e) => {
     send_information({book_name:name})
     location.href="../html/novelMainPage.html"
 })
+
+
+//弹窗
+function alert(alertName,content) {
+    if (alertName.dialog11) {
+      return alertName.dialog11.show();
+    }
+    alertName.dialog11 = jqueryAlert({
+      icon: "",
+      content: content,
+      closeTime: 2000,
+    })}
