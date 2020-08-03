@@ -86,6 +86,18 @@ $(function () {
         }
     }
 
+    //弹窗
+    function alert(alertName, content) {
+        if (alertName.dialog11) {
+            return alertName.dialog11.show();
+        }
+        alertName.dialog11 = jqueryAlert({
+            icon: "",
+            content: content,
+            closeTime: 2000,
+        });
+    }
+
     //工具
     function tools() {
         //初始化
@@ -250,12 +262,12 @@ $(function () {
             //             })
             //         })
             // })
-            alert("已成功加入书架。")
+            alert({}, "已成功加入书架。")
         })
 
         //充值提示
         tools_888.click(function () {
-            alert("加客服寇靖QQ：2875823569,充值成为VIP享受暴打服务~")
+            alert({}, "加客服寇靖QQ：2875823569,充值成为VIP享受暴打服务~")
         })
 
         //至顶部

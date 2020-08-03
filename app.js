@@ -270,6 +270,7 @@ Date.prototype.Format = function (fmt) {
 //点击小说后观看次数加一
 app.post("/api/update_num", (req, res) => {
   //获取小说浏览次数
+  console.log(req.body);
   new Promise((resolve, reject) => {
     novelDate.find({ book_title: req.body.book_title }, (err, date) => {
       if(date[0]){

@@ -2,6 +2,12 @@ body {
     background-color: #F2F1EB;
 }
 
+.myallter {
+    top: 40px !important;
+    width: 200px !important;
+    background-color: rgba(173, 255, 47, 0.68) !important;
+    color: white;
+}
 
 .read_box {
     width: 90%;
@@ -75,7 +81,7 @@ body {
     white-space: nowrap;
 }
 
-.nume_span1{
+.nume_span1 {
     position: relative;
     top: 0;
     left: 0;
@@ -85,7 +91,7 @@ body {
     padding: 5px;
 }
 
-.mune div{
+.mune div {
     position: relative;
     margin-top: 10px;
     overflow-y: auto;
@@ -111,7 +117,7 @@ body {
     border-bottom: 1px solid #635752;
 }
 
-.now_chapter{
+.now_chapter {
     font-size: 16px;
     font-weight: normal;
     position: relative;
