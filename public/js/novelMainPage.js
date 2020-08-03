@@ -149,17 +149,17 @@ $(function () {
     }
     setIntro()
 
-    function alert(alertName,content) {
+    //弹窗
+    function alert(alertName, content) {
         if (alertName.dialog11) {
-          return alertName.dialog11.show();
+            return alertName.dialog11.show();
         }
         alertName.dialog11 = jqueryAlert({
-          icon: "",
-          content: content,
-          closeTime: 2000,
+            icon: "",
+            content: content,
+            closeTime: 2000,
         });
-      }
-      
+    }
 
     //初始化页面效果
     function init() {
@@ -174,7 +174,7 @@ $(function () {
             return new Promise(function (resolve, reject) {
                 $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
                     if (res.code != 0) {
-                        alert({},"亲爱的亲，您还未登录噢！登录后即可阅读。")
+                        alert({}, "亲爱的亲，您还未登录噢！登录后即可阅读。")
                     }
                     else {
                         location.href = "./novelStartRead.html"
@@ -196,11 +196,11 @@ $(function () {
                     .then(function (res) {
                         new Promise(function (resolve, reject) {
                             if (res.code != 0) {
-                                alert({},"亲爱的亲，您还未登录噢！登录后即可添加至书架。")
+                                alert({}, "亲爱的亲，您还未登录噢！登录后即可添加至书架。")
                             }
                             else {
                                 $.post("/api/user_likes", { email: res.user.email, book_name, novel_img }, () => { })
-                                alert({},"已成功加入书架。")
+                                alert({}, "已成功加入书架。")
                             }
                         })
                     })
@@ -219,12 +219,12 @@ $(function () {
 
         //跳转VIP
         goTOVipCenter.click(function () {
-            alert({},"想什么呢，赶紧加寇靖QQ:2875823569充值")
+            alert({}, "想什么呢，赶紧加寇靖QQ:2875823569充值")
         })
 
         //跳转App
         goTOApp.click(function () {
-            alert({},"加寇靖QQ:2875823569下载APP")
+            alert({}, "加寇靖QQ:2875823569下载APP")
         })
 
         //跳转搜索
@@ -272,7 +272,7 @@ $(function () {
                 return new Promise(function (resolve, reject) {
                     $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
                         if (res.code != 0) {
-                            alert({},"亲爱的亲，您还未登录噢！登录后即可阅读。")
+                            alert({}, "亲爱的亲，您还未登录噢！登录后即可阅读。")
                         }
                         else {
                             location.href = "./novelStartRead.html"
@@ -286,15 +286,18 @@ $(function () {
         main_content_txt_right.click(function (e) {
             if (e.target.tagName == "IMG") {
                 var book_name = $(e.target).parent().next().children().eq(0).children().html()
+                // console.log(book_name);
                 new Promise(function (resolve, reject) {
                     $.post("/api/send_information", { book_name }, (res) => {
+                        // console.log(book_name);
                         window.open("./novelMainPage.html")
                         document.body.scrollTop = document.documentElement.scrollTop = 0;
                         resolve()
                     })
                         .then(function () {
+                            console.log(book_name);
                             return new Promise(function (resolve, reject) {
-                                $.post("/api/update_num", { book_name: book_name }, (res) => { })
+                                $.post("/api/update_num", { book_title: book_name }, (res) => { })
                             })
                         })
                 })
@@ -312,7 +315,7 @@ $(function () {
             var comment = sendSays.children("textarea").val()
             var book_name = novel_introduce_tittle.html()
             if (comment == '') {
-                alert({},"亲什么都没写呢!")
+                alert({}, "亲什么都没写呢!")
             }
             else {
                 new Promise((resolve, reject) => {
@@ -322,7 +325,7 @@ $(function () {
                     })
                         .then((res) => {
                             if (res.code != 0) {
-                                alert({},"亲，还没登录哦!")
+                                alert({}, "亲，还没登录哦!")
                             }
                             else {
                                 var email = res.user.email
