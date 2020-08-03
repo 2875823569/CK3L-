@@ -149,6 +149,18 @@ $(function () {
     }
     setIntro()
 
+    function alert(alertName,content) {
+        if (alertName.dialog11) {
+          return alertName.dialog11.show();
+        }
+        alertName.dialog11 = jqueryAlert({
+          icon: "",
+          content: content,
+          closeTime: 2000,
+        });
+      }
+      
+
     //初始化页面效果
     function init() {
         //初始化页面样式
@@ -184,11 +196,11 @@ $(function () {
                     .then(function (res) {
                         new Promise(function (resolve, reject) {
                             if (res.code != 0) {
-                                alert("亲爱的亲，您还未登录噢！登录后即可添加至书架。")
+                                alert({},"亲爱的亲，您还未登录噢！登录后即可添加至书架。")
                             }
                             else {
                                 $.post("/api/user_likes", { email: res.user.email, book_name, novel_img }, () => { })
-                                alert("已成功加入书架。")
+                                alert({},"已成功加入书架。")
                             }
                         })
                     })
@@ -207,12 +219,12 @@ $(function () {
 
         //跳转VIP
         goTOVipCenter.click(function () {
-            alert("想什么呢，赶紧加寇靖QQ:2875823569充值")
+            alert({},"想什么呢，赶紧加寇靖QQ:2875823569充值")
         })
 
         //跳转App
         goTOApp.click(function () {
-            alert("加寇靖QQ:2875823569下载APP")
+            alert({},"加寇靖QQ:2875823569下载APP")
         })
 
         //跳转搜索
