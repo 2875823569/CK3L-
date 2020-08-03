@@ -137,7 +137,7 @@ var submit = function () {
                 if(psw1 == "" || psw2 == ""){
                     $("#psw1").val("");
                     $("#psw2").val("");
-                    _alert("请输入密码")
+                    _alert("red","请输入密码")
                     return
                 }
                 if (!userName) {
