@@ -256,15 +256,14 @@ headlogo.on('click', () => {
 
 $('.log_btn').on('click', () => {
     location.href = '../../login.html'
-})     //跳到登录页面
+})   //跳到登录页面
 
 $('.reg_btn').on('click', () => {
     location.href = '../../login.html'
 })   //跳到注册页面
 
-$('myBook').onclick=function(){
+$('#myBook').on('click',()=>{
     location.href = '../html/homepage.html'
-}
+})  //跳到书架
 
-//跳到书架
-console.log($('myBook'));
+
