@@ -595,3 +595,9 @@ img{
     height:300px;
     position: absolute;
 }
+.myallter {
+    top: 40px !important;
+    width: 200px !important;  
+    background-color: rgba(173, 255, 47, 0.68) !important;
+    color: white;
+  }
