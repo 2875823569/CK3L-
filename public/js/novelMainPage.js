@@ -174,7 +174,7 @@ $(function () {
             return new Promise(function (resolve, reject) {
                 $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
                     if (res.code != 0) {
-                        alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                        alert({},"亲爱的亲，您还未登录噢！登录后即可阅读。")
                     }
                     else {
                         location.href = "./novelStartRead.html"
@@ -272,7 +272,7 @@ $(function () {
                 return new Promise(function (resolve, reject) {
                     $.post("/api/book_whichChapter", { page_chapter_idx, page_chapter_content }, (res) => {
                         if (res.code != 0) {
-                            alert("亲爱的亲，您还未登录噢！登录后即可阅读。")
+                            alert({},"亲爱的亲，您还未登录噢！登录后即可阅读。")
                         }
                         else {
                             location.href = "./novelStartRead.html"
@@ -312,7 +312,7 @@ $(function () {
             var comment = sendSays.children("textarea").val()
             var book_name = novel_introduce_tittle.html()
             if (comment == '') {
-                alert("亲什么都没写呢!")
+                alert({},"亲什么都没写呢!")
             }
             else {
                 new Promise((resolve, reject) => {
@@ -322,7 +322,7 @@ $(function () {
                     })
                         .then((res) => {
                             if (res.code != 0) {
-                                alert("亲，还没登录哦!")
+                                alert({},"亲，还没登录哦!")
                             }
                             else {
                                 var email = res.user.email
