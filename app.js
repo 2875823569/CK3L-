@@ -35,7 +35,7 @@ app.use(
   session({
     secret: "user_secret", //生成唯一的令牌要加密 这个就是加密的密钥
     resave: false, //中间如果session数据被修改，不能重新设置到前端的cookie里面
-    rolling: false, //每次请求都重置 cookie的设置
+    rolling: true, //每次请求都重置 cookie的设置
     cookie: {
       maxAge: 1000 * 60 * 60,
       secure: false, // 如果为true ，这个cookie的设置只能是 https
@@ -104,7 +104,6 @@ app.post("/api/search_book", (req, res) => {
   novelDate.find(
     { book_title: new RegExp(req.body.book_name) },
     (err, date) => {
-      console.log(date);
       res.send({
         date: date,
       });
@@ -146,7 +145,6 @@ app.post("/api/book_pagination", (req, res) => {
     .limit(req.body.onepage_num - 0)
     .exec((err, date) => {
       if (err) {
-        console.log(err);
       } else {
         res.send({
           date,
@@ -159,8 +157,8 @@ app.post("/api/book_pagination", (req, res) => {
 app.post("/api/add_comment", (req, res) => {
   new Promise((resolve, reject) => {
     user.find({ email: req.body.email }, {}, (err, user_date) => {
-      resolve(user_date[0])
-    })
+      resolve(user_date[0]);
+    });
   }).then((user_date) => {
     novelDate.find(
       { book_title: req.body.book_name },
@@ -171,7 +169,8 @@ app.post("/api/add_comment", (req, res) => {
           book_name: req.body.book_name,
           email: req.body.email,
           headImage: user_date.profilePic,
-          username: user_date.username
+          username: user_date.username,
+          comment:req.body.comment
         }
         let new_comment = old_comment.concat([add_comment]);
         novelDate.findOneAndUpdate(
@@ -179,7 +178,6 @@ app.post("/api/add_comment", (req, res) => {
           { $set: { comment: new_comment } },
           (err, data1) => {
             if (err) {
-              console.log(err);
             } else {
               res.send({
                 code: 0,
@@ -190,7 +188,7 @@ app.post("/api/add_comment", (req, res) => {
         );
       }
     );
-  })
+  });
 });
 //获取书籍评论
 app.post("/api/get_comment", (req, res) => {
@@ -199,14 +197,14 @@ app.post("/api/get_comment", (req, res) => {
     { comment: 1 },
     (err, date) => {
       res.send({
-        comment: date[0].comment
-      })
+        comment: date[0].comment,
+      });
     }
   );
 });
 
 //用户浏览记录
-app.post("api/add")
+app.post("api/add");
 // ----------------------------------------------------小说信息获取与处理----------------------------------------------------
 
 //-----------------------------------------------------------数据处理---------------------------------------------------------
@@ -241,84 +239,97 @@ app.post("/api/get_send_information", (req, res) => {
 });
 //-----------------------------------------------------------数据处理-----------------------------------------------------------
 
-
 Date.prototype.Format = function (fmt) {
   var o = {
-    "M+": this.getMonth() + 1, //月份 
-    "d+": this.getDate(), //日 
-    "H+": this.getHours(), //小时 
-    "m+": this.getMinutes(), //分 
-    "s+": this.getSeconds(), //秒 
-    "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-    "S": this.getMilliseconds() //毫秒 
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "H+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    S: this.getMilliseconds(), //毫秒
   };
-  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
   for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
   return fmt;
-}
+};
 
 //-----------------------------------------------------------排行榜相关-----------------------------------------------------
 //点击小说后观看次数加一
 app.post("/api/update_num", (req, res) => {
-  console.log(req.body);
   //获取小说浏览次数
   new Promise((resolve, reject) => {
-    novelDate.find(
-      { book_title: req.body.book_title },
-      (err, date) => {
-        let number = JSON.parse(JSON.stringify(date[0])).number - 0 + 1;
-        //获取后次数加一并更新数据库
-        novelDate.updateOne(
-          { book_title: req.body.book_title },
-          { $set: { number: number } },
-          function (err, date1) {
+    novelDate.find({ book_title: req.body.book_title }, (err, date) => {
+      let number = JSON.parse(JSON.stringify(date[0])).number - 0 + 1;
+      //获取后次数加一并更新数据库
+      novelDate.updateOne(
+        { book_title: req.body.book_title },
+        { $set: { number: number } },
+        function (err, date1) {
+          if (err) {
+          } else {
+            resolve(date[0]);
+          }
+        }
+      );
+    });
+  })
+    .then((book_date) => {
+      return new Promise((resolve, reject) => {
+        // 判读用户是否登陆,登陆则将书本信息加入到历史记录中
+        if (req.session.userName) {
+          user.find(
+            { email: req.session.email },
+            { history: 1 },
+            (err, user_date) => {
+              let old_history = user_date[0].history;
+              let add_history = {
+                book_name: book_date.book_title,
+                book_img: book_date.book_img,
+                introduce: book_date.book_desc,
+                time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
+              };
+              let new_history = old_history.concat([add_history]);
+              resolve(new_history);
+            }
+          );
+        } else {
+          reject();
+        }
+      });
+    })
+    .then(
+      (new_history) => {
+        user.findOneAndUpdate(
+          { email: req.session.email },
+          { $set: { history: new_history } },
+          (err, update_date) => {
             if (err) {
-              console.log("观看次数更新失败");
             } else {
-              resolve(date[0])
+              res.send({
+                code: 0,
+                msg: "更新成功",
+              });
             }
           }
         );
-      }
-    );
-  }).then((book_date) => {
-    return new Promise((resolve, reject) => {
-      // 判读用户是否登陆,登陆则将书本信息加入到历史记录中
-      if (req.session.userName) {
-        console.log("开始执行添加历史记录");
-        user.find({ email: req.session.email }, { history: 1 }, (err, user_date) => {
-          let old_history = user_date[0].history;
-          let add_history = {
-            book_name: book_date.book_title,
-            book_img: book_date.book_img,
-            introduce: book_date.book_desc,
-            time: new Date().Format("yyyy-MM-dd HH:mm:ss")
-          }
-          let new_history = old_history.concat([add_history])
-          resolve(new_history)
-        })
-      } else {
-        reject()
-      }
-    })
-  }).then((new_history) => {
-    user.findOneAndUpdate({ email: req.session.email }, { $set: { history: new_history } }, (err, update_date) => {
-      if (err) {
-        console.log(err);
-      } else {
+      },
+      () => {
         res.send({
-          code: 0,
-          msg: "更新成功",
+          code: 2,
+          msg: "用户未登录",
         });
       }
-    })
-  }, () => {
-    res.send({
-      code: 2,
-      msg: "用户未登录"
-    })
-  })
+    );
 });
 //查询排名前几的书
 app.post("/api/get_top_book", (req, res) => {
@@ -474,7 +485,6 @@ app.post("/api/get_user_information", (req, res) => {
 var userInformation = {};
 user.find({}, (err, docs) => {
   if (err) {
-    console.log(err);
   } else {
     userInformation = docs;
   }
@@ -496,7 +506,6 @@ app.post("/api/setUser", (req, res) => {
     },
     (err) => {
       if (!err) {
-        console.log(req.body.afterUrl);
         res.send({
           code: 0,
           msg: "修改成功！",
@@ -511,22 +520,58 @@ app.post("/api/getBook", (req, res) => {
     if (!err) {
       res.send({
         code: 0,
-        msg: docs,
-      });
+        msg: docs
+      })
+    }
+  })
+})
+
+//用户表中历史记录分页
+
+//查询用户的收藏并返回
+app.post("/api/findUserLike", (req, res) => {
+  user.find({email:req.body.userEmail}, (err, docs) => {
+    // "查询的收藏"+docs[0].user_likes
+    if (!err) {
+      res.send({
+        code: 0,
+        msg: docs[0].user_likes
+      })
+    }
+  })
+})
+//查询用户的历史记录并返回
+app.post("/api/findUserHistory", (req, res) => {
+  user.find({email:req.body.userEmail}, (err, docs) => {
+    // "查询的收藏"+docs[0].history
+    if (!err) {
+      res.send({
+        code: 0,
+        msg: docs[0].history
+      })
+    }
+  })
+})
+/************************查询章节****************************///俊林写的,寇靖别动
+app.post("/api/book_chapter", (req, res) => {
+  novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+
     }
   });
 }); //俊林写的,寇靖别动
-/************************查询章节****************************/ app.post(
-  "/api/book_chapter",
-  (req, res) => {
-    novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
-      if (!err) {
-        res.send(docs);
-      } else {
-      }
-    });
-  }
-);
+/************************查询章节****************************/
+
+app.post("/api/book_chapter", (req, res) => {
+  novel_zj.find({}, { Chapter: 1, _id: 0 }, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+    }
+  });
+});
 
 app.post("/api/book_desc", (req, res) => {
   novelDate.find(
@@ -544,8 +589,8 @@ app.post("/api/book_desc", (req, res) => {
 app.post("/api/book_whichChapter", (req, res) => {
   book_whichChapter = req.body;
   res.send({
-    code: 0
-  })
+    code: 0,
+  });
 });
 
 app.post("/api/book_yourChapter", (req, res) => {
@@ -554,57 +599,59 @@ app.post("/api/book_yourChapter", (req, res) => {
     "utf-8",
     function (err, data) {
       if (err) {
-        console.log("错误");
       } else {
         res.send({ book_whichChapter, data });
       }
-    })
+    }
+  );
 });
 
 app.post("/api/user_likes", (req, res) => {
-  var email = req.body.email
-  var book_name = req.body.book_name
-  var novel_img = req.body.novel_img
-  var obj = { book_name, novel_img }
-  // console.log(novel_img);
-  if (email != undefined && obj.book_name != undefined) {
+  var email = req.session.email;
+  var book_name = req.body.book_name;
+  var novel_img = req.body.novel_img;
+  var obj = { book_name, novel_img };
+  //
+  if (email && obj.book_name) {
     user.find({ email: email }, (err, docs) => {
       if (!err) {
-        var arr = docs[0].user_likes
+        var arr = docs[0].user_likes;
         if (arr.length <= 0) {
-          arr.push(obj)
-          user.updateOne({ email }, { $set: { user_likes: arr } }, (err, date) => { })
+          arr.push(obj);
+          user.updateOne(
+            { email },
+            { $set: { user_likes: arr } },
+            (err, date) => {}
+          );
           // res.send({ code: 0, success: "成功加入书架" })
-        }
-        else {
+        } else {
           for (var i = 0; i < arr.length; i++) {
-            // console.log(arr[i], book_name);
+            //
             if (arr[i].book_name == obj.book_name) {
               // res.send({ code: 1, err: "已在书架" })
-              break
+              break;
             }
             if (i == arr.length - 1) {
-              arr.push(obj)
-              // console.log(arr);
-              user.updateOne({ email }, { $set: { user_likes: arr } }, () => { })
-              break
+              arr.push(obj);
+              //
+              user.updateOne(
+                { email },
+                { $set: { user_likes: arr } },
+                () => {}
+              );
+              break;
               // res.send({ code: 0, success: "成功加入书架" })
             }
           }
         }
+      } else {
+        return false;
       }
-      else {
-        return false
-      }
-    })
+    });
+  } else {
+    return false;
   }
-  else {
-    return false
-  }
-
-})
+});
 
 /************************************************************/
-app.listen("8888", () => {
-  console.log("端口已开启");
-});
+app.listen("8888", () => {});

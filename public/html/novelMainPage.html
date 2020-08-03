@@ -8,6 +8,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="../js/novelMainPage.js"></script>
     <link rel="stylesheet" href="../css/novelMainPage.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1969052_qrp5gyeywzd.css">
 </head>
 
@@ -64,12 +65,18 @@
                     </div>
                     <div class="readerSay">
                         <li>粉丝互动</li>
-                        <div class="readerSays">1</div>
+                        <div class="readerSays">
+                            <div class="saysTop">该书暂时还没有评论哦，快抢沙发!</div>
+                            <div class="sendSays">
+                                <textarea placeholder="有想法？快写下来吧!" maxlength="150"></textarea>
+                                <button class="send_says hide">发表评论</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="books_send">
-                        <li>相关推荐</li>
-                        <div class="main_content_txt_right"></div>
-                    </div>
+                </div>
+                <div class="books_send">
+                    <li>相关推荐</li>
+                    <div class="main_content_txt_right"></div>
                 </div>
                 <div class="main_content_chapter hide">
                     <li>正文卷:共<span class="chapter_pages">0</span>章</li>
@@ -79,8 +86,5 @@
         </div>
     </div>
 </body>
-<script>
-    // $(".main_content_txt").height
-</script>
 
 </html>
