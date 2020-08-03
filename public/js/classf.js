@@ -208,6 +208,9 @@ function getclassmessage() {
         $.post('/api/get_send_information', (res) => {
 
             // console.log(res);
+            if(!res.send_information.book_type){
+                res.send_information.book_type = "武侠"
+            }
             btitle.append(`${res.send_information.book_type}小说`) //设置显示
 
             classpage({ type1_name: res.send_information.book_type }, 20, 1).then((res) => {

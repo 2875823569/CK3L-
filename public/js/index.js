@@ -606,7 +606,10 @@ function debounce(func, wait) {
 }
 function star_search() {
   search_book($(this).val()).then((res) => {
-    if (!$(this).val()) return;
+    if (!$(this).val()) {
+      $(".sear_container ul").html("");
+      return
+    };
     let li = "";
     for (let i = 0; i < res.date.length; i++) {
       li += `<li name=${res.date[i].book_title}>${res.date[i].book_title}</li>`;
@@ -616,7 +619,7 @@ function star_search() {
 }
 
 //搜索部分
-$(".search input").on("input", debounce(star_search, 100));
+$(".search input").on("input", debounce(star_search, 500));
 $(".search input").on("keydown", function (e) {
   if (!$(this).val()) return;
   if (e.keyCode == 13) {

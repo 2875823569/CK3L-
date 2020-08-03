@@ -1,4 +1,5 @@
 //---------------------------------------------------------配置信息-----------------------------------------------------------
+//#region
 const novelDate = require("./models/novelDate"); //俊林写的
 
 /**********************************************/ const novel_zj = require("./models/db_zj");
@@ -17,9 +18,12 @@ const User = require("./models/user");
 const { throws } = require("assert");
 const { resolve } = require("path");
 const router = express.Router();
+//#endregion
+
 //---------------------------------------------------------配置信息------------------------------------------------------------
 
 //--------------------------------------------------------中间件设置---------------------------------------------------------
+//#region
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -65,6 +69,7 @@ app.use(function (req, res, next) {
     }
   }
 });
+//#endregion
 //---------------------------------------------------------中间件设置--------------------------------------------------------------
 
 // ----------------------------------------------------小说信息获取与处理----------------------------------------------------
@@ -203,8 +208,6 @@ app.post("/api/get_comment", (req, res) => {
   );
 });
 
-//用户浏览记录
-app.post("api/add");
 // ----------------------------------------------------小说信息获取与处理----------------------------------------------------
 
 //-----------------------------------------------------------数据处理---------------------------------------------------------
@@ -269,7 +272,8 @@ app.post("/api/update_num", (req, res) => {
   //获取小说浏览次数
   new Promise((resolve, reject) => {
     novelDate.find({ book_title: req.body.book_title }, (err, date) => {
-      let number = JSON.parse(JSON.stringify(date[0])).number - 0 + 1;
+      if(date[0]){
+        let number = JSON.parse(JSON.stringify(date[0])).number - 0 + 1;
       //获取后次数加一并更新数据库
       novelDate.updateOne(
         { book_title: req.body.book_title },
@@ -281,6 +285,7 @@ app.post("/api/update_num", (req, res) => {
           }
         }
       );
+      }
     });
   })
     .then((book_date) => {
