@@ -290,7 +290,7 @@ $(function () {
                 new Promise(function (resolve, reject) {
                     $.post("/api/send_information", { book_name }, (res) => {
                         // console.log(book_name);
-                        window.open("./novelMainPage.html")
+                        location.href="./novelMainPage.html"
                         document.body.scrollTop = document.documentElement.scrollTop = 0;
                         resolve()
                     })
