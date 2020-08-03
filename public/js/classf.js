@@ -252,16 +252,18 @@ $('.icon-fangdajing').on('click', function () {
 
 headlogo.on('click', () => {
     location.href = '../../index.html'
-})
+})   //跳到首页
 
 $('.log_btn').on('click', () => {
     location.href = '../../login.html'
-})
+})   //跳到登录页面
+
 $('.reg_btn').on('click', () => {
     location.href = '../../login.html'
-})
+})   //跳到注册页面
 
-booklike.on('click', () => {
-    location.href = '../html/novelStartRead.html'
+$('#myBook').on('click',()=>{
+    location.href = '../html/homepage.html'
+})  //跳到书架
 
-})
+
