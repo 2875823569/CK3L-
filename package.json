@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/2875823569/CK3L-#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.1",
     "formidable": "^1.2.2",
     "jquery": "^3.5.1",
